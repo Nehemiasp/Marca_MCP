@@ -15,6 +15,8 @@ Se agregan con `npm run error -- --titulo="…" --salida="…"` (ver `errores.ts
 | 8 | 7 | [Rechazaba un host que sí estaba permitido](#2026-11-08-host-sin-cabecera) | 2026-11-08 |
 | 9 | 6 | [El agente se saltó la revisión que la skill pedía como obligatoria](#2026-11-08-skill-ignorada) | 2026-11-08 |
 | 10 | 9 | [Un script de apoyo falló por el formato de módulo](#2026-11-08-un-script-de-apoyo-fallo-por-el-formato-de-modul) | 2026-11-08 |
+| 11 | 9 | [El auditor no mira los radios de un SVG](#2026-11-08-el-auditor-no-mira-los-radios-de-un-svg) | 2026-11-08 |
+| 12 | 9 | [El auditor deja pasar «monospace» y «sans-serif»](#2026-11-08-el-auditor-deja-pasar-monospace-y-sans-serif) | 2026-11-08 |
 
 ## Un componente apunta a un token que no existe <a id="2026-11-08-token-inexistente"></a>
 
@@ -95,3 +97,19 @@ Se agregan con `npm run error -- --titulo="…" --salida="…"` (ver `errores.ts
 - **Causa:** El script vivía fuera del proyecto, sin package.json con type module, y tsx lo compiló como CommonJS.
 - **Solución:** Lo renombré a .mts para forzar módulos ES.
 - **Aprendizaje:** Un archivo de apoyo hereda las reglas del lugar donde vive, no las del proyecto al que sirve. Además: la primera vez escribí en el registro una salida vacía sin notarlo; verificar lo que se guarda es parte del trabajo.
+
+## El auditor no mira los radios de un SVG <a id="2026-11-08-el-auditor-no-mira-los-radios-de-un-svg"></a>
+
+![El auditor no mira los radios de un SVG](errores/2026-11-08-el-auditor-no-mira-los-radios-de-un-svg.png)
+
+- **Causa:** El auditor revisa border-radius, pero no el atributo rx de un SVG. El logo tenía rx=5 dos veces y lo corregí yo a mano, sin que ninguna prueba lo exigiera.
+- **Solución:** Pendiente. Propuesta: que el auditor lea rx y ry y los compare con los radios de la escala.
+- **Aprendizaje:** Una verificación en verde solo cubre donde mira. El valor incorrecto estaba en dos lugares y el sistema vigilaba uno.
+
+## El auditor deja pasar «monospace» y «sans-serif» <a id="2026-11-08-el-auditor-deja-pasar-monospace-y-sans-serif"></a>
+
+![El auditor deja pasar «monospace» y «sans-serif»](errores/2026-11-08-el-auditor-deja-pasar-monospace-y-sans-serif.png)
+
+- **Causa:** Las familias genéricas están permitidas en cualquier posición. Con solo «sans-serif», una pieza pasa la auditoría sin usar ninguna fuente de la marca. La medición de render de la evaluación sí cuenta una genérica en primer lugar como fuente ajena, así que las dos herramientas no coinciden.
+- **Solución:** Pendiente. Propuesta: permitir las genéricas solo como respaldo, después de una familia de la marca.
+- **Aprendizaje:** Dos herramientas que miden lo mismo con criterios distintos producen resultados que no se pueden comparar. Lo encontré al escribir este caso, no al construir la herramienta.

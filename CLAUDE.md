@@ -26,6 +26,7 @@ Que Claude (y cualquier cliente MCP) conozca colores, tipografías, espaciados, 
 | `npm run sitio` | Genera `sitio/publico/` (página `/marca`) desde los tokens |
 | `npm run dev:http` / `npm run start:http` | Servidor HTTP local (`/mcp`, puerto `PORT`) |
 | `npm run caso` | Capturas lado a lado para el caso de estudio |
+| `npm run casos` | Imágenes de evidencia de los casos desarrollados (`caso-de-estudio/casos/`) |
 
 ## Estructura
 ```

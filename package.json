@@ -24,7 +24,8 @@
     "start:http": "node dist/http-nodo.js",
     "dev:http": "tsx src/http-nodo.ts",
     "caso": "tsx caso-de-estudio/lado-a-lado.ts",
-    "error": "tsx caso-de-estudio/errores.ts"
+    "error": "tsx caso-de-estudio/errores.ts",
+    "casos": "tsx caso-de-estudio/casos/evidencia.ts"
   },
   "dependencies": {
     "@modelcontextprotocol/node": "^2.1.2",

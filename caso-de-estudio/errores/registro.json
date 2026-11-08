@@ -98,5 +98,25 @@
     "causa": "El script vivía fuera del proyecto, sin package.json con type module, y tsx lo compiló como CommonJS.",
     "solucion": "Lo renombré a .mts para forzar módulos ES.",
     "aprendizaje": "Un archivo de apoyo hereda las reglas del lugar donde vive, no las del proyecto al que sirve. Además: la primera vez escribí en el registro una salida vacía sin notarlo; verificar lo que se guarda es parte del trabajo."
+  },
+  {
+    "id": "2026-11-08-el-auditor-no-mira-los-radios-de-un-svg",
+    "fecha": "2026-11-08",
+    "fase": "9",
+    "titulo": "El auditor no mira los radios de un SVG",
+    "salida": "auditar_codigo(lenguaje: html) sobre <rect width=\"26\" height=\"26\" rx=\"5\" fill=\"#0E1116\"/>\n{\"total\":1,\"errores\":0,\"avisos\":1,\"porTipo\":{\"color\":1},\"cumple\":true}\nL1:60 [aviso] color: #0E1116 coincide con el token color.tinta, pero está escrito a mano.",
+    "causa": "El auditor revisa border-radius, pero no el atributo rx de un SVG. El logo tenía rx=5 dos veces y lo corregí yo a mano, sin que ninguna prueba lo exigiera.",
+    "solucion": "Pendiente. Propuesta: que el auditor lea rx y ry y los compare con los radios de la escala.",
+    "aprendizaje": "Una verificación en verde solo cubre donde mira. El valor incorrecto estaba en dos lugares y el sistema vigilaba uno."
+  },
+  {
+    "id": "2026-11-08-el-auditor-deja-pasar-monospace-y-sans-serif",
+    "fecha": "2026-11-08",
+    "fase": "9",
+    "titulo": "El auditor deja pasar «monospace» y «sans-serif»",
+    "salida": "auditar_codigo(lenguaje: css) sobre code{font-family:monospace}\n{\"total\":0,\"errores\":0,\"avisos\":0,\"porTipo\":{},\"cumple\":true}\nauditar_codigo(lenguaje: css) sobre body{font-family:sans-serif}\n{\"total\":0,\"errores\":0,\"avisos\":0,\"porTipo\":{},\"cumple\":true}\nauditar_codigo(lenguaje: css) sobre code{font-family:Consolas,monospace}\nL1:6 [error] fuente: La fuente «Consolas» no es de la marca (solo Bricolage Grotesque e Instrument Sans).",
+    "causa": "Las familias genéricas están permitidas en cualquier posición. Con solo «sans-serif», una pieza pasa la auditoría sin usar ninguna fuente de la marca. La medición de render de la evaluación sí cuenta una genérica en primer lugar como fuente ajena, así que las dos herramientas no coinciden.",
+    "solucion": "Pendiente. Propuesta: permitir las genéricas solo como respaldo, después de una familia de la marca.",
+    "aprendizaje": "Dos herramientas que miden lo mismo con criterios distintos producen resultados que no se pueden comparar. Lo encontré al escribir este caso, no al construir la herramienta."
   }
 ]
