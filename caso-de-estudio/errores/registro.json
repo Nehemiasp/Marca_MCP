@@ -106,7 +106,7 @@
     "titulo": "El auditor no mira los radios de un SVG",
     "salida": "auditar_codigo(lenguaje: html) sobre <rect width=\"26\" height=\"26\" rx=\"5\" fill=\"#0E1116\"/>\n{\"total\":1,\"errores\":0,\"avisos\":1,\"porTipo\":{\"color\":1},\"cumple\":true}\nL1:60 [aviso] color: #0E1116 coincide con el token color.tinta, pero está escrito a mano.",
     "causa": "El auditor revisa border-radius, pero no el atributo rx de un SVG. El logo tenía rx=5 dos veces y lo corregí yo a mano, sin que ninguna prueba lo exigiera.",
-    "solucion": "Pendiente. Propuesta: que el auditor lea rx y ry y los compare con los radios de la escala.",
+    "solucion": "Resuelto. El auditor lee `rx` y `ry` de cada `<rect>`: una esquina que cubre la mitad de la altura es una píldora (válida) y el resto se compara con la escala de radios. Hoy da: `L1:35 [error] radio: rx=\"5\" no es un radio de la marca. Más cercano: radio.sm (6).`",
     "aprendizaje": "Una verificación en verde solo cubre donde mira. El valor incorrecto estaba en dos lugares y el sistema vigilaba uno."
   },
   {
@@ -116,7 +116,37 @@
     "titulo": "El auditor deja pasar «monospace» y «sans-serif»",
     "salida": "auditar_codigo(lenguaje: css) sobre code{font-family:monospace}\n{\"total\":0,\"errores\":0,\"avisos\":0,\"porTipo\":{},\"cumple\":true}\nauditar_codigo(lenguaje: css) sobre body{font-family:sans-serif}\n{\"total\":0,\"errores\":0,\"avisos\":0,\"porTipo\":{},\"cumple\":true}\nauditar_codigo(lenguaje: css) sobre code{font-family:Consolas,monospace}\nL1:6 [error] fuente: La fuente «Consolas» no es de la marca (solo Bricolage Grotesque e Instrument Sans).",
     "causa": "Las familias genéricas están permitidas en cualquier posición. Con solo «sans-serif», una pieza pasa la auditoría sin usar ninguna fuente de la marca. La medición de render de la evaluación sí cuenta una genérica en primer lugar como fuente ajena, así que las dos herramientas no coinciden.",
-    "solucion": "Pendiente. Propuesta: permitir las genéricas solo como respaldo, después de una familia de la marca.",
+    "solucion": "Resuelto. Una familia genérica solo vale como respaldo, después de una fuente de la marca. Hoy `body{font-family:sans-serif}` da: `«sans-serif» está sola: la lista no incluye ninguna fuente de la marca`. La medición de render y el auditor ya usan el mismo criterio.",
     "aprendizaje": "Dos herramientas que miden lo mismo con criterios distintos producen resultados que no se pueden comparar. Lo encontré al escribir este caso, no al construir la herramienta."
+  },
+  {
+    "id": "2026-11-08-el-auditor-solo-leia-la-primera-fuente-si-la-lis",
+    "fecha": "2026-11-08",
+    "fase": "9",
+    "titulo": "El auditor solo leía la primera fuente si la lista empezaba con comillas",
+    "salida": "AssertionError: expected [ 'JetBrains Mono' ] to deeply equal [ 'JetBrains Mono', 'monospace' ]\n× usar JetBrains Mono a mano fuera de un @font-face sigue siendo error (solo entra por el token)",
+    "causa": "La expresión que capturaba font-family tenía una alternativa para valores entre comillas. En CSS, un valor que empieza con comillas (\"Instrument Sans\", Arial) capturaba solo la primera fuente y descartaba el resto. Un Arial de respaldo pasaba sin hallazgo. Existía desde la fase 3.",
+    "solucion": "En CSS y HTML se captura la lista completa hasta el punto y coma; en JSX se conserva el valor entre comillas. Pruebas con listas que empiezan con comillas.",
+    "aprendizaje": "El hueco apareció al probar otra cosa: escribí una prueba para una excepción y la prueba reveló un defecto anterior. Los casos de borde de una expresión regular se prueban con las formas reales de uso, no solo con la más cómoda."
+  },
+  {
+    "id": "2026-11-08-mi-correccion-rompio-el-atributo-font-family-de-",
+    "fecha": "2026-11-08",
+    "fase": "9",
+    "titulo": "Mi corrección rompió el atributo font-family de un SVG",
+    "salida": "L71:358 fuente La fuente «'Bricolage Grotesque» no es de la marca (solo Bricolage Grotesque e Instrument Sans). → Use var(--font-texto) para texto o var(--font-titulo) para títulos.\n· con/publicacion-redes: código 1, colores 0, fuentes 0, contraste 0, voz 0",
+    "causa": "Con el arreglo anterior, el valor font-family=\"'Bricolage Grotesque', 'Instrument Sans', system-ui\" (comillas dobles del atributo con nombres entre comillas simples) se leía con una comilla sobrante. Una pieza que cumplía la marca apareció con un error.",
+    "solucion": "El auditor reconoce el atributo entre comillas y lee la lista de dentro. Agregué esa cadena exacta como prueba y el logo oficial como caso.",
+    "aprendizaje": "Volver a medir con las mismas salidas guardadas atrapó mi regresión: una pieza con servidor que pasaba pasó a tener un error. Sin la evaluación guardada, no lo habría visto."
+  },
+  {
+    "id": "2026-11-08-el-auditor-marcaba-como-ajena-la-fuente-que-el-s",
+    "fecha": "2026-11-08",
+    "fase": "9",
+    "titulo": "El auditor marcaba como ajena la fuente que el sistema incluye",
+    "salida": "L16 La fuente «JetBrains Mono» no es de la marca (solo Bricolage Grotesque e Instrument Sans).",
+    "causa": "Al empaquetar JetBrains Mono para el código, la página la declara en un @font-face. El auditor leyó esa declaración como un uso de fuente ajena.",
+    "solucion": "El auditor distingue el @font-face: ahí valen las fuentes de la marca y la de código; cualquier otra sigue siendo error. Fuera de un @font-face, escribir JetBrains Mono a mano sigue fallando: entra solo por el token.",
+    "aprendizaje": "Declarar una fuente que se carga y usarla son cosas distintas. La misma pregunta que con el código mostrado en prosa: el auditor tiene que saber qué está mirando."
   }
 ]

@@ -68,17 +68,19 @@ describe('casos desarrollados', () => {
     expect(md).not.toMatch(/\b5px\b|\[5px\]/);
   });
 
-  it('casos: lo que dicen del auditor sigue siendo cierto (si se corrige, actualice los casos)', () => {
-    // 01: el auditor no mira rx de un SVG.
+  it('casos: los hallazgos del auditor que contaron los casos ya están resueltos', () => {
+    // 01: antes el auditor no miraba el rx de un SVG; ahora sí.
     const svg = auditarCodigo('<svg><rect width="26" height="26" rx="5" fill="#0E1116"/></svg>', 'html');
-    expect(svg.filter((h) => h.tipo === 'radio')).toEqual([]);
-    // 02: deja pasar las genéricas como única familia, pero rechaza una fuente concreta.
-    expect(auditarCodigo('code{font-family:monospace}', 'css')).toEqual([]);
-    expect(auditarCodigo('body{font-family:sans-serif}', 'css')).toEqual([]);
-    expect(auditarCodigo('code{font-family:Consolas,monospace}', 'css').map((h) => h.valor)).toEqual(['Consolas']);
-    // 02: la regla original sí falla, con tres hallazgos.
+    expect(svg.filter((h) => h.tipo === 'radio').map((h) => h.valor)).toEqual(['rx="5"']);
+    // 02: antes dejaba pasar las genéricas solas; ahora solo valen como respaldo.
+    expect(auditarCodigo('code{font-family:monospace}', 'css').map((h) => h.valor)).toEqual(['monospace']);
+    expect(auditarCodigo('body{font-family:sans-serif}', 'css').map((h) => h.valor)).toEqual(['sans-serif']);
+    expect(auditarCodigo('code{font-family:"Instrument Sans", monospace}', 'css')).toEqual([]);
+    expect(auditarCodigo('code{font-family:Consolas,monospace}', 'css').map((h) => h.valor)).toContain('Consolas');
+    // 02: la regla original sigue fallando. Con el auditor de hoy son cuatro hallazgos (antes tres):
+    // también se marca ui-monospace, que va sola, sin ninguna fuente de la marca.
     const original = 'code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.88em}';
-    expect(auditarCodigo(original, 'css').map((h) => h.tipo)).toEqual(['fuente', 'fuente', 'tamano']);
+    expect(auditarCodigo(original, 'css').map((h) => h.valor)).toEqual(['ui-monospace', 'SFMono-Regular', 'Menlo', '.88em']);
   });
 
   it('caso de la fuente: el token y la regla existen, y Paridad ignora el token', () => {

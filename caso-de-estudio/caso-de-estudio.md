@@ -2,7 +2,7 @@
 
 > **Borrador para el «Laboratorio» de nehemiasperez.com.** Está escrito en primera persona a partir de lo que ocurrió en el proyecto. Ajústelo a su voz y complete los pasajes marcados con **[Suyo]**. Los números salen de `evals/reporte.md`.
 
-**Resumen.** Construí un servidor MCP de solo lectura con mi sistema de diseño. Ahora Claude puede leer mis colores, tipografías, componentes y reglas, y revisar si algo las respeta. En siete tareas realistas, las piezas hechas con el servidor salieron sin ningún valor fuera de los tokens. Las hechas sin él tuvieron 117.
+**Resumen.** Construí un servidor MCP de solo lectura con mi sistema de diseño. Ahora Claude puede leer mis colores, tipografías, componentes y reglas, y revisar si algo las respeta. En siete tareas realistas, las piezas hechas con el servidor salieron sin ningún valor fuera de los tokens. Las hechas sin él tuvieron 130.
 
 ## El problema
 
@@ -44,7 +44,7 @@ Siete pedidos realistas, siempre los mismos, sin mencionar la marca: un hero, un
 
 | Métrica (menos es mejor) | Sin servidor | Con servidor |
 |---|---:|---:|
-| Valores fuera de los tokens en el código | 117 | 0 |
+| Valores fuera de los tokens en el código | 130 | 0 |
 | Colores renderizados fuera de la paleta | 47 | 0 |
 | Fuentes ajenas a la marca | 8 | 0 |
 | Textos que no llegan a AA de contraste | 26 | 0 |
@@ -69,6 +69,7 @@ Lo que se ve:
 ### Cómo leer estos números con cuidado
 
 - Es una corrida por tarea. El modelo no es determinista: una diferencia pequeña puede ser ruido.
+- El número «sin servidor» cambió de 117 a 130 cuando volví más estricto el auditor, con las mismas salidas. Un auditor distinto da un total distinto: comparar solo es válido con el mismo auditor en las dos condiciones.
 - La evaluación es en parte circular. Mido con las mismas herramientas que el agente puede usar y con los mismos tokens que copia. Mide fidelidad a los tokens, no calidad de diseño. Para eso está la calificación de mis ojos.
 - La condición «con servidor» incluye la skill `/marca`. No aísla el efecto del servidor solo.
 

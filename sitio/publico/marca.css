@@ -19,7 +19,7 @@
   /* Tipografía */
   --font-titulo: "Bricolage Grotesque", "Instrument Sans", system-ui, sans-serif;
   --font-texto: "Instrument Sans", system-ui, sans-serif;
-  --font-codigo: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-codigo: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --font-weight-extranegrita: 800;
   --font-weight-normal: 400;
   --font-weight-medio: 500;

@@ -34,7 +34,7 @@ const slug = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCa
 function fuentes(): string {
   const f = join(carpetaMarca(), 'assets', 'fuentes');
   const face = (n: string, p: number, a: string) => `@font-face{font-family:"${n}";font-weight:${p};src:url("file://${f}/${a}.woff2") format("woff2")}`;
-  return [face('Bricolage Grotesque', 800, 'bricolage-grotesque-latin-800-normal'), ...[400, 600, 700].map((p) => face('Instrument Sans', p, `instrument-sans-latin-${p}-normal`))].join('');
+  return [face('Bricolage Grotesque', 800, 'bricolage-grotesque-latin-800-normal'), ...[400, 600, 700].map((p) => face('Instrument Sans', p, `instrument-sans-latin-${p}-normal`)), face('JetBrains Mono', 400, 'jetbrains-mono-latin-400-normal')].join('');
 }
 
 function tarjeta(e: Entrada): string {

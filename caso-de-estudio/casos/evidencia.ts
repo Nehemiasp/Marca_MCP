@@ -12,7 +12,8 @@ const marca = carpetaMarca();
 const f = join(marca, 'assets', 'fuentes');
 const fuentes =
   `@font-face{font-family:"Bricolage Grotesque";font-weight:800;src:url("file://${f}/bricolage-grotesque-latin-800-normal.woff2")}` +
-  [400, 600, 700].map((p) => `@font-face{font-family:"Instrument Sans";font-weight:${p};src:url("file://${f}/instrument-sans-latin-${p}-normal.woff2")}`).join('');
+  [400, 600, 700].map((p) => `@font-face{font-family:"Instrument Sans";font-weight:${p};src:url("file://${f}/instrument-sans-latin-${p}-normal.woff2")}`).join('') +
+  `@font-face{font-family:"JetBrains Mono";font-weight:400;src:url("file://${f}/jetbrains-mono-latin-400-normal.woff2")}`;
 const base = `${exportarTokens('css').contenido}${fuentes}
 *{box-sizing:border-box}body{margin:0;background:var(--color-fondo);padding:var(--spacing-xl);font:var(--text-base)/var(--text-base--line-height) "Instrument Sans",system-ui,sans-serif;color:var(--color-texto)}
 h1{margin:0 0 var(--spacing-lg);font:800 var(--text-2xl)/var(--text-2xl--line-height) "Bricolage Grotesque";letter-spacing:var(--tracking-titulo);color:var(--color-tinta)}
@@ -61,7 +62,7 @@ await pagina(
   nav,
   `<h1>El mismo código, dos familias</h1><div class="rejilla" style="grid-template-columns:1fr 1fr">
    <div class="celda"><p class="rotulo">Instrument Sans (la fuente de texto)</p>${bloque('"Instrument Sans"')}<p class="dato">La sangría mide menos que en la otra y cada carácter tiene un ancho distinto («i» frente a «m»): no se pueden contar columnas ni comparar líneas a ojo.</p></div>
-   <div class="celda"><p class="rotulo">Pila monoespaciada (<code>--font-codigo</code>)</p>${bloque('var(--font-codigo)')}<p class="dato">Cada carácter ocupa lo mismo, y la sangría es siempre igual. La fuente exacta depende del sistema de cada lector: aquí es la que tiene esta máquina.</p></div></div>`,
+   <div class="celda"><p class="rotulo">Pila monoespaciada (<code>--font-codigo</code>)</p>${bloque('var(--font-codigo)')}<p class="dato">Cada carácter ocupa lo mismo, y la sangría es siempre igual. Es JetBrains Mono, incluida en el sistema: se ve igual en cualquier máquina.</p></div></div>`,
   'mono-alineacion',
   1200
 );

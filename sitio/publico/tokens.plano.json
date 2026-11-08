@@ -15,7 +15,7 @@
   "color.oscuro.acento": "#8DB6E8",
   "tipografia.familia.titulo": "\"Bricolage Grotesque\", \"Instrument Sans\", system-ui, sans-serif",
   "tipografia.familia.texto": "\"Instrument Sans\", system-ui, sans-serif",
-  "tipografia.familia.codigo": "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
+  "tipografia.familia.codigo": "\"JetBrains Mono\", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
   "tipografia.peso.extranegrita": 800,
   "tipografia.peso.normal": 400,
   "tipografia.peso.medio": 500,

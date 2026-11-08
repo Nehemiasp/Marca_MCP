@@ -24,8 +24,24 @@ const COLORES_NOMBRADOS: Record<string, string> = {
 };
 const PROPIEDADES_COLOR = /(?:^|[\s;{"'(,])(?:color|background(?:-color)?|border(?:-(?:top|right|bottom|left))?(?:-color)?|outline(?:-color)?|fill|stroke|caret-color|text-decoration-color|accent-color|column-rule-color|backgroundColor|borderColor|outlineColor|textDecorationColor)\s*[:=]\s*[{"']?\s*([a-z]+)\b/gi;
 
-const FAMILIAS_PERMITIDAS = ['bricolage grotesque', 'instrument sans'];
-const FAMILIAS_GENERICAS = ['system-ui', 'sans-serif', 'serif', 'monospace', 'inherit', 'initial', 'unset', 'ui-sans-serif', 'ui-monospace', 'ui-serif', 'revert', '-apple-system', 'blinkmacsystemfont', 'segoe ui'];
+/** Familias de la marca: la primera de cada pila de título y de texto (no la de código, que solo entra por su token). */
+function familiasDeLaMarca(): string[] {
+  const { porRuta } = cargarTokens();
+  return ['tipografia.familia.titulo', 'tipografia.familia.texto'].flatMap((r) => {
+    const v = porRuta.get(r)?.valor;
+    const primera = Array.isArray(v) ? v[0] : v;
+    return typeof primera === 'string' ? [primera.toLowerCase()] : [];
+  });
+}
+/** Primera familia de la pila de código: puede declararse en un @font-face, pero no usarse a mano. */
+function familiaDeCodigo(): string | undefined {
+  const v = cargarTokens().porRuta.get('tipografia.familia.codigo')?.valor;
+  const primera = Array.isArray(v) ? v[0] : v;
+  return typeof primera === 'string' ? primera.toLowerCase() : undefined;
+}
+/** Genéricas: solo valen como respaldo, después de una familia de la marca. */
+const FAMILIAS_GENERICAS = ['system-ui', 'sans-serif', 'serif', 'monospace', 'ui-sans-serif', 'ui-monospace', 'ui-serif', '-apple-system', 'blinkmacsystemfont', 'segoe ui'];
+const VALORES_ESPECIALES = ['inherit', 'initial', 'unset', 'revert'];
 const TAILWIND_PALETAS = 'slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose';
 
 const escalaTamanos = (): { ruta: string; px: number }[] =>
@@ -57,6 +73,13 @@ function quitarComentarios(codigo: string, lenguaje: Lenguaje): string {
 export function auditarCodigo(codigo: string, lenguaje: Lenguaje): HallazgoCodigo[] {
   const limpio = quitarComentarios(codigo, lenguaje);
   const lineas = limpio.split('\n');
+  // Líneas dentro de un @font-face: ahí font-family declara el nombre de una fuente que se carga, no la usa.
+  const lineasFontFace = new Set<number>();
+  for (const bloque of limpio.matchAll(/@font-face\s*\{[^}]*\}/g)) {
+    const desde = limpio.slice(0, bloque.index).split('\n').length;
+    const hasta = desde + bloque[0].split('\n').length - 1;
+    for (let n = desde; n <= hasta; n++) lineasFontFace.add(n);
+  }
   const hallazgos: HallazgoCodigo[] = [];
   const vistos = new Set<string>();
   const agregar = (h: HallazgoCodigo) => {
@@ -145,24 +168,71 @@ export function auditarCodigo(codigo: string, lenguaje: Lenguaje): HallazgoCodig
     }
 
     // ---- Fuentes ----
-    const reFamilia = /(?:font-family|fontFamily)\s*[:=]\s*(?:\{\s*)?(?:"([^"]*)"|'([^']*)'|([^;}\n]*))/gi;
+    // CSS y HTML: el valor es la lista completa hasta «;» o «}» (puede empezar con comillas: "Instrument Sans", Arial).
+    // JSX: el valor es un único texto entre comillas (fontFamily: 'Roboto, sans-serif').
+    const reFamilia = esJsx
+      ? /(?:font-family|fontFamily)\s*[:=]\s*(?:\{\s*)?(?:"([^"]*)"|'([^']*)'|([^;}\n]*))/gi
+      : /(?:font-family|fontFamily)\s*[:=]\s*([^;}\n]*)/gi;
     for (const m of texto.matchAll(reFamilia)) {
-      const valor = (m[1] ?? m[2] ?? m[3] ?? '').trim();
-      if (!valor || /var\(/.test(valor)) continue;
-      for (const f of valor.split(',').map((x) => x.trim().replace(/^["']|["']$/g, '')).filter(Boolean)) {
-        const k = f.toLowerCase();
-        if (FAMILIAS_PERMITIDAS.includes(k) || FAMILIAS_GENERICAS.includes(k)) continue;
-        agregar({
-          linea, columna: (m.index ?? 0) + 1, tipo: 'fuente', severidad: 'error', valor: f, token: 'tipografia.familia.texto', regla: 'R-TIPO-1',
-          mensaje: `La fuente «${f}» no es de la marca (solo Bricolage Grotesque e Instrument Sans).`,
-          sugerencia: `Use var(${nombreVariable('tipografia.familia.texto')}) para texto o var(${nombreVariable('tipografia.familia.titulo')}) para títulos.`
-        });
+      let valor = esJsx ? (m[1] ?? m[2] ?? m[3] ?? '') : (m[1] ?? '');
+      // En style="…" la lista termina en la comilla que cierra el atributo (seguida de «>», de otro atributo o del fin de línea).
+      if (!esJsx) {
+        // Atributo SVG o HTML: font-family="'A', 'B', sans-serif" → el valor es lo que hay entre las comillas del atributo.
+        const abre = valor.trimStart()[0];
+        const resto = valor.trimStart().slice(1);
+        const cierre = abre === '"' || abre === "'" ? resto.search(new RegExp(`${abre}(?=\\s*\\/?>|\\s*$|\\s+[\\w:-]+=)`)) : -1;
+        valor = cierre >= 0 ? resto.slice(0, cierre) : (valor.split(/["'](?=\s*\/?>|\s*$|\s+[\w:-]+=)/)[0] ?? '');
       }
+      valor = valor.replace(/\s*!important\s*$/i, '').trim();
+      if (!valor || /var\(/.test(valor)) continue;
+      const lista = valor.split(',').map((x) => x.trim().replace(/^["']|["']$/g, '')).filter(Boolean);
+      const claves = lista.map((f) => f.toLowerCase());
+      if (claves.every((k) => VALORES_ESPECIALES.includes(k))) continue;
+      const marca = familiasDeLaMarca();
+      if (lineasFontFace.has(linea)) {
+        // En un @font-face se declara un nombre: vale una familia de la marca o la fuente de código del sistema.
+        const declaradas = [...marca, ...(familiaDeCodigo() ? [familiaDeCodigo()!] : [])];
+        if (!claves.every((k) => declaradas.includes(k))) {
+          const f = lista.find((x) => !declaradas.includes(x.toLowerCase()))!;
+          agregar({
+            linea, columna: (m.index ?? 0) + 1, tipo: 'fuente', severidad: 'error', valor: f, token: 'tipografia.familia.texto', regla: 'R-TIPO-1',
+            mensaje: `El @font-face carga la fuente «${f}», que no es de la marca (solo Bricolage Grotesque e Instrument Sans; JetBrains Mono solo para código).`,
+            sugerencia: 'Cargue solo las fuentes de marca/assets/fuentes.'
+          });
+        }
+        continue;
+      }
+      const posicionMarca = claves.findIndex((k) => marca.includes(k));
+      let genericaReportada = false;
+      lista.forEach((f, i) => {
+        const k = claves[i]!;
+        if (marca.includes(k) || VALORES_ESPECIALES.includes(k)) return;
+        const columna = (m.index ?? 0) + 1;
+        const sugerencia = `Use var(${nombreVariable('tipografia.familia.texto')}) para texto o var(${nombreVariable('tipografia.familia.titulo')}) para títulos.`;
+        if (FAMILIAS_GENERICAS.includes(k)) {
+          // Una genérica solo es respaldo: tiene que venir después de una familia de la marca.
+          if ((posicionMarca === -1 || i < posicionMarca) && !genericaReportada) {
+            genericaReportada = true;
+            agregar({
+              linea, columna, tipo: 'fuente', severidad: 'error', valor: f, token: 'tipografia.familia.texto', regla: 'R-TIPO-1',
+              mensaje: posicionMarca === -1
+                ? `«${f}» está sola: la lista no incluye ninguna fuente de la marca (Bricolage Grotesque o Instrument Sans). Una genérica solo vale como respaldo.`
+                : `«${f}» va antes de la fuente de la marca. Una genérica solo vale como respaldo, al final de la lista.`,
+              sugerencia
+            });
+          }
+          return;
+        }
+        agregar({
+          linea, columna, tipo: 'fuente', severidad: 'error', valor: f, token: 'tipografia.familia.texto', regla: 'R-TIPO-1',
+          mensaje: `La fuente «${f}» no es de la marca (solo Bricolage Grotesque e Instrument Sans).`, sugerencia
+        });
+      });
     }
     for (const m of texto.matchAll(/fonts\.googleapis\.com\/css2?\?[^"'\s>)]*/g)) {
       for (const fam of m[0].matchAll(/family=([^:&]+)/g)) {
         const nombre = decodeURIComponent(fam[1]!.replace(/\+/g, ' '));
-        if (FAMILIAS_PERMITIDAS.includes(nombre.toLowerCase())) continue;
+        if (familiasDeLaMarca().includes(nombre.toLowerCase())) continue;
         agregar({
           linea, columna: (m.index ?? 0) + 1, tipo: 'fuente', severidad: 'error', valor: nombre, token: 'tipografia.familia.texto', regla: 'R-TIPO-1',
           mensaje: `Se carga la fuente «${nombre}», que no es de la marca.`, sugerencia: 'Cargue solo Bricolage Grotesque (800) e Instrument Sans (400–700), o use los woff2 de marca/assets/fuentes.'
@@ -281,6 +351,41 @@ export function auditarCodigo(codigo: string, lenguaje: Lenguaje): HallazgoCodig
       }
     }
   });
+
+  // ---- Radios de SVG: rx / ry en <rect> ----
+  // Una esquina con rx ≥ mitad de la altura es una píldora (válida). El resto se compara con la escala de radios.
+  // Los valores están en unidades del SVG (con viewBox pueden no ser px); en los SVG de la marca coinciden con la escala.
+  if (lenguaje !== 'css') {
+    const posicionDe = (indice: number) => {
+      const antes = limpio.slice(0, indice);
+      return { linea: antes.split('\n').length, columna: indice - (antes.lastIndexOf('\n') + 1) + 1 };
+    };
+    const atributo = (etiqueta: string, nombre: string) => {
+      const m = new RegExp(`(?<![\\w-])${nombre}\\s*=\\s*(?:"([^"]*)"|'([^']*)'|\\{\\s*([\\d.]+)\\s*\\})`).exec(etiqueta);
+      if (!m) return undefined;
+      const crudo = (m[1] ?? m[2] ?? m[3] ?? '').trim();
+      const n = /^(-?[\d.]+)(?:px)?$/.exec(crudo);
+      return n ? { valor: parseFloat(n[1]!), indice: m.index } : undefined;
+    };
+    for (const rect of limpio.matchAll(/<rect\b[^>]*>/g)) {
+      const etiqueta = rect[0];
+      const alto = atributo(etiqueta, 'height')?.valor;
+      for (const nombre of ['rx', 'ry']) {
+        const a = atributo(etiqueta, nombre);
+        if (!a || a.valor === 0) continue;
+        if (alto !== undefined && a.valor * 2 >= alto - 0.01) continue; // píldora
+        const escala = escalaRadios().filter((e) => e.px < 999);
+        if (escala.some((e) => Math.abs(e.px - a.valor) < 0.01)) continue;
+        const c = masCercano(escala, a.valor);
+        const { linea, columna } = posicionDe((rect.index ?? 0) + a.indice);
+        agregar({
+          linea, columna, tipo: 'radio', severidad: 'error', valor: `${nombre}="${a.valor}"`, token: c.ruta, regla: 'R-FORMA-1',
+          mensaje: `${nombre}="${a.valor}" no es un radio de la marca. Más cercano: ${c.ruta} (${c.px}).`,
+          sugerencia: `Use ${nombre}="${c.px}" (${c.ruta}), o un valor que cubra la mitad de la altura si busca una píldora.`
+        });
+      }
+    }
+  }
 
   return hallazgos.sort((a, b) => a.linea - b.linea || a.columna - b.columna);
 }

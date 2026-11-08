@@ -11,7 +11,7 @@ Qué sí y qué no. Cada regla tiene un identificador (`R-…`) para citarla en 
 - **R-COLOR-6 · Contraste mínimo.** Texto normal ≥ 4.5:1 (AA); texto de lectura, títulos y navegación ≥ 7:1 (AAA) cuando el par lo permite. No use `color.apagado` sobre `color.suave`.
 
 ## Tipografía
-- **R-TIPO-1 · Dos familias.** Bricolage Grotesque (solo peso 800) para títulos, nombre y cifras grandes; Instrument Sans (400, 500, 600, 700) para todo lo demás. Ninguna otra. Única excepción: fragmentos de código en documentación, con la pila del sistema `tipografia.familia.codigo`.
+- **R-TIPO-1 · Dos familias.** Bricolage Grotesque (solo peso 800) para títulos, nombre y cifras grandes; Instrument Sans (400, 500, 600, 700) para todo lo demás. Ninguna otra. Única excepción: fragmentos de código en documentación, con `tipografia.familia.codigo` (JetBrains Mono, con respaldo del sistema).
 - **R-TIPO-2 · Una sola palabra destacada por título**, en `color.azul`. *Sí:* «Interfaces pensadas para **implementarse.**» *No:* dos o tres palabras en azul, ni negrita más color.
 - **R-TIPO-3 · Espaciado de letras.** Títulos con `-0.02em`; eyebrows con `0.12em`, en mayúsculas, Instrument Sans 700, `color.azul`.
 - **R-TIPO-4 · Solo tamaños de la escala** (`tipografia.tamano.*`) con su interlineado. Sin tamaños sueltos como `17px` o `2.3rem`.

@@ -116,7 +116,8 @@ export function generarSitio(destino: string): { html: string } {
     ['Instrument Sans', 400, 'instrument-sans-latin-400-normal'],
     ['Instrument Sans', 500, 'instrument-sans-latin-500-normal'],
     ['Instrument Sans', 600, 'instrument-sans-latin-600-normal'],
-    ['Instrument Sans', 700, 'instrument-sans-latin-700-normal']
+    ['Instrument Sans', 700, 'instrument-sans-latin-700-normal'],
+    ['JetBrains Mono', 400, 'jetbrains-mono-latin-400-normal']
   ] as const;
   const fontFace = fuentes
     .map(([f, p, a]) => `@font-face{font-family:"${f}";font-weight:${p};font-style:normal;font-display:swap;src:url("assets/fuentes/${a}.woff2") format("woff2");}`)

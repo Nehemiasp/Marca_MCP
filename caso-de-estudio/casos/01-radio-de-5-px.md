@@ -30,11 +30,13 @@ Tres hallazgos: uno en CSS y dos en React. Una diferencia de un píxel. A simple
 
 Cambié el CSS a `var(--radius-sm)`, que son 6 px. Cambié React a `rounded-sm`. La prueba pasó.
 
-El logo en SVG también tenía 5 px, pero el auditor no lo detectó. Lo corregí yo, a mano, porque sabía que estaba ahí. Cuando lo comprobé al escribir este caso, el auditor no mira el atributo `rx` de un SVG:
+El logo en SVG también tenía 5 px, pero el auditor no lo detectó. Lo corregí yo, a mano, porque sabía que estaba ahí. Cuando lo comprobé al escribir este caso, resultó que el auditor no miraba el atributo `rx` de un SVG: el mismo valor, en dos lugares, con uno solo vigilado.
+
+Lo arreglé después. Ahora el auditor lee `rx` y `ry` de cada `<rect>`. Una esquina que cubre la mitad de la altura es una píldora y es válida; el resto se compara con la escala:
 
 ```
-auditar_codigo(html) sobre <rect ... rx="5" .../>
-→ {"total":1,"errores":0,"avisos":1,"cumple":true}   (el único aviso es el color)
+auditar_codigo(html) sobre <rect width="26" height="26" rx="5" .../>
+L1:35 [error] radio: rx="5" no es un radio de la marca. Más cercano: radio.sm (6). → Use rx="6" (radio.sm), o un valor que cubra la mitad de la altura si busca una píldora.
 ```
 
 Y hay algo más. Medí las versiones del mismo cuadro:
@@ -68,19 +70,19 @@ Era una decisión de marca, no de código. Había tres caminos:
 
 Ahora los radios son seis. El auditor ya reconoce el nuevo: un `4px` escrito a mano da un aviso que apunta al token. **[Suyo: confirme que el resultado visual le convence, o explique qué ajustaría.]**
 
-Queda abierto un pendiente: el auditor sigue sin leer el `rx` de un SVG, así que el radio del logo se cuida a mano.
+El radio del logo ya no se cuida a mano: lo vigila el auditor.
 
 ## Lo que aprendí
 
 1. **La regla vio lo que el ojo no veía.** Un píxel. Nunca lo habría encontrado revisando a mano.
 2. **Cumplir la regla no es acertar.** Una verificación en verde mide consistencia con la escala, no fidelidad al diseño. Corregí hacia el token y me alejé del original.
-3. **Una verificación solo cubre donde mira.** El mismo valor estaba en dos lugares. El sistema vigilaba uno.
+3. **Una verificación solo cubre donde mira.** El mismo valor estaba en dos lugares. El sistema vigilaba uno. Hoy vigila los dos.
 4. **El orden importa.** El error vivió dos fases porque primero escribí el contenido y después la prueba. Con la prueba primero, lo habría atrapado el mismo día.
 
 ## Lo que haría distinto
 
 - Escribir la prueba de coherencia antes que el primer componente.
-- Que el auditor lea `rx` y `ry` de los SVG.
+- Que el auditor leyera `rx` y `ry` de los SVG desde el principio (ya lo hace).
 - Definir los radios del motivo mini al diseñar el motivo, no al documentarlo. Esta vez faltó un token para el tamaño mini; lo agregué dos fases tarde.
 - Medir la proporción contra el original antes de aplicar una corrección.
 
@@ -88,5 +90,5 @@ Queda abierto un pendiente: el auditor sigue sin leer el `rx` de un SVG, así qu
 
 - Original: `git show c1bab4f:marca/componentes/motivo-de-cuadros.md`
 - Corrección: commit `63aa947`
-- Registro de errores: [radio fuera de escala](../errores/2026-11-08-radio-fuera-de-escala.png), [el auditor no mira los radios de un SVG](../errores/2026-11-08-el-auditor-no-mira-los-radios-de-un-svg.png)
+- Registro de errores: [radio fuera de escala](../errores/2026-11-08-radio-fuera-de-escala.png), [el auditor no mira los radios de un SVG](../errores/2026-11-08-el-auditor-no-mira-los-radios-de-un-svg.png) (resuelto)
 - Imagen reproducible: `npm run casos`

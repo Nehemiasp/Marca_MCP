@@ -17,6 +17,9 @@ Se agregan con `npm run error -- --titulo="…" --salida="…"` (ver `errores.ts
 | 10 | 9 | [Un script de apoyo falló por el formato de módulo](#2026-11-08-un-script-de-apoyo-fallo-por-el-formato-de-modul) | 2026-11-08 |
 | 11 | 9 | [El auditor no mira los radios de un SVG](#2026-11-08-el-auditor-no-mira-los-radios-de-un-svg) | 2026-11-08 |
 | 12 | 9 | [El auditor deja pasar «monospace» y «sans-serif»](#2026-11-08-el-auditor-deja-pasar-monospace-y-sans-serif) | 2026-11-08 |
+| 13 | 9 | [El auditor solo leía la primera fuente si la lista empezaba con comillas](#2026-11-08-el-auditor-solo-leia-la-primera-fuente-si-la-lis) | 2026-11-08 |
+| 14 | 9 | [Mi corrección rompió el atributo font-family de un SVG](#2026-11-08-mi-correccion-rompio-el-atributo-font-family-de-) | 2026-11-08 |
+| 15 | 9 | [El auditor marcaba como ajena la fuente que el sistema incluye](#2026-11-08-el-auditor-marcaba-como-ajena-la-fuente-que-el-s) | 2026-11-08 |
 
 ## Un componente apunta a un token que no existe <a id="2026-11-08-token-inexistente"></a>
 
@@ -103,7 +106,7 @@ Se agregan con `npm run error -- --titulo="…" --salida="…"` (ver `errores.ts
 ![El auditor no mira los radios de un SVG](errores/2026-11-08-el-auditor-no-mira-los-radios-de-un-svg.png)
 
 - **Causa:** El auditor revisa border-radius, pero no el atributo rx de un SVG. El logo tenía rx=5 dos veces y lo corregí yo a mano, sin que ninguna prueba lo exigiera.
-- **Solución:** Pendiente. Propuesta: que el auditor lea rx y ry y los compare con los radios de la escala.
+- **Solución:** Resuelto. El auditor lee `rx` y `ry` de cada `<rect>`: una esquina que cubre la mitad de la altura es una píldora (válida) y el resto se compara con la escala de radios. Hoy da: `L1:35 [error] radio: rx="5" no es un radio de la marca. Más cercano: radio.sm (6).`
 - **Aprendizaje:** Una verificación en verde solo cubre donde mira. El valor incorrecto estaba en dos lugares y el sistema vigilaba uno.
 
 ## El auditor deja pasar «monospace» y «sans-serif» <a id="2026-11-08-el-auditor-deja-pasar-monospace-y-sans-serif"></a>
@@ -111,5 +114,29 @@ Se agregan con `npm run error -- --titulo="…" --salida="…"` (ver `errores.ts
 ![El auditor deja pasar «monospace» y «sans-serif»](errores/2026-11-08-el-auditor-deja-pasar-monospace-y-sans-serif.png)
 
 - **Causa:** Las familias genéricas están permitidas en cualquier posición. Con solo «sans-serif», una pieza pasa la auditoría sin usar ninguna fuente de la marca. La medición de render de la evaluación sí cuenta una genérica en primer lugar como fuente ajena, así que las dos herramientas no coinciden.
-- **Solución:** Pendiente. Propuesta: permitir las genéricas solo como respaldo, después de una familia de la marca.
+- **Solución:** Resuelto. Una familia genérica solo vale como respaldo, después de una fuente de la marca. Hoy `body{font-family:sans-serif}` da: `«sans-serif» está sola: la lista no incluye ninguna fuente de la marca`. La medición de render y el auditor ya usan el mismo criterio.
 - **Aprendizaje:** Dos herramientas que miden lo mismo con criterios distintos producen resultados que no se pueden comparar. Lo encontré al escribir este caso, no al construir la herramienta.
+
+## El auditor solo leía la primera fuente si la lista empezaba con comillas <a id="2026-11-08-el-auditor-solo-leia-la-primera-fuente-si-la-lis"></a>
+
+![El auditor solo leía la primera fuente si la lista empezaba con comillas](errores/2026-11-08-el-auditor-solo-leia-la-primera-fuente-si-la-lis.png)
+
+- **Causa:** La expresión que capturaba font-family tenía una alternativa para valores entre comillas. En CSS, un valor que empieza con comillas ("Instrument Sans", Arial) capturaba solo la primera fuente y descartaba el resto. Un Arial de respaldo pasaba sin hallazgo. Existía desde la fase 3.
+- **Solución:** En CSS y HTML se captura la lista completa hasta el punto y coma; en JSX se conserva el valor entre comillas. Pruebas con listas que empiezan con comillas.
+- **Aprendizaje:** El hueco apareció al probar otra cosa: escribí una prueba para una excepción y la prueba reveló un defecto anterior. Los casos de borde de una expresión regular se prueban con las formas reales de uso, no solo con la más cómoda.
+
+## Mi corrección rompió el atributo font-family de un SVG <a id="2026-11-08-mi-correccion-rompio-el-atributo-font-family-de-"></a>
+
+![Mi corrección rompió el atributo font-family de un SVG](errores/2026-11-08-mi-correccion-rompio-el-atributo-font-family-de-.png)
+
+- **Causa:** Con el arreglo anterior, el valor font-family="'Bricolage Grotesque', 'Instrument Sans', system-ui" (comillas dobles del atributo con nombres entre comillas simples) se leía con una comilla sobrante. Una pieza que cumplía la marca apareció con un error.
+- **Solución:** El auditor reconoce el atributo entre comillas y lee la lista de dentro. Agregué esa cadena exacta como prueba y el logo oficial como caso.
+- **Aprendizaje:** Volver a medir con las mismas salidas guardadas atrapó mi regresión: una pieza con servidor que pasaba pasó a tener un error. Sin la evaluación guardada, no lo habría visto.
+
+## El auditor marcaba como ajena la fuente que el sistema incluye <a id="2026-11-08-el-auditor-marcaba-como-ajena-la-fuente-que-el-s"></a>
+
+![El auditor marcaba como ajena la fuente que el sistema incluye](errores/2026-11-08-el-auditor-marcaba-como-ajena-la-fuente-que-el-s.png)
+
+- **Causa:** Al empaquetar JetBrains Mono para el código, la página la declara en un @font-face. El auditor leyó esa declaración como un uso de fuente ajena.
+- **Solución:** El auditor distingue el @font-face: ahí valen las fuentes de la marca y la de código; cualquier otra sigue siendo error. Fuera de un @font-face, escribir JetBrains Mono a mano sigue fallando: entra solo por el token.
+- **Aprendizaje:** Declarar una fuente que se carga y usarla son cosas distintas. La misma pregunta que con el código mostrado en prosa: el auditor tiene que saber qué está mirando.

@@ -73,7 +73,7 @@ describe('archivos de la marca', () => {
   it('los assets SVG y las fuentes existen', () => {
     for (const f of ['logo-claro', 'logo-oscuro', 'motivo-claro', 'motivo-oscuro', 'motivo-mini-claro', 'motivo-mini-oscuro'])
       expect(existsSync(rutaSegura('assets', `${f}.svg`))).toBe(true);
-    for (const f of ['bricolage-grotesque-latin-800-normal', 'instrument-sans-latin-400-normal', 'instrument-sans-latin-500-normal', 'instrument-sans-latin-600-normal', 'instrument-sans-latin-700-normal'])
+    for (const f of ['bricolage-grotesque-latin-800-normal', 'instrument-sans-latin-400-normal', 'instrument-sans-latin-500-normal', 'instrument-sans-latin-600-normal', 'instrument-sans-latin-700-normal', 'jetbrains-mono-latin-400-normal'])
       expect(existsSync(rutaSegura('assets', 'fuentes', `${f}.woff2`))).toBe(true);
   });
   it('los SVG solo usan colores de la paleta', () => {

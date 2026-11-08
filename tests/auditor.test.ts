@@ -1,3 +1,5 @@
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { auditarCodigo, resumirHallazgos } from '../src/nucleo/auditor.js';
 
@@ -56,7 +58,7 @@ describe('auditar_codigo · fuentes', () => {
   });
   it('señala fuentes ajenas', () => {
     const h = auditarCodigo('body { font-family: Inter, Arial, sans-serif; }', 'css');
-    expect(h.map((x) => x.valor)).toEqual(['Inter', 'Arial']);
+    expect(h.map((x) => x.valor)).toEqual(['Inter', 'Arial', 'sans-serif']); // la genérica no sirve de respaldo de fuentes ajenas
     expect(h[0]!.sugerencia).toContain('--font-texto');
   });
   it('señala fuentes en style de JSX, Google Fonts y utilidades de Tailwind', () => {
@@ -130,5 +132,136 @@ describe('resumen y límites', () => {
     const t = Date.now();
     expect(auditarCodigo(largo, 'css')).toEqual([]);
     expect(Date.now() - t).toBeLessThan(3000);
+  });
+});
+
+describe('auditar_codigo · familias genéricas solo como respaldo', () => {
+  const v = (css: string) => auditarCodigo(css, 'css').map((h) => `${h.severidad}:${h.valor}`);
+  it('una genérica sola no pasa', () => {
+    expect(v('body{font-family:sans-serif}')).toEqual(['error:sans-serif']);
+    expect(v('code{font-family:monospace}')).toEqual(['error:monospace']);
+    expect(v('p{font-family:system-ui, sans-serif}')).toEqual(['error:system-ui']); // un solo error por lista
+  });
+  it('una genérica antes de la fuente de la marca no pasa', () => {
+    expect(v('p{font-family:system-ui, "Instrument Sans"}')).toEqual(['error:system-ui']);
+    expect(auditarCodigo('p{font-family:system-ui, "Instrument Sans"}', 'css')[0]!.mensaje).toMatch(/antes de la fuente de la marca/);
+  });
+  it('después de una fuente de la marca sí vale como respaldo', () => {
+    expect(v('p{font-family:"Instrument Sans", system-ui, sans-serif}')).toEqual([]);
+    expect(v('h1{font-family:"Bricolage Grotesque", "Instrument Sans", sans-serif}')).toEqual([]);
+  });
+  it('var(), inherit y similares no se marcan', () => {
+    expect(v('p{font-family:var(--font-texto)}')).toEqual([]);
+    expect(v('code{font-family:var(--font-codigo)}')).toEqual([]);
+    expect(v('p{font-family:inherit}')).toEqual([]);
+    expect(v('p{font-family:unset}')).toEqual([]);
+  });
+  it('una fuente concreta de la pila de código escrita a mano sigue fallando', () => {
+    expect(v('code{font-family:Consolas, monospace}')).toEqual(['error:Consolas', 'error:monospace']);
+  });
+  it('en JSX también', () => {
+    expect(auditarCodigo("<p style={{ fontFamily: 'sans-serif' }} />", 'jsx').map((h) => h.tipo)).toEqual(['fuente']);
+  });
+});
+
+describe('auditar_codigo · rx / ry de SVG', () => {
+  const rx = (svg: string, l: 'html' | 'jsx' = 'html') => auditarCodigo(svg, l).filter((h) => h.tipo === 'radio');
+  it('un radio fuera de la escala es error con el token más cercano', () => {
+    const h = rx('<svg><rect width="26" height="26" rx="5" fill="var(--color-tinta)"/></svg>');
+    expect(h).toHaveLength(1);
+    expect(h[0]).toMatchObject({ severidad: 'error', valor: 'rx="5"', regla: 'R-FORMA-1' });
+    expect(h[0]!.token).toBe('radio.sm'); // 5 queda a igual distancia de 4 y 6: gana el primero de la escala
+  });
+  it('señala la línea y la columna del atributo, también en etiquetas de varias líneas', () => {
+    const h = rx('<svg>\n  <rect\n    width="26" height="26"\n    rx="5"/>\n</svg>');
+    expect(h[0]).toMatchObject({ linea: 4, columna: 5 });
+  });
+  it('un radio de la escala es válido', () => {
+    expect(rx('<rect width="26" height="26" rx="4"/>')).toEqual([]);
+    expect(rx('<rect width="40" height="40" rx="10"/>')).toEqual([]);
+    expect(rx('<rect width="100" height="100" rx="14"/>')).toEqual([]);
+  });
+  it('una píldora (rx ≥ mitad de la altura) es válida, y en el límite exacto también', () => {
+    expect(rx('<rect width="110" height="26" rx="13"/>')).toEqual([]);
+    expect(rx('<rect width="110" height="26" rx="12.9"/>')).toHaveLength(1);
+    expect(rx('<rect width="212" height="100" rx="50"/>')).toEqual([]);
+  });
+  it('ry se revisa igual, y rx="0" o sin rx no genera nada', () => {
+    expect(rx('<rect width="26" height="26" ry="5"/>')).toHaveLength(1);
+    expect(rx('<rect width="26" height="26" rx="0"/>')).toEqual([]);
+    expect(rx('<rect width="26" height="26"/>')).toEqual([]);
+  });
+  it('JSX: rx={5} y rx="5"', () => {
+    expect(rx('<rect width={26} height={26} rx={5} />', 'jsx')).toHaveLength(1);
+    expect(rx('<rect width="26" height="26" rx="4px" />', 'jsx')).toEqual([]);
+  });
+  it('solo mira <rect>: un <ellipse> no es una esquina redondeada', () => {
+    expect(rx('<ellipse cx="10" cy="10" rx="5" ry="3"/>')).toEqual([]);
+  });
+  it('no se revisa en CSS puro', () => {
+    expect(auditarCodigo('rect{rx:5}', 'css').filter((h) => h.tipo === 'radio')).toEqual([]);
+  });
+  it('los SVG oficiales de la marca no tienen errores de radio', () => {
+    for (const f of ['logo-claro', 'logo-oscuro', 'motivo-claro', 'motivo-oscuro', 'motivo-mini-claro', 'motivo-mini-oscuro']) {
+      const svg = readFileSync(join(import.meta.dirname, '..', 'marca', 'assets', `${f}.svg`), 'utf8');
+      expect(rx(svg).filter((h) => h.severidad === 'error'), f).toEqual([]);
+    }
+  });
+});
+
+describe('auditar_codigo · @font-face', () => {
+  const v = (css: string) => auditarCodigo(css, 'css').map((h) => h.valor);
+  it('declarar las fuentes de la marca y la de código es válido', () => {
+    expect(v('@font-face{font-family:"Instrument Sans";font-weight:400;src:url(a.woff2)}')).toEqual([]);
+    expect(v('@font-face{font-family:"JetBrains Mono";src:url(a.woff2)}')).toEqual([]);
+  });
+  it('en varias líneas también', () => {
+    expect(v('@font-face {\n  font-family: "Bricolage Grotesque";\n  font-weight: 800;\n  src: url(a.woff2);\n}')).toEqual([]);
+  });
+  it('cargar otra fuente sigue siendo error', () => {
+    expect(v('@font-face{font-family:"Inter";src:url(a.woff2)}')).toEqual(['Inter']);
+    expect(auditarCodigo('@font-face{font-family:"Inter";src:url(a.woff2)}', 'css')[0]!.mensaje).toMatch(/@font-face carga/);
+  });
+  it('usar JetBrains Mono a mano fuera de un @font-face sigue siendo error (solo entra por el token)', () => {
+    expect(v('code{font-family:"JetBrains Mono", monospace}')).toEqual(['JetBrains Mono', 'monospace']);
+  });
+  it('una regla normal después de un @font-face no hereda la excepción', () => {
+    expect(v('@font-face{font-family:"JetBrains Mono";src:url(a.woff2)}\ncode{font-family:"JetBrains Mono", monospace}')).toEqual(['JetBrains Mono', 'monospace']);
+  });
+});
+
+describe('auditar_codigo · listas de familias que empiezan con comillas', () => {
+  const v = (css: string, l: 'css' | 'html' | 'jsx' = 'css') => auditarCodigo(css, l).map((h) => h.valor);
+  it('revisa toda la lista aunque la primera familia vaya entre comillas', () => {
+    expect(v('p{font-family:"Instrument Sans", Arial, sans-serif}')).toEqual(['Arial']);
+    expect(v('p{font-family:"Inter", "Instrument Sans"}')).toEqual(['Inter']);
+    expect(v("p{font-family:'Roboto', Georgia, serif}")).toEqual(['Roboto', 'Georgia', 'serif']);
+  });
+  it('una sola familia entre comillas sigue funcionando', () => {
+    expect(v('p{font-family:"Instrument Sans"}')).toEqual([]);
+    expect(v('p{font-family:"Inter"}')).toEqual(['Inter']);
+  });
+  it('en HTML con style y !important', () => {
+    expect(v('<p style="font-family: \'Inter\', Arial">x</p>', 'html')).toEqual(['Inter', 'Arial']);
+    expect(v('p{font-family:"Instrument Sans", Arial !important}')).toEqual(['Arial']);
+  });
+  it('JSX con la lista completa entre comillas', () => {
+    expect(v("<p style={{ fontFamily: 'Instrument Sans, Arial' }} />", 'jsx')).toEqual(['Arial']);
+  });
+});
+
+describe('auditar_codigo · font-family como atributo (SVG)', () => {
+  const v = (c: string) => auditarCodigo(c, 'html').map((h) => h.valor);
+  it('el atributo con comillas dobles y nombres con comillas simples es válido si usa la marca', () => {
+    const logo = `<text font-family="'Bricolage Grotesque', 'Instrument Sans', system-ui, sans-serif" font-weight="800">Nehemias</text>`;
+    expect(v(logo)).toEqual([]);
+  });
+  it('también en el logo oficial', () => {
+    const svg = readFileSync(join(import.meta.dirname, '..', 'marca', 'assets', 'logo-claro.svg'), 'utf8');
+    expect(auditarCodigo(svg, 'html').filter((h) => h.tipo === 'fuente')).toEqual([]);
+  });
+  it('una fuente ajena en el atributo se señala sin comillas sobrantes', () => {
+    expect(v(`<text font-family="'Inter', Arial, sans-serif">x</text>`)).toEqual(['Inter', 'Arial', 'sans-serif']);
+    expect(v(`<text font-family='Georgia'>x</text>`)).toEqual(['Georgia']);
   });
 });
