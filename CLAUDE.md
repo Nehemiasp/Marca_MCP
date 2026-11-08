@@ -27,6 +27,7 @@ Que Claude (y cualquier cliente MCP) conozca colores, tipografías, espaciados, 
 | `npm run dev:http` / `npm run start:http` | Servidor HTTP local (`/mcp`, puerto `PORT`) |
 | `npm run revisar -- archivo.html` | Revisa un archivo contra la marca (código y voz); sale con 1 si hay errores |
 | `npm run caso` | Capturas lado a lado para el caso de estudio |
+| `npm run recorrido` | Capturas de las llamadas del recorrido con Claude Desktop (`caso-de-estudio/recorrido/`) |
 | `npm run casos` | Imágenes de evidencia de los casos desarrollados (`caso-de-estudio/casos/`) |
 
 ## Estructura

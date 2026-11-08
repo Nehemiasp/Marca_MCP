@@ -27,7 +27,8 @@
     "caso": "tsx caso-de-estudio/lado-a-lado.ts",
     "error": "tsx caso-de-estudio/errores.ts",
     "casos": "tsx caso-de-estudio/casos/evidencia.ts",
-    "revisar": "tsx src/revisar.ts"
+    "revisar": "tsx src/revisar.ts",
+    "recorrido": "tsx caso-de-estudio/recorrido/generar.ts"
   },
   "dependencies": {
     "@modelcontextprotocol/node": "^2.1.2",

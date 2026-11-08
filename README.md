@@ -93,6 +93,8 @@ Si recompila, no hace falta volver a registrarlo. Para quitarlo: `claude mcp rem
 
 ## Conectarlo a Claude Desktop
 
+Un caso de uso completo, con la salida real de cada llamada: [`caso-de-estudio/recorrido-claude-desktop.md`](caso-de-estudio/recorrido-claude-desktop.md) (`npm run recorrido` regenera las capturas).
+
 1. Compile: `npm run build`.
 2. Abra el archivo de configuración (menú *Settings → Developer → Edit Config*):
    - macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
