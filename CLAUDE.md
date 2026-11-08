@@ -73,4 +73,5 @@ Genera `caso-de-estudio/errores/<id>.png` y actualiza `caso-de-estudio/registro-
 - **HTTP sin estado con límite en memoria por IP:** la marca es pública; el límite es «mejor esfuerzo» en serverless. No se despliega sin su decisión.
 - **Evaluación aislada fuera del repositorio:** los agentes corren en una carpeta temporal para que ningún `CLAUDE.md` ni skill contamine la condición «sin servidor».
 - **Evaluación mide lo renderizado, no solo el código:** un navegador (Playwright) calcula colores, fuentes y contraste reales; las fuentes de la marca se tratan como instaladas en ambas condiciones.
+- **`radio.cuadro-mini` (4 px) para el motivo mini:** el motivo oficial usa 14 % de radio sobre el lado; 6 px (`radio.sm`) daba 23 % y 4 px da 15 %. Se prefirió un token nuevo a un valor calculado para que todo radio siga saliendo de la escala (caso `caso-de-estudio/casos/01-radio-de-5-px.md`).
 - **Paridad por contrato, no por edición:** no hay acceso a ese repositorio; se documenta cómo leer la marca (`docs/paridad.md`) con un ejemplo probado.

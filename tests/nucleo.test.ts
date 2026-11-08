@@ -89,7 +89,7 @@ describe('exportar_tokens (núcleo)', () => {
     const json = JSON.parse(exportarTokens('json').contenido);
     expect(json['color.azul']).toBe('#043565');
     expect(json['tipografia.peso.extranegrita']).toBe(800);
-    expect(Object.keys(json).length).toBe(59);
+    expect(Object.keys(json).length).toBe(60);
   });
   it('los nombres de variable siguen la convención', () => {
     expect(nombreVariable('color.oscuro.acento')).toBe('--color-oscuro-acento');
@@ -97,7 +97,7 @@ describe('exportar_tokens (núcleo)', () => {
     expect(nombreVariable('espaciado.base')).toBe('--spacing-base');
   });
   it('no hay dos tokens con el mismo nombre de variable', () => {
-    expect(variablesDefinidas().size).toBe(59);
+    expect(variablesDefinidas().size).toBe(60);
   });
 });
 

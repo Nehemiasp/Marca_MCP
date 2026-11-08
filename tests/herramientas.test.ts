@@ -28,14 +28,14 @@ describe('catálogo de herramientas', () => {
 });
 
 describe('obtener_tokens', () => {
-  it('sin categoría devuelve los 59 tokens', async () => {
+  it('sin categoría devuelve los 60 tokens', async () => {
     const r = await llamar('obtener_tokens', {});
-    expect(r.s.total).toBe(59);
+    expect(r.s.total).toBe(60);
     expect(r.s.tokens.find((t: any) => t.ruta === 'color.azul')).toMatchObject({ valor: '#043565', variable: '--color-azul' });
   });
   it('filtra por categoría', async () => {
     const r = await llamar('obtener_tokens', { categoria: 'radio' });
-    expect(r.s.tokens.map((t: any) => t.ruta)).toEqual(['radio.sm', 'radio.md', 'radio.lg', 'radio.cuadro', 'radio.pill']);
+    expect(r.s.tokens.map((t: any) => t.ruta)).toEqual(['radio.sm', 'radio.md', 'radio.lg', 'radio.cuadro', 'radio.cuadro-mini', 'radio.pill']);
   });
   it('rechaza una categoría inválida', async () => {
     const r = await llamar('obtener_tokens', { categoria: 'magia' });

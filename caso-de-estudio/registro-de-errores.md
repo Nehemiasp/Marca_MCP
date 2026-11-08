@@ -31,7 +31,7 @@ Se agregan con `npm run error -- --titulo="…" --salida="…"` (ver `errores.ts
 ![Mi propio componente incumple mi propia regla](errores/2026-11-08-radio-fuera-de-escala.png)
 
 - **Causa:** El ejemplo del motivo mini usaba `border-radius: 5px`, un valor que no existe en la escala de radios.
-- **Solución:** Cambié el ejemplo a `var(--radius-sm)` y el logo SVG a un radio de 6.
+- **Solución:** Primero cambié el ejemplo a `var(--radius-sm)` (6 px) y el logo SVG a 6. Después medí que eso alejaba la pieza del motivo oficial y agregué el token `radio.cuadro-mini` (4 px): ahora lo usan el CSS, React y los cuadros del logo.
 - **Aprendizaje:** Cuando las reglas son código, el sistema se corrige a sí mismo. Escribí el componente a ojo y el auditor me lo devolvió.
 
 ## La página pública rompió la regla de las dos fuentes <a id="2026-11-08-fuente-monoespaciada"></a>

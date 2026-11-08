@@ -55,6 +55,7 @@
   "radio.md": "10px",
   "radio.lg": "16px",
   "radio.cuadro": "14px",
+  "radio.cuadro-mini": "4px",
   "radio.pill": "999px",
   "sombra.suave": "0px 1px 2px 0px #0E11160F",
   "sombra.elevada": "0px 8px 24px 0px #0E11161A"

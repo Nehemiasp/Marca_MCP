@@ -3,7 +3,7 @@ nombre: motivo-de-cuadros
 titulo: Motivo de cuadros
 resumen: Rejilla de cuadros redondeados (4×3 o mini 2×2) con una píldora azul de dos columnas. Es la firma gráfica de la marca.
 palabras: [motivo, patrón, patron, rejilla, cuadros, logo, firma, gráfico, grafico, decoración, ornamento, portada]
-tokens: [color.tinta, color.suave, color.azul, color.blanco, color.linea, color.oscuro.cuadro, color.oscuro.acento, color.oscuro.linea, radio.cuadro, radio.pill]
+tokens: [color.tinta, color.suave, color.azul, color.blanco, color.linea, color.oscuro.cuadro, color.oscuro.acento, color.oscuro.linea, radio.cuadro, radio.cuadro-mini, radio.pill]
 variantes: [completo-claro, completo-oscuro, mini-claro, mini-oscuro]
 estados: [reposo]
 ---
@@ -30,7 +30,7 @@ Es la firma visual: una **rejilla de 4 columnas × 3 filas** de cuadros redondea
 Archivos: `motivo-claro.svg`, `motivo-oscuro.svg`, `motivo-mini-claro.svg`, `motivo-mini-oscuro.svg` (herramienta `obtener_asset`, recurso `marca://assets/{nombre}`). Es estático; no tiene estados.
 
 ## Tokens que usa
-`color.tinta`, `color.suave`, `color.azul`, `color.linea`, `radio.cuadro`, `radio.pill`; en oscuro: `color.blanco`, `color.oscuro.cuadro`, `color.oscuro.acento`, `color.oscuro.linea`.
+`color.tinta`, `color.suave`, `color.azul`, `color.linea`, `radio.cuadro` (completo), `radio.cuadro-mini` (mini), `radio.pill`; en oscuro: `color.blanco`, `color.oscuro.cuadro`, `color.oscuro.acento`, `color.oscuro.linea`.
 
 ## Accesibilidad
 - Es decorativo: use `alt=""` o `aria-hidden="true"`; si funciona como logo, `role="img"` y un nombre.
@@ -53,7 +53,7 @@ Archivos: `motivo-claro.svg`, `motivo-oscuro.svg`, `motivo-mini-claro.svg`, `mot
 
 <style>
   .motivo-mini { --lado: 26px; --hueco: 4px; display: grid; grid-template-columns: repeat(2, var(--lado)); gap: var(--hueco); }
-  .motivo-mini__c { display: block; width: var(--lado); height: var(--lado); border-radius: var(--radius-sm); }
+  .motivo-mini__c { display: block; width: var(--lado); height: var(--lado); border-radius: var(--radius-cuadro-mini); }
   .motivo-mini__c--tinta { background: var(--color-tinta); }
   .motivo-mini__c--suave { background: var(--color-suave); }
   .motivo-mini__pildora { grid-column: 1 / -1; height: var(--lado); border-radius: var(--radius-pill); background: var(--color-azul); }
@@ -65,8 +65,8 @@ Archivos: `motivo-claro.svg`, `motivo-oscuro.svg`, `motivo-mini-claro.svg`, `mot
 export function MotivoMini({ oscuro = false }: { oscuro?: boolean }) {
   return (
     <div aria-hidden="true" className="grid grid-cols-[repeat(2,1.625rem)] gap-1">
-      <i className={`block size-[1.625rem] rounded-sm ${oscuro ? 'bg-blanco' : 'bg-tinta'}`} />
-      <i className={`block size-[1.625rem] rounded-sm ${oscuro ? 'bg-oscuro-cuadro' : 'bg-suave'}`} />
+      <i className={`block size-[1.625rem] rounded-cuadro-mini ${oscuro ? 'bg-blanco' : 'bg-tinta'}`} />
+      <i className={`block size-[1.625rem] rounded-cuadro-mini ${oscuro ? 'bg-oscuro-cuadro' : 'bg-suave'}`} />
       <i className={`col-span-2 h-[1.625rem] rounded-pill ${oscuro ? 'bg-oscuro-acento' : 'bg-azul'}`} />
     </div>
   );

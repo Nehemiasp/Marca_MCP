@@ -160,7 +160,7 @@ footer{border-top:1px solid var(--color-linea);padding:var(--spacing-xl) 0;font-
 <section class="bloque" id="forma"><div class="contenedor">
   <header><p class="eyebrow">Forma y espacio</p><h2>Espaciado, radios y <em>sombras.</em></h2><p class="lead">Base de 4 px. Sin sombras por defecto: las dos que existen son la excepción.</p></header>
   <h3 style="margin-bottom:var(--spacing-lg)">Espaciado</h3><ul class="esp"><li><span class="esp__barra" style="width:var(--spacing-xs)"></span><code>xs</code> <span>4px</span></li><li><span class="esp__barra" style="width:var(--spacing-sm)"></span><code>sm</code> <span>8px</span></li><li><span class="esp__barra" style="width:var(--spacing-md)"></span><code>md</code> <span>12px</span></li><li><span class="esp__barra" style="width:var(--spacing-base)"></span><code>base</code> <span>16px</span></li><li><span class="esp__barra" style="width:var(--spacing-lg)"></span><code>lg</code> <span>24px</span></li><li><span class="esp__barra" style="width:var(--spacing-xl)"></span><code>xl</code> <span>32px</span></li><li><span class="esp__barra" style="width:var(--spacing-2xl)"></span><code>2xl</code> <span>48px</span></li><li><span class="esp__barra" style="width:var(--spacing-3xl)"></span><code>3xl</code> <span>64px</span></li><li><span class="esp__barra" style="width:var(--spacing-4xl)"></span><code>4xl</code> <span>96px</span></li></ul>
-  <h3 style="margin:var(--spacing-xl) 0 var(--spacing-lg)">Radios</h3><ul class="fila"><li class="radio"><span class="radio__caja" style="border-radius:var(--radius-sm)"></span><p><code>radio.sm</code><br>6px</p></li><li class="radio"><span class="radio__caja" style="border-radius:var(--radius-md)"></span><p><code>radio.md</code><br>10px</p></li><li class="radio"><span class="radio__caja" style="border-radius:var(--radius-lg)"></span><p><code>radio.lg</code><br>16px</p></li><li class="radio"><span class="radio__caja" style="border-radius:var(--radius-cuadro)"></span><p><code>radio.cuadro</code><br>14px</p></li><li class="radio"><span class="radio__caja" style="border-radius:var(--radius-pill)"></span><p><code>radio.pill</code><br>999px</p></li></ul>
+  <h3 style="margin:var(--spacing-xl) 0 var(--spacing-lg)">Radios</h3><ul class="fila"><li class="radio"><span class="radio__caja" style="border-radius:var(--radius-sm)"></span><p><code>radio.sm</code><br>6px</p></li><li class="radio"><span class="radio__caja" style="border-radius:var(--radius-md)"></span><p><code>radio.md</code><br>10px</p></li><li class="radio"><span class="radio__caja" style="border-radius:var(--radius-lg)"></span><p><code>radio.lg</code><br>16px</p></li><li class="radio"><span class="radio__caja" style="border-radius:var(--radius-cuadro)"></span><p><code>radio.cuadro</code><br>14px</p></li><li class="radio"><span class="radio__caja" style="border-radius:var(--radius-cuadro-mini)"></span><p><code>radio.cuadro-mini</code><br>4px</p></li><li class="radio"><span class="radio__caja" style="border-radius:var(--radius-pill)"></span><p><code>radio.pill</code><br>999px</p></li></ul>
   <h3 style="margin:var(--spacing-xl) 0 var(--spacing-lg)">Sombras</h3><ul class="fila"><li class="sombra"><span class="sombra__caja" style="box-shadow:var(--shadow-suave)"></span><p><code>sombra.suave</code><br>Elevación mínima: tarjetas en reposo.</p></li><li class="sombra"><span class="sombra__caja" style="box-shadow:var(--shadow-elevada)"></span><p><code>sombra.elevada</code><br>Elementos flotantes: menús y diálogos.</p></li></ul>
 </div></section>
 
@@ -512,7 +512,7 @@ export function Boton({ variante = 'principal', className = '', ...props }: Prop
 
 <style>
   .motivo-mini { --lado: 26px; --hueco: 4px; display: grid; grid-template-columns: repeat(2, var(--lado)); gap: var(--hueco); }
-  .motivo-mini__c { display: block; width: var(--lado); height: var(--lado); border-radius: var(--radius-sm); }
+  .motivo-mini__c { display: block; width: var(--lado); height: var(--lado); border-radius: var(--radius-cuadro-mini); }
   .motivo-mini__c--tinta { background: var(--color-tinta); }
   .motivo-mini__c--suave { background: var(--color-suave); }
   .motivo-mini__pildora { grid-column: 1 / -1; height: var(--lado); border-radius: var(--radius-pill); background: var(--color-azul); }
@@ -524,7 +524,7 @@ export function Boton({ variante = 'principal', className = '', ...props }: Prop
 <p>Archivos: <code>motivo-claro.svg</code>, <code>motivo-oscuro.svg</code>, <code>motivo-mini-claro.svg</code>, <code>motivo-mini-oscuro.svg</code> (herramienta <code>obtener_asset</code>, recurso <code>marca://assets/{nombre}</code>). Es estático; no tiene estados.</p></section>
           <section><h4>Accesibilidad</h4><ul><li>Es decorativo: use <code>alt=&quot;&quot;</code> o <code>aria-hidden=&quot;true&quot;</code>; si funciona como logo, <code>role=&quot;img&quot;</code> y un nombre.</li><li>No comunique información solo con el motivo.</li><li>Respete <code>prefers-reduced-motion</code> si lo anima (la marca no exige animación).</li></ul></section>
         </div>
-        <p class="comp__tokens"><strong>Tokens:</strong> <code>color.tinta</code> <code>color.suave</code> <code>color.azul</code> <code>color.blanco</code> <code>color.linea</code> <code>color.oscuro.cuadro</code> <code>color.oscuro.acento</code> <code>color.oscuro.linea</code> <code>radio.cuadro</code> <code>radio.pill</code></p>
+        <p class="comp__tokens"><strong>Tokens:</strong> <code>color.tinta</code> <code>color.suave</code> <code>color.azul</code> <code>color.blanco</code> <code>color.linea</code> <code>color.oscuro.cuadro</code> <code>color.oscuro.acento</code> <code>color.oscuro.linea</code> <code>radio.cuadro</code> <code>radio.cuadro-mini</code> <code>radio.pill</code></p>
         <details><summary>Código · HTML + CSS</summary><pre><code>&lt;!-- Opción simple: el SVG de assets --&gt;
 &lt;img src=&quot;/marca/assets/motivo-claro.svg&quot; alt=&quot;&quot; width=&quot;240&quot; height=&quot;180&quot; /&gt;
 
@@ -537,7 +537,7 @@ export function Boton({ variante = 'principal', className = '', ...props }: Prop
 
 &lt;style&gt;
   .motivo-mini { --lado: 26px; --hueco: 4px; display: grid; grid-template-columns: repeat(2, var(--lado)); gap: var(--hueco); }
-  .motivo-mini__c { display: block; width: var(--lado); height: var(--lado); border-radius: var(--radius-sm); }
+  .motivo-mini__c { display: block; width: var(--lado); height: var(--lado); border-radius: var(--radius-cuadro-mini); }
   .motivo-mini__c--tinta { background: var(--color-tinta); }
   .motivo-mini__c--suave { background: var(--color-suave); }
   .motivo-mini__pildora { grid-column: 1 / -1; height: var(--lado); border-radius: var(--radius-pill); background: var(--color-azul); }
@@ -545,8 +545,8 @@ export function Boton({ variante = 'principal', className = '', ...props }: Prop
         <details><summary>Código · React + Tailwind v4</summary><pre><code>export function MotivoMini({ oscuro = false }: { oscuro?: boolean }) {
   return (
     &lt;div aria-hidden=&quot;true&quot; className=&quot;grid grid-cols-[repeat(2,1.625rem)] gap-1&quot;&gt;
-      &lt;i className={`block size-[1.625rem] rounded-sm ${oscuro ? 'bg-blanco' : 'bg-tinta'}`} /&gt;
-      &lt;i className={`block size-[1.625rem] rounded-sm ${oscuro ? 'bg-oscuro-cuadro' : 'bg-suave'}`} /&gt;
+      &lt;i className={`block size-[1.625rem] rounded-cuadro-mini ${oscuro ? 'bg-blanco' : 'bg-tinta'}`} /&gt;
+      &lt;i className={`block size-[1.625rem] rounded-cuadro-mini ${oscuro ? 'bg-oscuro-cuadro' : 'bg-suave'}`} /&gt;
       &lt;i className={`col-span-2 h-[1.625rem] rounded-pill ${oscuro ? 'bg-oscuro-acento' : 'bg-azul'}`} /&gt;
     &lt;/div&gt;
   );

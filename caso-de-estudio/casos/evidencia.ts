@@ -44,13 +44,14 @@ const mini = (radio: string) =>
 const svgMini = readFileSync(join(marca, 'assets', 'motivo-mini-claro.svg'), 'utf8').replace(/ width="\d+" height="\d+"/, ' width="56" height="56"');
 await pagina(
   nav,
-  `<h1>Tres radios para el mismo cuadrito</h1><div class="rejilla">
+  `<h1>Cuatro radios para el mismo cuadrito</h1><div class="rejilla" style="grid-template-columns:repeat(4,1fr)">
    <div class="celda"><p class="rotulo">Original en CSS</p>${mini('5px')}<p class="dato"><strong>5 px</strong> sobre 26 px = <strong>19 %</strong>. No existía en la escala de radios.</p></div>
    <div class="celda"><p class="rotulo">Corregido con el token</p>${mini('var(--radius-sm)')}<p class="dato"><strong>6 px</strong> sobre 26 px = <strong>23 %</strong>. Es <code>radio.sm</code>: cumple la regla.</p></div>
+   <div class="celda"><p class="rotulo">Decisión: token nuevo</p>${mini('var(--radius-cuadro-mini)')}<p class="dato"><strong>4 px</strong> sobre 26 px = <strong>15 %</strong>. Es <code>radio.cuadro-mini</code>: cumple la regla y casi iguala al motivo.</p></div>
    <div class="celda"><p class="rotulo">Motivo oficial (SVG)</p><div style="zoom:5;width:56px;height:56px">${svgMini}</div><p class="dato"><strong>14 px</strong> sobre 100 px = <strong>14 %</strong>, unos 3.7 px a este tamaño.</p></div>
   </div>`,
   'radio-comparacion',
-  1200
+  1500
 );
 
 // ── Caso 02: por qué no usar Instrument Sans para el código ──

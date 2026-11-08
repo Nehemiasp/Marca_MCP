@@ -16,7 +16,7 @@
     "titulo": "Mi propio componente incumple mi propia regla",
     "salida": "AssertionError: motivo-de-cuadros html: [\"5px no es un radio de la marca. Más cercano: radio.sm (6px).\"]: expected [ { linea: 13, columna: 78, …(7) } ] to deeply equal []",
     "causa": "El ejemplo del motivo mini usaba `border-radius: 5px`, un valor que no existe en la escala de radios.",
-    "solucion": "Cambié el ejemplo a `var(--radius-sm)` y el logo SVG a un radio de 6.",
+    "solucion": "Primero cambié el ejemplo a `var(--radius-sm)` (6 px) y el logo SVG a 6. Después medí que eso alejaba la pieza del motivo oficial y agregué el token `radio.cuadro-mini` (4 px): ahora lo usan el CSS, React y los cuadros del logo.",
     "aprendizaje": "Cuando las reglas son código, el sistema se corrige a sí mismo. Escribí el componente a ojo y el auditor me lo devolvió."
   },
   {

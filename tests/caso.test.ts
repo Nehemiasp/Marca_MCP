@@ -51,7 +51,8 @@ describe('casos desarrollados', () => {
   it('caso del radio: los números siguen siendo ciertos', () => {
     const { porRuta } = cargarTokens();
     expect(porRuta.get('radio.sm')?.valor).toBe('6px');
-    expect(Object.keys(Object.fromEntries([...porRuta].filter(([k]) => k.startsWith('radio.')))).length).toBe(5);
+    expect(Object.keys(Object.fromEntries([...porRuta].filter(([k]) => k.startsWith('radio.')))).length).toBe(6);
+    expect(porRuta.get('radio.cuadro-mini')?.valor).toBe('4px');
     const svg = readFileSync(join(import.meta.dirname, '..', 'marca', 'assets', 'motivo-mini-claro.svg'), 'utf8');
     expect(svg).toContain('viewBox="0 0 212 212"');
     expect(svg).toContain('rx="14"');
