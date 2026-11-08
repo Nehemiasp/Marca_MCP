@@ -17,5 +17,5 @@
     "declaration": false,
     "sourceMap": true
   },
-  "include": ["src", "tests", "evals", "sitio", "api"]
+  "include": ["src", "tests", "evals", "sitio", "api", "ejemplos"]
 }

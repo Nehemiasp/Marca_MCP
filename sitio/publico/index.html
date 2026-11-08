@@ -1,0 +1,850 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Marca · Nehemias Pérez</title>
+<meta name="description" content="Sistema de diseño de la marca personal de Nehemias Pérez, Diseñador UI/UX: colores, tipografías, motivo, componentes y reglas de uso.">
+<link rel="icon" href="assets/motivo-mini-claro.svg" type="image/svg+xml">
+<link rel="stylesheet" href="marca.css">
+<style>
+@font-face{font-family:"Bricolage Grotesque";font-weight:800;font-style:normal;font-display:swap;src:url("assets/fuentes/bricolage-grotesque-latin-800-normal.woff2") format("woff2");}
+@font-face{font-family:"Instrument Sans";font-weight:400;font-style:normal;font-display:swap;src:url("assets/fuentes/instrument-sans-latin-400-normal.woff2") format("woff2");}
+@font-face{font-family:"Instrument Sans";font-weight:500;font-style:normal;font-display:swap;src:url("assets/fuentes/instrument-sans-latin-500-normal.woff2") format("woff2");}
+@font-face{font-family:"Instrument Sans";font-weight:600;font-style:normal;font-display:swap;src:url("assets/fuentes/instrument-sans-latin-600-normal.woff2") format("woff2");}
+@font-face{font-family:"Instrument Sans";font-weight:700;font-style:normal;font-display:swap;src:url("assets/fuentes/instrument-sans-latin-700-normal.woff2") format("woff2");}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+section.bloque,.comp{scroll-margin-top:80px}
+body{margin:0;background:var(--color-fondo);color:var(--color-texto);font:var(--text-base)/var(--text-base--line-height) var(--font-texto)}
+code{font-family:var(--font-codigo);font-size:var(--text-sm);background:var(--color-suave);color:var(--color-tinta);padding:1px 6px;border-radius:var(--radius-sm)}
+pre{background:var(--color-tinta);color:var(--color-oscuro-texto);padding:var(--spacing-lg);border-radius:var(--radius-md);overflow:auto;font-size:var(--text-sm);line-height:var(--text-sm--line-height)}
+pre code{background:none;color:inherit;padding:0;border-radius:0;font-size:inherit}
+a{color:var(--color-azul)}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--color-azul);outline-offset:2px}
+.salto{position:absolute;left:-999px;top:0;background:var(--color-tinta);color:var(--color-blanco);padding:var(--spacing-md)}
+.salto:focus{left:var(--spacing-md);top:var(--spacing-md);z-index:10}
+.contenedor{max-width:1120px;margin:0 auto;padding:0 var(--spacing-lg)}
+.barra{border-bottom:1px solid var(--color-linea);background:var(--color-fondo);position:sticky;top:0;z-index:5}
+.barra .contenedor{display:flex;align-items:center;justify-content:space-between;gap:var(--spacing-lg);min-height:64px;flex-wrap:wrap}
+.barra img{height:36px;width:auto;display:block}
+.barra nav{display:flex;gap:var(--spacing-lg);flex-wrap:wrap}
+.barra nav a{color:var(--color-tinta);text-decoration:none;font-weight:var(--font-weight-seminegrita);font-size:var(--text-sm)}
+.barra nav a:hover{color:var(--color-azul)}
+.eyebrow{margin:0 0 var(--spacing-md);font:var(--font-weight-negrita) var(--text-xs)/var(--text-xs--line-height) var(--font-texto);letter-spacing:var(--tracking-eyebrow);text-transform:uppercase;color:var(--color-azul)}
+h1,h2,h3{font-family:var(--font-titulo);font-weight:var(--font-weight-extranegrita);letter-spacing:var(--tracking-titulo);color:var(--color-tinta);margin:0}
+h1{font-size:clamp(2.5rem,7vw,var(--text-5xl));line-height:1.02}
+h2{font-size:var(--text-3xl);line-height:var(--text-3xl--line-height)}
+h3{font-size:var(--text-2xl);line-height:var(--text-2xl--line-height)}
+h4{font:var(--font-weight-negrita) var(--text-base)/var(--text-base--line-height) var(--font-texto);color:var(--color-tinta);margin:0 0 var(--spacing-sm)}
+em{font-style:normal;color:var(--color-azul)}
+.lead{font-size:var(--text-lg);line-height:var(--text-lg--line-height);max-width:62ch;margin:var(--spacing-md) 0 0}
+.hero{padding:var(--spacing-3xl) 0}
+.hero .contenedor{display:grid;grid-template-columns:1.3fr 1fr;gap:var(--spacing-xl);align-items:center}
+.hero__motivo{width:100%;height:auto;display:block}
+section.bloque{padding:var(--spacing-3xl) 0;border-top:1px solid var(--color-linea)}
+section.bloque>.contenedor>header{margin-bottom:var(--spacing-xl)}
+.cuadricula{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:var(--spacing-lg)}
+.color{display:flex;gap:var(--spacing-md);align-items:flex-start;background:var(--color-blanco);border:1px solid var(--color-linea);border-radius:var(--radius-lg);padding:var(--spacing-md)}
+.color__chip{flex:none;width:56px;height:56px;border-radius:var(--radius-md);border:1px solid var(--color-linea)}
+.color p{margin:0}.color__nombre{font-weight:var(--font-weight-seminegrita);color:var(--color-tinta)}
+.color__hex{font-variant-numeric:tabular-nums}.color__uso{font-size:var(--text-sm);line-height:var(--text-sm--line-height);margin-top:var(--spacing-sm)!important}
+.panel-oscuro{background:var(--color-tinta);border-radius:var(--radius-lg);padding:var(--spacing-xl);margin-top:var(--spacing-xl)}
+.panel-oscuro h3{color:var(--color-oscuro-texto)}
+.panel-oscuro .color{background:var(--color-oscuro-cuadro);border-color:var(--color-oscuro-linea);color:var(--color-oscuro-texto-apagado)}
+.panel-oscuro .color__nombre{color:var(--color-oscuro-texto)}
+.panel-oscuro .color__chip{border-color:var(--color-oscuro-linea)}
+.panel-oscuro code{background:var(--color-tinta);color:var(--color-oscuro-texto)}
+.tabla-scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:var(--text-sm);line-height:var(--text-sm--line-height)}
+thead th{background:var(--color-tinta);color:var(--color-blanco);text-align:left;padding:var(--spacing-md) var(--spacing-lg);font-weight:var(--font-weight-seminegrita)}
+td{padding:var(--spacing-md) var(--spacing-lg);border-bottom:1px solid var(--color-linea);vertical-align:top}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.muestra{display:block;color:var(--color-tinta);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.muestra--titulo{font-family:var(--font-titulo);font-weight:var(--font-weight-extranegrita);letter-spacing:var(--tracking-titulo)}
+.muestra--texto{font-family:var(--font-texto)}
+.familias{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--spacing-lg);margin-bottom:var(--spacing-xl)}
+.familia{background:var(--color-blanco);border:1px solid var(--color-linea);border-radius:var(--radius-lg);padding:var(--spacing-lg)}
+.familia__a{font-size:var(--text-4xl);line-height:1;color:var(--color-tinta);margin:0 0 var(--spacing-md)}
+.familia--titulo .familia__a{font-family:var(--font-titulo);font-weight:var(--font-weight-extranegrita);letter-spacing:var(--tracking-titulo)}
+.familia--texto .familia__a{font-family:var(--font-texto);font-weight:var(--font-weight-medio)}
+.pesos{display:flex;flex-wrap:wrap;gap:var(--spacing-md);font-size:var(--text-lg);margin:0;padding:0;list-style:none}
+.esp{list-style:none;margin:0;padding:0;display:grid;gap:var(--spacing-sm)}.esp li{display:flex;align-items:center;gap:var(--spacing-md)}
+.esp__barra{display:block;height:16px;background:var(--color-azul);border-radius:var(--radius-sm);flex:none}
+.fila{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:var(--spacing-xl)}
+.radio,.sombra{display:flex;flex-direction:column;gap:var(--spacing-md);margin:0}
+.radio p,.sombra p{margin:0;font-size:var(--text-sm);line-height:var(--text-sm--line-height);max-width:20ch}
+.radio__caja{display:block;width:96px;height:96px;background:var(--color-tinta)}
+.radio:last-child .radio__caja{width:160px;height:56px}
+.sombra__caja{display:block;width:160px;height:96px;background:var(--color-blanco);border:1px solid var(--color-linea);border-radius:var(--radius-lg)}
+.motivos{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--spacing-lg)}
+.motivo-panel{border-radius:var(--radius-lg);padding:var(--spacing-xl);display:flex;gap:var(--spacing-xl);align-items:center;flex-wrap:wrap;border:1px solid var(--color-linea)}
+.motivo-panel--claro{background:var(--color-blanco)}.motivo-panel--oscuro{background:var(--color-tinta);border-color:var(--color-tinta)}
+.motivo-panel svg{display:block;height:auto}
+.motivo-panel .grande{width:200px}.motivo-panel .mini{width:64px}
+.logos{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--spacing-lg);margin-top:var(--spacing-lg)}
+.logo-panel{border-radius:var(--radius-lg);padding:var(--spacing-xl);border:1px solid var(--color-linea);background:var(--color-blanco)}
+.logo-panel--oscuro{background:var(--color-tinta);border-color:var(--color-tinta)}.logo-panel img{width:100%;max-width:340px;height:auto;display:block}
+.comp{padding:var(--spacing-xl) 0;border-top:1px solid var(--color-linea)}
+.comp:first-of-type{border-top:0;padding-top:0}
+.demo{background:var(--color-blanco);border:1px solid var(--color-linea);border-radius:var(--radius-lg);padding:var(--spacing-xl);margin:var(--spacing-lg) 0 var(--spacing-sm);overflow:auto}
+.demo--portada-de-documento .portada{min-height:520px}
+.demo--tarjeta-de-proyecto .tarjeta{max-width:380px}
+.demo__nota{margin:0 0 var(--spacing-lg);font-size:var(--text-sm);color:var(--color-apagado)}
+.comp__cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--spacing-lg);margin:var(--spacing-lg) 0;font-size:var(--text-sm);line-height:var(--text-sm--line-height)}
+.comp__cols ul{margin:0;padding-left:var(--spacing-lg)}.comp__cols p{margin:0 0 var(--spacing-sm)}
+.comp__tokens{font-size:var(--text-sm)}.comp__tokens code{margin-right:4px;display:inline-block;margin-bottom:4px}
+details{border-top:1px solid var(--color-linea);padding:var(--spacing-md) 0}
+summary{cursor:pointer;font-weight:var(--font-weight-seminegrita);color:var(--color-tinta)}
+.reglas h3{font-size:var(--text-xl);line-height:var(--text-xl--line-height);margin:var(--spacing-xl) 0 var(--spacing-md)}
+.reglas ul{padding-left:var(--spacing-lg)}.reglas li{margin-bottom:var(--spacing-sm)}
+.descargas{display:flex;flex-wrap:wrap;gap:var(--spacing-md);list-style:none;margin:var(--spacing-lg) 0 0;padding:0}
+.descargas a{display:inline-block;min-height:44px;line-height:44px;padding:0 var(--spacing-lg);border:1px solid var(--color-linea);border-radius:var(--radius-md);text-decoration:none;color:var(--color-tinta);font-weight:var(--font-weight-seminegrita);font-size:var(--text-sm);background:var(--color-blanco)}
+.descargas a:hover{border-color:var(--color-tinta)}
+footer{border-top:1px solid var(--color-linea);padding:var(--spacing-xl) 0;font-size:var(--text-sm);color:var(--color-apagado)}
+@media (max-width:760px){.hero .contenedor{grid-template-columns:1fr}.hero__motivo{max-width:260px}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<a class="salto" href="#contenido">Saltar al contenido</a>
+<div class="barra"><div class="contenedor">
+  <img src="assets/logo-claro.svg" alt="Nehemias Pérez · Diseñador UI/UX" width="340" height="56">
+  <nav aria-label="Secciones"><a href="#colores">Colores</a><a href="#tipografia">Tipografía</a><a href="#forma">Forma</a><a href="#motivo">Motivo</a><a href="#componentes">Componentes</a><a href="#reglas">Reglas</a></nav>
+</div></div>
+<main id="contenido">
+<section class="hero"><div class="contenedor">
+  <div><p class="eyebrow">Sistema de diseño</p>
+  <h1>Interfaces pensadas para <em>implementarse.</em></h1>
+  <p class="lead">Colores, tipografías, motivo, componentes y reglas de la marca personal de Nehemias Pérez, Diseñador UI/UX. Esta página se genera desde <code>tokens.json</code> y los componentes: es la misma fuente de verdad que lee el servidor MCP «Marca».</p>
+  <ul class="descargas"><li><a href="tokens.json">tokens.json (DTCG)</a></li><li><a href="marca.css">marca.css</a></li><li><a href="marca-tailwind.css">Tailwind v4 (@theme)</a></li><li><a href="tokens.plano.json">JSON plano</a></li></ul></div>
+  <div class="hero__motivo" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 436 324" role="img" aria-labelledby="t"><title id="t">Motivo de marca: rejilla de 4 por 3 (claro)</title><rect x="0" y="0" width="100" height="100" rx="14" fill="#0E1116"/><rect x="112" y="0" width="100" height="100" rx="14" fill="#ECEDEF"/><rect x="225" y="1" width="98" height="98" rx="14" fill="none" stroke="#DADDE2" stroke-width="2"/><rect x="336" y="0" width="100" height="100" rx="14" fill="#0E1116"/><rect x="0" y="112" width="100" height="100" rx="14" fill="#ECEDEF"/><rect x="112" y="112" width="212" height="100" rx="50" fill="#043565"/><rect x="336" y="112" width="100" height="100" rx="14" fill="#ECEDEF"/><rect x="1" y="225" width="98" height="98" rx="14" fill="none" stroke="#DADDE2" stroke-width="2"/><rect x="112" y="224" width="100" height="100" rx="14" fill="#0E1116"/><rect x="224" y="224" width="100" height="100" rx="14" fill="#ECEDEF"/><rect x="337" y="225" width="98" height="98" rx="14" fill="none" stroke="#DADDE2" stroke-width="2"/></svg>
+</div>
+</div></section>
+
+<section class="bloque" id="colores"><div class="contenedor">
+  <header><p class="eyebrow">Color</p><h2>Una paleta corta, con <em>un solo</em> acento.</h2>
+  <p class="lead">El azul es solo acento: la palabra destacada, los eyebrows y la píldora del motivo. Nunca en bloques grandes.</p></header>
+  <ul class="cuadricula"><li class="color"><span class="color__chip" style="background:var(--color-tinta)" aria-hidden="true"></span>
+      <div><p class="color__nombre">color.tinta</p><p class="color__hex">#0E1116</p><p class="color__var"><code>--color-tinta</code></p><p class="color__uso">Títulos, fondos oscuros y cuadros del motivo.</p></div></li><li class="color"><span class="color__chip" style="background:var(--color-texto)" aria-hidden="true"></span>
+      <div><p class="color__nombre">color.texto</p><p class="color__hex">#2B2F36</p><p class="color__var"><code>--color-texto</code></p><p class="color__uso">Texto de lectura.</p></div></li><li class="color"><span class="color__chip" style="background:var(--color-apagado)" aria-hidden="true"></span>
+      <div><p class="color__nombre">color.apagado</p><p class="color__hex">#6A707A</p><p class="color__var"><code>--color-apagado</code></p><p class="color__uso">Texto secundario y etiquetas.</p></div></li><li class="color"><span class="color__chip" style="background:var(--color-linea)" aria-hidden="true"></span>
+      <div><p class="color__nombre">color.linea</p><p class="color__hex">#DADDE2</p><p class="color__var"><code>--color-linea</code></p><p class="color__uso">Bordes y divisores.</p></div></li><li class="color"><span class="color__chip" style="background:var(--color-suave)" aria-hidden="true"></span>
+      <div><p class="color__nombre">color.suave</p><p class="color__hex">#ECEDEF</p><p class="color__var"><code>--color-suave</code></p><p class="color__uso">Fondos de etiquetas y cuadros claros del motivo.</p></div></li><li class="color"><span class="color__chip" style="background:var(--color-fondo)" aria-hidden="true"></span>
+      <div><p class="color__nombre">color.fondo</p><p class="color__hex">#FAFAF8</p><p class="color__var"><code>--color-fondo</code></p><p class="color__uso">Fondo de página.</p></div></li><li class="color"><span class="color__chip" style="background:var(--color-blanco)" aria-hidden="true"></span>
+      <div><p class="color__nombre">color.blanco</p><p class="color__hex">#FFFFFF</p><p class="color__var"><code>--color-blanco</code></p><p class="color__uso">Texto sobre tinta o azul, y cuadros blancos del motivo oscuro.</p></div></li><li class="color"><span class="color__chip" style="background:var(--color-azul)" aria-hidden="true"></span>
+      <div><p class="color__nombre">color.azul</p><p class="color__hex">#043565</p><p class="color__var"><code>--color-azul</code></p><p class="color__uso">Acento: palabra destacada, eyebrows y píldora del motivo. Nunca en bloques grandes.</p></div></li><li class="color"><span class="color__chip" style="background:var(--color-azul-suave)" aria-hidden="true"></span>
+      <div><p class="color__nombre">color.azul-suave</p><p class="color__hex">#E8EFF7</p><p class="color__var"><code>--color-azul-suave</code></p><p class="color__uso">Fondo del aviso destacado (junto a un borde izquierdo en color.azul). Valor propuesto: derivado del azul al 8%.</p></div></li></ul>
+  <div class="panel-oscuro"><h3>Sobre fondo oscuro</h3><p class="lead" style="color:var(--color-oscuro-texto-apagado)">Cuando el fondo es <code>color.tinta</code>, se usan estas variantes.</p>
+  <ul class="cuadricula" style="margin-top:var(--spacing-lg)"><li class="color"><span class="color__chip" style="background:var(--color-oscuro-texto)" aria-hidden="true"></span>
+      <div><p class="color__nombre">color.oscuro.texto</p><p class="color__hex">#FFFFFF</p><p class="color__var"><code>--color-oscuro-texto</code></p><p class="color__uso">Texto principal sobre tinta.</p></div></li><li class="color"><span class="color__chip" style="background:var(--color-oscuro-texto-apagado)" aria-hidden="true"></span>
+      <div><p class="color__nombre">color.oscuro.texto-apagado</p><p class="color__hex">#A3ABB6</p><p class="color__var"><code>--color-oscuro-texto-apagado</code></p><p class="color__uso">Texto secundario sobre tinta.</p></div></li><li class="color"><span class="color__chip" style="background:var(--color-oscuro-linea)" aria-hidden="true"></span>
+      <div><p class="color__nombre">color.oscuro.linea</p><p class="color__hex">#2A303A</p><p class="color__var"><code>--color-oscuro-linea</code></p><p class="color__uso">Bordes sobre tinta.</p></div></li><li class="color"><span class="color__chip" style="background:var(--color-oscuro-cuadro)" aria-hidden="true"></span>
+      <div><p class="color__nombre">color.oscuro.cuadro</p><p class="color__hex">#262C35</p><p class="color__var"><code>--color-oscuro-cuadro</code></p><p class="color__uso">Cuadros del motivo sobre tinta.</p></div></li><li class="color"><span class="color__chip" style="background:var(--color-oscuro-acento)" aria-hidden="true"></span>
+      <div><p class="color__nombre">color.oscuro.acento</p><p class="color__hex">#8DB6E8</p><p class="color__var"><code>--color-oscuro-acento</code></p><p class="color__uso">Acento y píldora del motivo sobre tinta.</p></div></li></ul></div>
+  <h3 style="margin:var(--spacing-3xl) 0 var(--spacing-lg)">Pares de texto permitidos</h3>
+  <div class="tabla-scroll"><table><thead><tr><th>Par</th><th>Contraste</th><th>Nivel</th><th>Uso</th></tr></thead><tbody><tr><td><code>color.tinta</code> sobre <code>color.fondo</code></td><td class="num">18.1:1</td><td>AAA</td><td>Títulos sobre página.</td></tr><tr><td><code>color.texto</code> sobre <code>color.fondo</code></td><td class="num">12.86:1</td><td>AAA</td><td>Texto de lectura.</td></tr><tr><td><code>color.apagado</code> sobre <code>color.fondo</code></td><td class="num">4.77:1</td><td>AA</td><td>Texto secundario sobre página.</td></tr><tr><td><code>color.azul</code> sobre <code>color.fondo</code></td><td class="num">11.8:1</td><td>AAA</td><td>Palabra destacada y eyebrows.</td></tr><tr><td><code>color.tinta</code> sobre <code>color.suave</code></td><td class="num">16.14:1</td><td>AAA</td><td>Texto dentro de etiquetas.</td></tr><tr><td><code>color.texto</code> sobre <code>color.azul-suave</code></td><td class="num">11.6:1</td><td>AAA</td><td>Texto dentro del aviso destacado.</td></tr><tr><td><code>color.azul</code> sobre <code>color.azul-suave</code></td><td class="num">10.64:1</td><td>AAA</td><td>Eyebrow o enlace dentro del aviso.</td></tr><tr><td><code>color.blanco</code> sobre <code>color.tinta</code></td><td class="num">18.91:1</td><td>AAA</td><td>Encabezado de tabla y botón principal.</td></tr><tr><td><code>color.blanco</code> sobre <code>color.azul</code></td><td class="num">12.34:1</td><td>AAA</td><td>Texto sobre bloques o botones azules.</td></tr><tr><td><code>color.oscuro.texto</code> sobre <code>color.tinta</code></td><td class="num">18.91:1</td><td>AAA</td><td>Texto principal sobre tinta.</td></tr><tr><td><code>color.oscuro.texto-apagado</code> sobre <code>color.tinta</code></td><td class="num">8.16:1</td><td>AAA</td><td>Texto secundario sobre tinta.</td></tr><tr><td><code>color.oscuro.acento</code> sobre <code>color.tinta</code></td><td class="num">9:1</td><td>AAA</td><td>Acento sobre tinta.</td></tr><tr><td><code>color.apagado</code> sobre <code>color.suave</code></td><td colspan="3">Contraste bajo para texto pequeño; use color.texto o color.tinta dentro de etiquetas.</td></tr><tr><td><code>color.azul</code> sobre <code>color.tinta</code></td><td colspan="3">Sobre tinta use color.oscuro.acento.</td></tr></tbody></table></div>
+</div></section>
+
+<section class="bloque" id="tipografia"><div class="contenedor">
+  <header><p class="eyebrow">Tipografía</p><h2>Dos familias, <em>una</em> jerarquía.</h2></header>
+  <div class="familias">
+    <div class="familia familia--titulo"><p class="familia__a">Bricolage Grotesque</p><p><code>--font-titulo</code> · peso 800 · letras a −0.02em. Títulos, nombre y cifras grandes.</p></div>
+    <div class="familia familia--texto"><p class="familia__a">Instrument Sans</p><ul class="pesos"><li style="font-weight:400">400</li><li style="font-weight:500">500</li><li style="font-weight:600">600</li><li style="font-weight:700">700</li></ul><p><code>--font-texto</code> · texto, interfaz y etiquetas.</p></div>
+  </div>
+  <p class="eyebrow">Eyebrow · Instrument Sans 700 · mayúsculas · 0.12em</p>
+  <h3 style="margin:var(--spacing-xl) 0 var(--spacing-lg)">Escala tipográfica</h3>
+  <div class="tabla-scroll"><table><thead><tr><th>Token</th><th>Tamaño / línea</th><th>Muestra</th><th>Uso</th></tr></thead><tbody><tr><td><code>xs</code></td><td class="num">12px / 16px</td><td><span class="muestra muestra--texto" style="font-size:min(var(--text-xs),9vw);line-height:var(--text-xs--line-height)">Interfaces pensadas</span></td><td>Etiquetas, eyebrows, notas al pie.</td></tr><tr><td><code>sm</code></td><td class="num">14px / 20px</td><td><span class="muestra muestra--texto" style="font-size:min(var(--text-sm),9vw);line-height:var(--text-sm--line-height)">Interfaces pensadas</span></td><td>Texto de interfaz, metadatos, tablas densas.</td></tr><tr><td><code>base</code></td><td class="num">16px / 26px</td><td><span class="muestra muestra--texto" style="font-size:min(var(--text-base),9vw);line-height:var(--text-base--line-height)">Interfaces pensadas</span></td><td>Texto de lectura.</td></tr><tr><td><code>lg</code></td><td class="num">18px / 28px</td><td><span class="muestra muestra--texto" style="font-size:min(var(--text-lg),9vw);line-height:var(--text-lg--line-height)">Interfaces pensadas</span></td><td>Texto destacado o introducción.</td></tr><tr><td><code>xl</code></td><td class="num">22px / 30px</td><td><span class="muestra muestra--texto" style="font-size:min(var(--text-xl),9vw);line-height:var(--text-xl--line-height)">Interfaces pensadas</span></td><td>Subtítulos y títulos de tarjeta.</td></tr><tr><td><code>2xl</code></td><td class="num">28px / 34px</td><td><span class="muestra muestra--titulo" style="font-size:min(var(--text-2xl),9vw);line-height:var(--text-2xl--line-height)">Interfaces pensadas</span></td><td>Títulos de sección.</td></tr><tr><td><code>3xl</code></td><td class="num">36px / 40px</td><td><span class="muestra muestra--titulo" style="font-size:min(var(--text-3xl),9vw);line-height:var(--text-3xl--line-height)">Interfaces pensadas</span></td><td>Títulos de página.</td></tr><tr><td><code>4xl</code></td><td class="num">48px / 52px</td><td><span class="muestra muestra--titulo" style="font-size:min(var(--text-4xl),9vw);line-height:var(--text-4xl--line-height)">Interfaces pensadas</span></td><td>Título de portada o hero en pantallas medianas.</td></tr><tr><td><code>5xl</code></td><td class="num">64px / 64px</td><td><span class="muestra muestra--titulo" style="font-size:min(var(--text-5xl),9vw);line-height:var(--text-5xl--line-height)">Interfaces pensadas</span></td><td>Título display: hero y portada de documento.</td></tr></tbody></table></div>
+</div></section>
+
+<section class="bloque" id="forma"><div class="contenedor">
+  <header><p class="eyebrow">Forma y espacio</p><h2>Espaciado, radios y <em>sombras.</em></h2><p class="lead">Base de 4 px. Sin sombras por defecto: las dos que existen son la excepción.</p></header>
+  <h3 style="margin-bottom:var(--spacing-lg)">Espaciado</h3><ul class="esp"><li><span class="esp__barra" style="width:var(--spacing-xs)"></span><code>xs</code> <span>4px</span></li><li><span class="esp__barra" style="width:var(--spacing-sm)"></span><code>sm</code> <span>8px</span></li><li><span class="esp__barra" style="width:var(--spacing-md)"></span><code>md</code> <span>12px</span></li><li><span class="esp__barra" style="width:var(--spacing-base)"></span><code>base</code> <span>16px</span></li><li><span class="esp__barra" style="width:var(--spacing-lg)"></span><code>lg</code> <span>24px</span></li><li><span class="esp__barra" style="width:var(--spacing-xl)"></span><code>xl</code> <span>32px</span></li><li><span class="esp__barra" style="width:var(--spacing-2xl)"></span><code>2xl</code> <span>48px</span></li><li><span class="esp__barra" style="width:var(--spacing-3xl)"></span><code>3xl</code> <span>64px</span></li><li><span class="esp__barra" style="width:var(--spacing-4xl)"></span><code>4xl</code> <span>96px</span></li></ul>
+  <h3 style="margin:var(--spacing-xl) 0 var(--spacing-lg)">Radios</h3><ul class="fila"><li class="radio"><span class="radio__caja" style="border-radius:var(--radius-sm)"></span><p><code>radio.sm</code><br>6px</p></li><li class="radio"><span class="radio__caja" style="border-radius:var(--radius-md)"></span><p><code>radio.md</code><br>10px</p></li><li class="radio"><span class="radio__caja" style="border-radius:var(--radius-lg)"></span><p><code>radio.lg</code><br>16px</p></li><li class="radio"><span class="radio__caja" style="border-radius:var(--radius-cuadro)"></span><p><code>radio.cuadro</code><br>14px</p></li><li class="radio"><span class="radio__caja" style="border-radius:var(--radius-pill)"></span><p><code>radio.pill</code><br>999px</p></li></ul>
+  <h3 style="margin:var(--spacing-xl) 0 var(--spacing-lg)">Sombras</h3><ul class="fila"><li class="sombra"><span class="sombra__caja" style="box-shadow:var(--shadow-suave)"></span><p><code>sombra.suave</code><br>Elevación mínima: tarjetas en reposo.</p></li><li class="sombra"><span class="sombra__caja" style="box-shadow:var(--shadow-elevada)"></span><p><code>sombra.elevada</code><br>Elementos flotantes: menús y diálogos.</p></li></ul>
+</div></section>
+
+<section class="bloque" id="motivo"><div class="contenedor">
+  <header><p class="eyebrow">Motivo de marca</p><h2>Una rejilla y <em>una píldora.</em></h2>
+  <p class="lead">Cuadros redondeados de 4 columnas por 3 filas (tinta, suaves y vacíos) y una píldora azul de dos columnas. Existe una versión mini de 2 × 2. Nunca va detrás de texto largo.</p></header>
+  <div class="motivos">
+    <div class="motivo-panel motivo-panel--claro"><div class="grande" role="img" aria-label="Motivo completo, claro"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 436 324" role="img" aria-labelledby="t"><title id="t">Motivo de marca: rejilla de 4 por 3 (claro)</title><rect x="0" y="0" width="100" height="100" rx="14" fill="#0E1116"/><rect x="112" y="0" width="100" height="100" rx="14" fill="#ECEDEF"/><rect x="225" y="1" width="98" height="98" rx="14" fill="none" stroke="#DADDE2" stroke-width="2"/><rect x="336" y="0" width="100" height="100" rx="14" fill="#0E1116"/><rect x="0" y="112" width="100" height="100" rx="14" fill="#ECEDEF"/><rect x="112" y="112" width="212" height="100" rx="50" fill="#043565"/><rect x="336" y="112" width="100" height="100" rx="14" fill="#ECEDEF"/><rect x="1" y="225" width="98" height="98" rx="14" fill="none" stroke="#DADDE2" stroke-width="2"/><rect x="112" y="224" width="100" height="100" rx="14" fill="#0E1116"/><rect x="224" y="224" width="100" height="100" rx="14" fill="#ECEDEF"/><rect x="337" y="225" width="98" height="98" rx="14" fill="none" stroke="#DADDE2" stroke-width="2"/></svg>
+</div><div class="mini" role="img" aria-label="Motivo mini, claro"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 212 212" role="img" aria-labelledby="t"><title id="t">Motivo de marca mini: rejilla de 2 por 2 (claro)</title><rect x="0" y="0" width="100" height="100" rx="14" fill="#0E1116"/><rect x="112" y="0" width="100" height="100" rx="14" fill="#ECEDEF"/><rect x="0" y="112" width="212" height="100" rx="50" fill="#043565"/></svg>
+</div></div>
+    <div class="motivo-panel motivo-panel--oscuro"><div class="grande" role="img" aria-label="Motivo completo, oscuro"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 436 324" role="img" aria-labelledby="t"><title id="t">Motivo de marca: rejilla de 4 por 3 (oscuro)</title><rect x="0" y="0" width="100" height="100" rx="14" fill="#FFFFFF"/><rect x="112" y="0" width="100" height="100" rx="14" fill="#262C35"/><rect x="225" y="1" width="98" height="98" rx="14" fill="none" stroke="#2A303A" stroke-width="2"/><rect x="336" y="0" width="100" height="100" rx="14" fill="#FFFFFF"/><rect x="0" y="112" width="100" height="100" rx="14" fill="#262C35"/><rect x="112" y="112" width="212" height="100" rx="50" fill="#8DB6E8"/><rect x="336" y="112" width="100" height="100" rx="14" fill="#262C35"/><rect x="1" y="225" width="98" height="98" rx="14" fill="none" stroke="#2A303A" stroke-width="2"/><rect x="112" y="224" width="100" height="100" rx="14" fill="#FFFFFF"/><rect x="224" y="224" width="100" height="100" rx="14" fill="#262C35"/><rect x="337" y="225" width="98" height="98" rx="14" fill="none" stroke="#2A303A" stroke-width="2"/></svg>
+</div><div class="mini" role="img" aria-label="Motivo mini, oscuro"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 212 212" role="img" aria-labelledby="t"><title id="t">Motivo de marca mini: rejilla de 2 por 2 (oscuro)</title><rect x="0" y="0" width="100" height="100" rx="14" fill="#FFFFFF"/><rect x="112" y="0" width="100" height="100" rx="14" fill="#262C35"/><rect x="0" y="112" width="212" height="100" rx="50" fill="#8DB6E8"/></svg>
+</div></div>
+  </div>
+  <div class="logos"><div class="logo-panel"><img src="assets/logo-claro.svg" alt="Logo sobre fondo claro"></div><div class="logo-panel logo-panel--oscuro"><img src="assets/logo-oscuro.svg" alt="Logo sobre fondo oscuro"></div></div>
+</div></section>
+
+<section class="bloque" id="componentes"><div class="contenedor">
+  <header><p class="eyebrow">Componentes</p><h2>Piezas listas para <em>implementar.</em></h2><p class="lead">Cada componente se muestra en vivo con el mismo HTML y CSS de su documentación, e incluye código para React + Tailwind v4 y para impresión (PDF).</p></header>
+  <article class="comp" id="comp-aviso-destacado">
+        <header><p class="eyebrow">Componente</p><h3>Aviso destacado</h3><p class="lead">Bloque con fondo azul suave y borde izquierdo azul para una nota, advertencia o dato clave dentro de un texto.</p></header>
+        <div class="demo demo--aviso-destacado"><aside class="aviso" role="note">
+  <p class="aviso__titulo">Importante</p>
+  <p class="aviso__texto">La propuesta incluye dos rondas de revisión y tiene vigencia de 15 días.</p>
+</aside>
+
+<style>
+  .aviso { background: var(--color-azul-suave); border-left: 4px solid var(--color-azul); border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: var(--spacing-lg); }
+  .aviso__titulo { margin: 0 0 var(--spacing-sm); font: var(--font-weight-negrita) var(--text-base)/var(--text-base--line-height) var(--font-texto); color: var(--color-tinta); }
+  .aviso__texto { margin: 0; font: var(--text-base)/var(--text-base--line-height) var(--font-texto); color: var(--color-texto); }
+</style></div>
+        <div class="comp__cols">
+          <section><h4>Para qué sirve</h4><p>Resalta una nota o dato clave dentro de un texto: una condición, un plazo, una aclaración. Fondo <code>color.azul-suave</code> con <strong>borde izquierdo de 4px en <code>color.azul</code></strong>.</p></section>
+          <section><h4>Cuándo no usarlo</h4><ul><li>Para mensajes de error o éxito de formularios: la marca no define rojo ni verde; use texto claro y un icono.</li><li>Más de uno por pantalla o por página impresa: pierde su función.</li><li>Para bloques largos: máximo tres líneas.</li><li>Como fondo de secciones enteras: el azul es acento, no bloque grande.</li></ul></section>
+          <section><h4>Variantes y estados</h4><ul><li><strong>Informativo:</strong> solo texto.</li><li><strong>Con título:</strong> primera línea en negrita (<code>tipografia.peso.negrita</code>) con <code>color.tinta</code>.</li></ul>
+<p>Texto siempre <code>color.texto</code> (o <code>color.tinta</code> para el título). Sin estados.</p></section>
+          <section><h4>Accesibilidad</h4><ul><li>Contraste <code>color.texto</code> sobre <code>color.azul-suave</code>: AAA.</li><li>Use <code>role=&quot;note&quot;</code> para notas; <code>role=&quot;status&quot;</code> solo si aparece dinámicamente.</li><li>El significado no depende del color: incluya un título como «Importante» o «Nota».</li></ul></section>
+        </div>
+        <p class="comp__tokens"><strong>Tokens:</strong> <code>color.azul-suave</code> <code>color.azul</code> <code>color.texto</code> <code>color.tinta</code> <code>tipografia.familia.texto</code> <code>tipografia.tamano.base</code> <code>radio.md</code> <code>espaciado.lg</code> <code>espaciado.md</code></p>
+        <details><summary>Código · HTML + CSS</summary><pre><code>&lt;aside class=&quot;aviso&quot; role=&quot;note&quot;&gt;
+  &lt;p class=&quot;aviso__titulo&quot;&gt;Importante&lt;/p&gt;
+  &lt;p class=&quot;aviso__texto&quot;&gt;La propuesta incluye dos rondas de revisión y tiene vigencia de 15 días.&lt;/p&gt;
+&lt;/aside&gt;
+
+&lt;style&gt;
+  .aviso { background: var(--color-azul-suave); border-left: 4px solid var(--color-azul); border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: var(--spacing-lg); }
+  .aviso__titulo { margin: 0 0 var(--spacing-sm); font: var(--font-weight-negrita) var(--text-base)/var(--text-base--line-height) var(--font-texto); color: var(--color-tinta); }
+  .aviso__texto { margin: 0; font: var(--text-base)/var(--text-base--line-height) var(--font-texto); color: var(--color-texto); }
+&lt;/style&gt;</code></pre></details>
+        <details><summary>Código · React + Tailwind v4</summary><pre><code>export function AvisoDestacado({ titulo, children }: { titulo?: string; children: React.ReactNode }) {
+  return (
+    &lt;aside role=&quot;note&quot; className=&quot;rounded-r-md border-l-4 border-azul bg-azul-suave p-lg&quot;&gt;
+      {titulo &amp;&amp; &lt;p className=&quot;mb-sm font-texto text-base font-negrita text-tinta&quot;&gt;{titulo}&lt;/p&gt;}
+      &lt;p className=&quot;font-texto text-base text-texto&quot;&gt;{children}&lt;/p&gt;
+    &lt;/aside&gt;
+  );
+}</code></pre></details>
+        <details><summary>Código · Impresión (PDF)</summary><pre><code>@media print {
+  .aviso { break-inside: avoid; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}</code></pre></details>
+      </article>
+<article class="comp" id="comp-bloque-de-contacto">
+        <header><p class="eyebrow">Componente</p><h3>Bloque de contacto con QR</h3><p class="lead">Nombre, título, medios de contacto y un código QR. Cierra propuestas, tarjetas y presentaciones.</p></header>
+        <div class="demo demo--bloque-de-contacto"><section class="contacto">
+  <div class="contacto__datos">
+    <h2 class="contacto__nombre">Nehemias Pérez</h2>
+    <p class="contacto__titulo">Diseñador UI/UX</p>
+    <dl class="contacto__lista">
+      <dt>Web</dt><dd><a href="https://nehemiasperez.com">nehemiasperez.com</a></dd>
+      <dt>Correo</dt><dd><a href="mailto:correo@ejemplo.com">correo@ejemplo.com</a></dd>
+    </dl>
+  </div>
+  <img class="contacto__qr" src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2021%2021%22%20shape-rendering%3D%22crispEdges%22%3E%3Crect%20width%3D%2221%22%20height%3D%2221%22%20fill%3D%22%23fff%22%2F%3E%3Cpath%20fill%3D%22%230E1116%22%20d%3D%22M0%200h7v7h-7z%22%2F%3E%3Cpath%20fill%3D%22%23fff%22%20d%3D%22M1%201h5v5h-5z%22%2F%3E%3Cpath%20fill%3D%22%230E1116%22%20d%3D%22M2%202h3v3h-3z%22%2F%3E%3Cpath%20fill%3D%22%230E1116%22%20d%3D%22M14%200h7v7h-7z%22%2F%3E%3Cpath%20fill%3D%22%23fff%22%20d%3D%22M15%201h5v5h-5z%22%2F%3E%3Cpath%20fill%3D%22%230E1116%22%20d%3D%22M16%202h3v3h-3z%22%2F%3E%3Cpath%20fill%3D%22%230E1116%22%20d%3D%22M0%2014h7v7h-7z%22%2F%3E%3Cpath%20fill%3D%22%23fff%22%20d%3D%22M1%2015h5v5h-5z%22%2F%3E%3Cpath%20fill%3D%22%230E1116%22%20d%3D%22M2%2016h3v3h-3z%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%220%22%20y%3D%223%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%227%22%20y%3D%2214%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%2214%22%20y%3D%224%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%220%22%20y%3D%2215%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%227%22%20y%3D%225%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%2214%22%20y%3D%2216%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%220%22%20y%3D%226%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%227%22%20y%3D%2217%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%2214%22%20y%3D%227%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%220%22%20y%3D%2218%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%227%22%20y%3D%228%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%2214%22%20y%3D%2219%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%220%22%20y%3D%229%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%227%22%20y%3D%2220%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%2214%22%20y%3D%2210%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%220%22%20y%3D%220%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%227%22%20y%3D%2211%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%2214%22%20y%3D%221%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%220%22%20y%3D%2212%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%227%22%20y%3D%222%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%2214%22%20y%3D%2213%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%220%22%20y%3D%223%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%227%22%20y%3D%2214%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%2214%22%20y%3D%224%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%220%22%20y%3D%2215%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%227%22%20y%3D%225%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%2214%22%20y%3D%2216%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%220%22%20y%3D%226%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%227%22%20y%3D%2217%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%2214%22%20y%3D%227%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%220%22%20y%3D%2218%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%227%22%20y%3D%228%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%2214%22%20y%3D%2219%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%220%22%20y%3D%229%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%227%22%20y%3D%2220%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%2214%22%20y%3D%2210%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%220%22%20y%3D%220%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%227%22%20y%3D%2211%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%2214%22%20y%3D%221%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%220%22%20y%3D%2212%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%227%22%20y%3D%222%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%2214%22%20y%3D%2213%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%220%22%20y%3D%223%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%227%22%20y%3D%2214%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%2214%22%20y%3D%224%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%220%22%20y%3D%2215%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%227%22%20y%3D%225%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%2214%22%20y%3D%2216%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%220%22%20y%3D%226%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%227%22%20y%3D%2217%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%2214%22%20y%3D%227%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%220%22%20y%3D%2218%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%227%22%20y%3D%228%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%2214%22%20y%3D%2219%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%220%22%20y%3D%229%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%227%22%20y%3D%2220%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%2214%22%20y%3D%2210%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%220%22%20y%3D%220%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%227%22%20y%3D%2211%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3Crect%20fill%3D%22%230E1116%22%20x%3D%2214%22%20y%3D%221%22%20width%3D%221%22%20height%3D%221%22%2F%3E%3C%2Fsvg%3E" alt="Código QR al portafolio" width="120" height="120" />
+</section>
+
+<style>
+  .contacto { display: flex; gap: var(--spacing-lg); align-items: center; justify-content: space-between; padding: var(--spacing-lg); border-top: 1px solid var(--color-linea); font: var(--text-sm)/var(--text-sm--line-height) var(--font-texto); color: var(--color-texto); }
+  .contacto__nombre { margin: 0; font: var(--font-weight-extranegrita) var(--text-2xl)/var(--text-2xl--line-height) var(--font-titulo); letter-spacing: var(--tracking-titulo); color: var(--color-tinta); }
+  .contacto__titulo { margin: 0 0 var(--spacing-md); color: var(--color-azul); font-weight: var(--font-weight-negrita); }
+  .contacto__lista { display: grid; grid-template-columns: auto 1fr; gap: var(--spacing-sm) var(--spacing-md); margin: 0; }
+  .contacto__lista dt { color: var(--color-apagado); }
+  .contacto__lista dd { margin: 0; }
+  .contacto__lista a { color: var(--color-azul); }
+  .contacto__qr { background: var(--color-blanco); padding: var(--spacing-md); border: 1px solid var(--color-linea); border-radius: var(--radius-md); }
+</style></div><p class="demo__nota">El código QR es un marcador de posición.</p>
+        <div class="comp__cols">
+          <section><h4>Para qué sirve</h4><p>Cierra una pieza con lo necesario para escribirle: <strong>nombre</strong> (Bricolage Grotesque 800), <strong>título «Diseñador UI/UX»</strong>, medios de contacto (correo, sitio, ubicación) y un <strong>código QR</strong> que lleva al portafolio o a una tarjeta digital.</p></section>
+          <section><h4>Cuándo no usarlo</h4><ul><li>En el medio de un documento: va al final o en la contraportada.</li><li>Con un QR que no se haya probado: escanéelo antes de publicar.</li><li>Con el título «Product Designer» (ver <code>voz</code>: es «Diseñador UI/UX»).</li><li>Con datos de clientes: solo contacto de la marca personal.</li></ul></section>
+          <section><h4>Variantes y estados</h4><ul><li><strong>Claro:</strong> fondo <code>color.fondo</code>, texto <code>color.texto</code>, enlaces <code>color.azul</code>.</li><li><strong>Oscuro:</strong> fondo <code>color.tinta</code>; el QR va sobre un cuadro <code>color.blanco</code> con relleno (el QR necesita fondo claro para escanearse); enlaces <code>color.oscuro.acento</code>.</li></ul>
+<p>Sin estados; los enlaces siguen las reglas de <code>boton</code> (variante texto).</p></section>
+          <section><h4>Accesibilidad</h4><ul><li>El QR es un complemento: ofrezca siempre el enlace escrito.</li><li>QR con <code>alt</code> que diga a dónde lleva («Código QR al portafolio»).</li><li>Tamaño mínimo impreso de 2.5 × 2.5 cm y zona de silencio de 4 módulos; contraste oscuro sobre claro.</li><li>Enlaces con <code>mailto:</code> y <code>https:</code> reales y texto visible.</li></ul></section>
+        </div>
+        <p class="comp__tokens"><strong>Tokens:</strong> <code>color.tinta</code> <code>color.texto</code> <code>color.apagado</code> <code>color.azul</code> <code>color.linea</code> <code>color.blanco</code> <code>tipografia.familia.titulo</code> <code>tipografia.tamano.2xl</code> <code>tipografia.tamano.sm</code> <code>radio.md</code> <code>espaciado.lg</code> <code>espaciado.md</code></p>
+        <details><summary>Código · HTML + CSS</summary><pre><code>&lt;section class=&quot;contacto&quot;&gt;
+  &lt;div class=&quot;contacto__datos&quot;&gt;
+    &lt;h2 class=&quot;contacto__nombre&quot;&gt;Nehemias Pérez&lt;/h2&gt;
+    &lt;p class=&quot;contacto__titulo&quot;&gt;Diseñador UI/UX&lt;/p&gt;
+    &lt;dl class=&quot;contacto__lista&quot;&gt;
+      &lt;dt&gt;Web&lt;/dt&gt;&lt;dd&gt;&lt;a href=&quot;https://nehemiasperez.com&quot;&gt;nehemiasperez.com&lt;/a&gt;&lt;/dd&gt;
+      &lt;dt&gt;Correo&lt;/dt&gt;&lt;dd&gt;&lt;a href=&quot;mailto:correo@ejemplo.com&quot;&gt;correo@ejemplo.com&lt;/a&gt;&lt;/dd&gt;
+    &lt;/dl&gt;
+  &lt;/div&gt;
+  &lt;img class=&quot;contacto__qr&quot; src=&quot;qr-portafolio.svg&quot; alt=&quot;Código QR al portafolio&quot; width=&quot;120&quot; height=&quot;120&quot; /&gt;
+&lt;/section&gt;
+
+&lt;style&gt;
+  .contacto { display: flex; gap: var(--spacing-lg); align-items: center; justify-content: space-between; padding: var(--spacing-lg); border-top: 1px solid var(--color-linea); font: var(--text-sm)/var(--text-sm--line-height) var(--font-texto); color: var(--color-texto); }
+  .contacto__nombre { margin: 0; font: var(--font-weight-extranegrita) var(--text-2xl)/var(--text-2xl--line-height) var(--font-titulo); letter-spacing: var(--tracking-titulo); color: var(--color-tinta); }
+  .contacto__titulo { margin: 0 0 var(--spacing-md); color: var(--color-azul); font-weight: var(--font-weight-negrita); }
+  .contacto__lista { display: grid; grid-template-columns: auto 1fr; gap: var(--spacing-sm) var(--spacing-md); margin: 0; }
+  .contacto__lista dt { color: var(--color-apagado); }
+  .contacto__lista dd { margin: 0; }
+  .contacto__lista a { color: var(--color-azul); }
+  .contacto__qr { background: var(--color-blanco); padding: var(--spacing-md); border: 1px solid var(--color-linea); border-radius: var(--radius-md); }
+&lt;/style&gt;</code></pre></details>
+        <details><summary>Código · React + Tailwind v4</summary><pre><code>export function BloqueDeContacto({ web, correo, qr }: { web: string; correo: string; qr: string }) {
+  return (
+    &lt;section className=&quot;flex items-center justify-between gap-lg border-t border-linea p-lg font-texto text-sm text-texto&quot;&gt;
+      &lt;div&gt;
+        &lt;h2 className=&quot;font-titulo text-2xl font-extranegrita tracking-titulo text-tinta&quot;&gt;Nehemias Pérez&lt;/h2&gt;
+        &lt;p className=&quot;mb-md font-negrita text-azul&quot;&gt;Diseñador UI/UX&lt;/p&gt;
+        &lt;dl className=&quot;grid grid-cols-[auto_1fr] gap-x-md gap-y-sm&quot;&gt;
+          &lt;dt className=&quot;text-apagado&quot;&gt;Web&lt;/dt&gt;&lt;dd&gt;&lt;a className=&quot;text-azul&quot; href={`https://${web}`}&gt;{web}&lt;/a&gt;&lt;/dd&gt;
+          &lt;dt className=&quot;text-apagado&quot;&gt;Correo&lt;/dt&gt;&lt;dd&gt;&lt;a className=&quot;text-azul&quot; href={`mailto:${correo}`}&gt;{correo}&lt;/a&gt;&lt;/dd&gt;
+        &lt;/dl&gt;
+      &lt;/div&gt;
+      &lt;img src={qr} alt=&quot;Código QR al portafolio&quot; width={120} height={120} className=&quot;rounded-md border border-linea bg-blanco p-md&quot; /&gt;
+    &lt;/section&gt;
+  );
+}</code></pre></details>
+        <details><summary>Código · Impresión (PDF)</summary><pre><code>@media print {
+  .contacto { break-inside: avoid; }
+  .contacto__qr { width: 3cm; height: 3cm; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .contacto__lista a[href]::after { content: none; }
+}</code></pre></details>
+      </article>
+<article class="comp" id="comp-boton">
+        <header><p class="eyebrow">Componente</p><h3>Botón</h3><p class="lead">Acción principal, secundaria o de texto. Tres variantes; solo una principal por pantalla.</p></header>
+        <div class="demo demo--boton"><button class="boton boton--principal" type="button">Escribirme</button>
+<button class="boton boton--secundario" type="button">Ver proyectos</button>
+<button class="boton boton--texto" type="button">Más información</button>
+
+<style>
+  .boton {
+    font: var(--font-weight-seminegrita) var(--text-sm)/var(--text-sm--line-height) var(--font-texto);
+    min-height: 44px;
+    padding: var(--spacing-md) var(--spacing-lg);
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: background-color .15s, border-color .15s;
+  }
+  .boton:focus-visible { outline: 2px solid var(--color-azul); outline-offset: 2px; }
+  .boton:disabled { opacity: .45; cursor: not-allowed; }
+  .boton--principal { background: var(--color-tinta); color: var(--color-blanco); }
+  .boton--principal:hover:not(:disabled) { background: var(--color-texto); }
+  .boton--secundario { background: transparent; color: var(--color-tinta); border-color: var(--color-linea); }
+  .boton--secundario:hover:not(:disabled) { border-color: var(--color-tinta); }
+  .boton--texto { background: transparent; color: var(--color-azul); padding-inline: var(--spacing-sm); }
+  .boton--texto:hover:not(:disabled) { text-decoration: underline; }
+</style></div>
+        <div class="comp__cols">
+          <section><h4>Para qué sirve</h4><p>Dispara una acción (enviar, contactar, descargar). Tiene tres variantes con jerarquía clara: <strong>principal</strong> (tinta con texto blanco), <strong>secundario</strong> (borde de línea, fondo transparente) y <strong>de texto</strong> (solo texto con subrayado al pasar el cursor).</p></section>
+          <section><h4>Cuándo no usarlo</h4><ul><li>Para navegar entre secciones del mismo documento: use un enlace de texto.</li><li>Más de un botón principal por vista: la jerarquía deja de leerse.</li><li>Con fondo azul: el azul es solo acento y no se usa en bloques grandes (ver <code>reglas</code>).</li><li>Sobre el motivo de cuadros o sobre texto largo.</li></ul></section>
+          <section><h4>Variantes y estados</h4><div class="tabla-scroll"><table><thead><tr><th>Variante</th><th>Fondo</th><th>Texto</th><th>Borde</th></tr></thead><tbody><tr><td>Principal</td><td><code>color.tinta</code></td><td><code>color.blanco</code></td><td>ninguno</td></tr><tr><td>Secundario</td><td>transparente</td><td><code>color.tinta</code></td><td>1px <code>color.linea</code></td></tr><tr><td>Texto</td><td>transparente</td><td><code>color.azul</code></td><td>ninguno; subrayado en hover</td></tr></tbody></table></div>
+<p>Estados: <strong>hover</strong> (principal: se aclara a <code>color.texto</code>; secundario: borde <code>color.tinta</code>), <strong>foco</strong> (anillo de 2px <code>color.azul</code> con separación de 2px), <strong>deshabilitado</strong> (opacidad .45 y sin cursor de acción). Sobre fondo oscuro: principal pasa a fondo <code>color.blanco</code> con texto <code>color.tinta</code>.</p></section>
+          <section><h4>Accesibilidad</h4><ul><li>Use <code>&lt;button&gt;</code> para acciones y <code>&lt;a&gt;</code> para navegación; nunca un <code>&lt;div&gt;</code> con clic.</li><li>Contraste: blanco sobre tinta supera 7:1 (AAA).</li><li>Área táctil mínima de 44 × 44 px (alto de 44px con <code>padding</code> de <code>espaciado.md</code> + línea de 20px y borde).</li><li>El foco debe verse siempre: no quite el <code>outline</code> sin reemplazarlo.</li><li>El texto debe describir la acción («Escribirme», no «Click aquí»).</li></ul></section>
+        </div>
+        <p class="comp__tokens"><strong>Tokens:</strong> <code>color.tinta</code> <code>color.blanco</code> <code>color.fondo</code> <code>color.linea</code> <code>color.azul</code> <code>color.oscuro.texto</code> <code>tipografia.familia.texto</code> <code>tipografia.peso.seminegrita</code> <code>tipografia.tamano.sm</code> <code>radio.md</code> <code>espaciado.md</code> <code>espaciado.lg</code></p>
+        <details><summary>Código · HTML + CSS</summary><pre><code>&lt;button class=&quot;boton boton--principal&quot; type=&quot;button&quot;&gt;Escribirme&lt;/button&gt;
+&lt;button class=&quot;boton boton--secundario&quot; type=&quot;button&quot;&gt;Ver proyectos&lt;/button&gt;
+&lt;button class=&quot;boton boton--texto&quot; type=&quot;button&quot;&gt;Más información&lt;/button&gt;
+
+&lt;style&gt;
+  .boton {
+    font: var(--font-weight-seminegrita) var(--text-sm)/var(--text-sm--line-height) var(--font-texto);
+    min-height: 44px;
+    padding: var(--spacing-md) var(--spacing-lg);
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: background-color .15s, border-color .15s;
+  }
+  .boton:focus-visible { outline: 2px solid var(--color-azul); outline-offset: 2px; }
+  .boton:disabled { opacity: .45; cursor: not-allowed; }
+  .boton--principal { background: var(--color-tinta); color: var(--color-blanco); }
+  .boton--principal:hover:not(:disabled) { background: var(--color-texto); }
+  .boton--secundario { background: transparent; color: var(--color-tinta); border-color: var(--color-linea); }
+  .boton--secundario:hover:not(:disabled) { border-color: var(--color-tinta); }
+  .boton--texto { background: transparent; color: var(--color-azul); padding-inline: var(--spacing-sm); }
+  .boton--texto:hover:not(:disabled) { text-decoration: underline; }
+&lt;/style&gt;</code></pre></details>
+        <details><summary>Código · React + Tailwind v4</summary><pre><code>type Props = React.ButtonHTMLAttributes&lt;HTMLButtonElement&gt; &amp; {
+  variante?: 'principal' | 'secundario' | 'texto';
+};
+
+const base =
+  'min-h-11 rounded-md border border-transparent px-lg py-md font-texto text-sm font-seminegrita ' +
+  'transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-azul ' +
+  'disabled:cursor-not-allowed disabled:opacity-45';
+
+const variantes = {
+  principal: 'bg-tinta text-blanco hover:bg-texto',
+  secundario: 'border-linea bg-transparent text-tinta hover:border-tinta',
+  texto: 'bg-transparent px-sm text-azul hover:underline'
+} as const;
+
+export function Boton({ variante = 'principal', className = '', ...props }: Props) {
+  return &lt;button type=&quot;button&quot; className={`${base} ${variantes[variante]} ${className}`} {...props} /&gt;;
+}</code></pre>
+<p>Requiere el bloque <code>@theme</code> de <code>exportar_tokens</code> (formato <code>tailwind4</code>).</p></details>
+        <details><summary>Código · Impresión (PDF)</summary><p>Los botones no se imprimen como botones: se convierten en enlaces con su destino visible.</p>
+<pre><code>@media print {
+  .boton { border: 0; background: none; color: var(--color-tinta); padding: 0; min-height: 0; text-decoration: underline; }
+  a.boton[href]::after { content: &quot; (&quot; attr(href) &quot;)&quot;; font-size: var(--text-xs); color: var(--color-apagado); }
+  .boton:disabled { display: none; }
+}</code></pre></details>
+      </article>
+<article class="comp" id="comp-encabezado-de-seccion">
+        <header><p class="eyebrow">Componente</p><h3>Encabezado de sección</h3><p class="lead">Eyebrow en azul, título grande con una sola palabra destacada y línea superior. Abre cada sección.</p></header>
+        <div class="demo demo--encabezado-de-seccion"><header class="encabezado">
+  <p class="encabezado__eyebrow">Proyectos</p>
+  <h2 class="encabezado__titulo">Interfaces pensadas para <em>implementarse.</em></h2>
+</header>
+
+<style>
+  .encabezado { border-top: 1px solid var(--color-linea); padding-top: var(--spacing-lg); }
+  .encabezado__eyebrow {
+    margin: 0 0 var(--spacing-md);
+    font: var(--font-weight-negrita) var(--text-xs)/var(--text-xs--line-height) var(--font-texto);
+    letter-spacing: var(--tracking-eyebrow); text-transform: uppercase; color: var(--color-azul);
+  }
+  .encabezado__titulo {
+    margin: 0; color: var(--color-tinta);
+    font: var(--font-weight-extranegrita) var(--text-3xl)/var(--text-3xl--line-height) var(--font-titulo);
+    letter-spacing: var(--tracking-titulo);
+  }
+  .encabezado__titulo em { font-style: normal; color: var(--color-azul); }
+</style></div>
+        <div class="comp__cols">
+          <section><h4>Para qué sirve</h4><p>Abre una sección con tres piezas: una <strong>línea superior</strong> de 1px (<code>color.linea</code>), un <strong>eyebrow</strong> (etiqueta corta en mayúsculas, <code>color.azul</code>) y un <strong>título</strong> en Bricolage Grotesque 800 con <strong>una sola palabra destacada</strong> en azul.</p></section>
+          <section><h4>Cuándo no usarlo</h4><ul><li>Dentro de tarjetas o componentes pequeños: use <code>tipografia.tamano.xl</code> sin eyebrow.</li><li>Con dos o más palabras destacadas en el título (ver <code>reglas</code>).</li><li>Con el motivo de cuadros detrás del texto.</li><li>Sin eyebrow si no hay nada que clasificar: omita el eyebrow, no invente uno.</li></ul></section>
+          <section><h4>Variantes y estados</h4><ul><li><strong>Claro:</strong> título <code>color.tinta</code>, eyebrow <code>color.azul</code>, línea <code>color.linea</code>.</li><li><strong>Oscuro:</strong> título <code>color.oscuro.texto</code>, eyebrow y palabra destacada <code>color.oscuro.acento</code>, línea <code>color.oscuro.linea</code>.</li></ul>
+<p>Sin estados interactivos.</p></section>
+          <section><h4>Accesibilidad</h4><ul><li>El título es el encabezado real (<code>&lt;h2&gt;</code>); el eyebrow no es un encabezado: use <code>&lt;p&gt;</code>.</li><li>La palabra destacada se marca con <code>&lt;em&gt;</code> o <code>&lt;span&gt;</code>; el color no debe ser el único portador de significado.</li><li>Azul <code>#043565</code> sobre <code>#FAFAF8</code> cumple AAA; el acento oscuro sobre tinta cumple AA.</li><li>Respete la jerarquía de encabezados (h1 → h2 → h3).</li></ul></section>
+        </div>
+        <p class="comp__tokens"><strong>Tokens:</strong> <code>color.azul</code> <code>color.tinta</code> <code>color.linea</code> <code>color.apagado</code> <code>tipografia.familia.titulo</code> <code>tipografia.peso.extranegrita</code> <code>tipografia.tamano.3xl</code> <code>tipografia.tamano.xs</code> <code>tipografia.espaciado-letras.titulo</code> <code>tipografia.espaciado-letras.eyebrow</code> <code>espaciado.md</code> <code>espaciado.lg</code></p>
+        <details><summary>Código · HTML + CSS</summary><pre><code>&lt;header class=&quot;encabezado&quot;&gt;
+  &lt;p class=&quot;encabezado__eyebrow&quot;&gt;Proyectos&lt;/p&gt;
+  &lt;h2 class=&quot;encabezado__titulo&quot;&gt;Interfaces pensadas para &lt;em&gt;implementarse.&lt;/em&gt;&lt;/h2&gt;
+&lt;/header&gt;
+
+&lt;style&gt;
+  .encabezado { border-top: 1px solid var(--color-linea); padding-top: var(--spacing-lg); }
+  .encabezado__eyebrow {
+    margin: 0 0 var(--spacing-md);
+    font: var(--font-weight-negrita) var(--text-xs)/var(--text-xs--line-height) var(--font-texto);
+    letter-spacing: var(--tracking-eyebrow); text-transform: uppercase; color: var(--color-azul);
+  }
+  .encabezado__titulo {
+    margin: 0; color: var(--color-tinta);
+    font: var(--font-weight-extranegrita) var(--text-3xl)/var(--text-3xl--line-height) var(--font-titulo);
+    letter-spacing: var(--tracking-titulo);
+  }
+  .encabezado__titulo em { font-style: normal; color: var(--color-azul); }
+&lt;/style&gt;</code></pre></details>
+        <details><summary>Código · React + Tailwind v4</summary><pre><code>export function EncabezadoDeSeccion({ eyebrow, antes, destacada }: { eyebrow: string; antes: string; destacada: string }) {
+  return (
+    &lt;header className=&quot;border-t border-linea pt-lg&quot;&gt;
+      &lt;p className=&quot;mb-md font-texto text-xs font-negrita uppercase tracking-eyebrow text-azul&quot;&gt;{eyebrow}&lt;/p&gt;
+      &lt;h2 className=&quot;font-titulo text-3xl font-extranegrita tracking-titulo text-tinta&quot;&gt;
+        {antes} &lt;em className=&quot;not-italic text-azul&quot;&gt;{destacada}&lt;/em&gt;
+      &lt;/h2&gt;
+    &lt;/header&gt;
+  );
+}</code></pre></details>
+        <details><summary>Código · Impresión (PDF)</summary><pre><code>@media print {
+  .encabezado { break-after: avoid; break-inside: avoid; }
+  .encabezado__titulo { font-size: 28pt; line-height: 1.1; }
+  .encabezado__eyebrow { font-size: 8pt; }
+}</code></pre></details>
+      </article>
+<article class="comp" id="comp-etiqueta">
+        <header><p class="eyebrow">Componente</p><h3>Etiqueta o píldora</h3><p class="lead">Texto corto en píldora para clasificar (tecnología, categoría, estado). Fondo suave, texto tinta.</p></header>
+        <div class="demo demo--etiqueta"><ul class="etiquetas" role="list">
+  <li class="etiqueta">Figma</li>
+  <li class="etiqueta">React</li>
+  <li class="etiqueta etiqueta--acento">2026</li>
+</ul>
+
+<style>
+  .etiquetas { display: flex; flex-wrap: wrap; gap: var(--spacing-sm); list-style: none; margin: 0; padding: 0; }
+  .etiqueta {
+    font: var(--font-weight-seminegrita) var(--text-xs)/var(--text-xs--line-height) var(--font-texto);
+    background: var(--color-suave); color: var(--color-tinta);
+    padding: var(--spacing-sm) var(--spacing-md); border-radius: var(--radius-pill);
+  }
+  .etiqueta--acento { background: var(--color-azul-suave); color: var(--color-azul); }
+</style></div>
+        <div class="comp__cols">
+          <section><h4>Para qué sirve</h4><p>Clasifica o marca un elemento con una palabra o dos: tecnologías de un proyecto, categoría, año, estado. Es informativa; no se pulsa.</p></section>
+          <section><h4>Cuándo no usarlo</h4><ul><li>Como botón o enlace: use <code>boton</code>.</li><li>Para frases completas o más de tres palabras.</li><li>Para decorar: cada etiqueta debe decir algo.</li><li>Más de cinco juntas en una fila: agrupe o recorte.</li></ul></section>
+          <section><h4>Variantes y estados</h4><ul><li><strong>Neutra:</strong> fondo <code>color.suave</code>, texto <code>color.tinta</code>. Es la predeterminada.</li><li><strong>Acento:</strong> fondo <code>color.azul-suave</code>, texto <code>color.azul</code>.</li><li><strong>Oscura:</strong> sobre <code>color.tinta</code>, fondo <code>color.oscuro.cuadro</code>, texto <code>color.oscuro.texto</code>.</li></ul>
+<p>Solo tiene estado de reposo. No use <code>color.apagado</code> sobre <code>color.suave</code> (contraste insuficiente).</p></section>
+          <section><h4>Accesibilidad</h4><ul><li>Contraste tinta sobre suave: AAA.</li><li>No comunique estado solo por color: incluya texto («Activo», «En revisión»).</li><li>Si es una lista de etiquetas, use <code>&lt;ul&gt;</code> con <code>role=&quot;list&quot;</code> para que lectores de pantalla anuncien la cantidad.</li></ul></section>
+        </div>
+        <p class="comp__tokens"><strong>Tokens:</strong> <code>color.suave</code> <code>color.tinta</code> <code>color.azul</code> <code>color.azul-suave</code> <code>tipografia.familia.texto</code> <code>tipografia.peso.seminegrita</code> <code>tipografia.tamano.xs</code> <code>radio.pill</code> <code>espaciado.sm</code> <code>espaciado.md</code></p>
+        <details><summary>Código · HTML + CSS</summary><pre><code>&lt;ul class=&quot;etiquetas&quot; role=&quot;list&quot;&gt;
+  &lt;li class=&quot;etiqueta&quot;&gt;Figma&lt;/li&gt;
+  &lt;li class=&quot;etiqueta&quot;&gt;React&lt;/li&gt;
+  &lt;li class=&quot;etiqueta etiqueta--acento&quot;&gt;2026&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;style&gt;
+  .etiquetas { display: flex; flex-wrap: wrap; gap: var(--spacing-sm); list-style: none; margin: 0; padding: 0; }
+  .etiqueta {
+    font: var(--font-weight-seminegrita) var(--text-xs)/var(--text-xs--line-height) var(--font-texto);
+    background: var(--color-suave); color: var(--color-tinta);
+    padding: var(--spacing-sm) var(--spacing-md); border-radius: var(--radius-pill);
+  }
+  .etiqueta--acento { background: var(--color-azul-suave); color: var(--color-azul); }
+&lt;/style&gt;</code></pre></details>
+        <details><summary>Código · React + Tailwind v4</summary><pre><code>export function Etiqueta({ children, acento = false }: { children: React.ReactNode; acento?: boolean }) {
+  return (
+    &lt;li
+      className={`rounded-pill px-md py-sm font-texto text-xs font-seminegrita ${
+        acento ? 'bg-azul-suave text-azul' : 'bg-suave text-tinta'
+      }`}
+    &gt;
+      {children}
+    &lt;/li&gt;
+  );
+}</code></pre></details>
+        <details><summary>Código · Impresión (PDF)</summary><pre><code>@media print {
+  .etiqueta { background: none; border: 1px solid var(--color-linea); color: var(--color-tinta); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}</code></pre></details>
+      </article>
+<article class="comp" id="comp-motivo-de-cuadros">
+        <header><p class="eyebrow">Componente</p><h3>Motivo de cuadros</h3><p class="lead">Rejilla de cuadros redondeados (4×3 o mini 2×2) con una píldora azul de dos columnas. Es la firma gráfica de la marca.</p></header>
+        <div class="demo demo--motivo-de-cuadros"><!-- Opción simple: el SVG de assets -->
+<img src="assets/motivo-claro.svg" alt="" width="240" height="180" />
+
+<!-- Opción en CSS (mini 2×2, claro) -->
+<div class="motivo-mini" aria-hidden="true">
+  <i class="motivo-mini__c motivo-mini__c--tinta"></i>
+  <i class="motivo-mini__c motivo-mini__c--suave"></i>
+  <i class="motivo-mini__pildora"></i>
+</div>
+
+<style>
+  .motivo-mini { --lado: 26px; --hueco: 4px; display: grid; grid-template-columns: repeat(2, var(--lado)); gap: var(--hueco); }
+  .motivo-mini__c { display: block; width: var(--lado); height: var(--lado); border-radius: var(--radius-sm); }
+  .motivo-mini__c--tinta { background: var(--color-tinta); }
+  .motivo-mini__c--suave { background: var(--color-suave); }
+  .motivo-mini__pildora { grid-column: 1 / -1; height: var(--lado); border-radius: var(--radius-pill); background: var(--color-azul); }
+</style></div>
+        <div class="comp__cols">
+          <section><h4>Para qué sirve</h4><p>Es la firma visual: una <strong>rejilla de 4 columnas × 3 filas</strong> de cuadros redondeados (<code>radio.cuadro</code>) en tres tratamientos —<strong>tinta</strong>, <strong>suave</strong> y <strong>vacío</strong> (solo contorno)— más <strong>una píldora azul que ocupa dos columnas</strong>. Existe una <strong>versión mini de 2 × 2</strong> con la píldora abajo. Se usa en portadas, tarjetas de presentación, cierres y como sello.</p></section>
+          <section><h4>Cuándo no usarlo</h4><ul><li><strong>Nunca detrás de texto largo</strong> (ver <code>reglas</code>): compite con la lectura.</li><li>Más de un motivo completo por pantalla o página.</li><li>Recolorearlo con colores fuera de la paleta o con degradados.</li><li>Deformarlo: respete la proporción; el hueco entre cuadros es el 12% del lado.</li><li>La versión completa por debajo de 120px de ancho: use la mini.</li></ul></section>
+          <section><h4>Variantes y estados</h4><div class="tabla-scroll"><table><thead><tr><th>Variante</th><th>Cuadros</th><th>Vacíos</th><th>Píldora</th></tr></thead><tbody><tr><td>Completo claro</td><td><code>color.tinta</code> y <code>color.suave</code></td><td>contorno <code>color.linea</code></td><td><code>color.azul</code></td></tr><tr><td>Completo oscuro</td><td><code>color.blanco</code> y <code>color.oscuro.cuadro</code></td><td>contorno <code>color.oscuro.linea</code></td><td><code>color.oscuro.acento</code></td></tr><tr><td>Mini claro / oscuro</td><td>igual que el completo, 2 × 2 con la píldora en la fila inferior</td><td>—</td><td>igual</td></tr></tbody></table></div>
+<p>Archivos: <code>motivo-claro.svg</code>, <code>motivo-oscuro.svg</code>, <code>motivo-mini-claro.svg</code>, <code>motivo-mini-oscuro.svg</code> (herramienta <code>obtener_asset</code>, recurso <code>marca://assets/{nombre}</code>). Es estático; no tiene estados.</p></section>
+          <section><h4>Accesibilidad</h4><ul><li>Es decorativo: use <code>alt=&quot;&quot;</code> o <code>aria-hidden=&quot;true&quot;</code>; si funciona como logo, <code>role=&quot;img&quot;</code> y un nombre.</li><li>No comunique información solo con el motivo.</li><li>Respete <code>prefers-reduced-motion</code> si lo anima (la marca no exige animación).</li></ul></section>
+        </div>
+        <p class="comp__tokens"><strong>Tokens:</strong> <code>color.tinta</code> <code>color.suave</code> <code>color.azul</code> <code>color.blanco</code> <code>color.linea</code> <code>color.oscuro.cuadro</code> <code>color.oscuro.acento</code> <code>color.oscuro.linea</code> <code>radio.cuadro</code> <code>radio.pill</code></p>
+        <details><summary>Código · HTML + CSS</summary><pre><code>&lt;!-- Opción simple: el SVG de assets --&gt;
+&lt;img src=&quot;/marca/assets/motivo-claro.svg&quot; alt=&quot;&quot; width=&quot;240&quot; height=&quot;180&quot; /&gt;
+
+&lt;!-- Opción en CSS (mini 2×2, claro) --&gt;
+&lt;div class=&quot;motivo-mini&quot; aria-hidden=&quot;true&quot;&gt;
+  &lt;i class=&quot;motivo-mini__c motivo-mini__c--tinta&quot;&gt;&lt;/i&gt;
+  &lt;i class=&quot;motivo-mini__c motivo-mini__c--suave&quot;&gt;&lt;/i&gt;
+  &lt;i class=&quot;motivo-mini__pildora&quot;&gt;&lt;/i&gt;
+&lt;/div&gt;
+
+&lt;style&gt;
+  .motivo-mini { --lado: 26px; --hueco: 4px; display: grid; grid-template-columns: repeat(2, var(--lado)); gap: var(--hueco); }
+  .motivo-mini__c { display: block; width: var(--lado); height: var(--lado); border-radius: var(--radius-sm); }
+  .motivo-mini__c--tinta { background: var(--color-tinta); }
+  .motivo-mini__c--suave { background: var(--color-suave); }
+  .motivo-mini__pildora { grid-column: 1 / -1; height: var(--lado); border-radius: var(--radius-pill); background: var(--color-azul); }
+&lt;/style&gt;</code></pre></details>
+        <details><summary>Código · React + Tailwind v4</summary><pre><code>export function MotivoMini({ oscuro = false }: { oscuro?: boolean }) {
+  return (
+    &lt;div aria-hidden=&quot;true&quot; className=&quot;grid grid-cols-[repeat(2,1.625rem)] gap-1&quot;&gt;
+      &lt;i className={`block size-[1.625rem] rounded-sm ${oscuro ? 'bg-blanco' : 'bg-tinta'}`} /&gt;
+      &lt;i className={`block size-[1.625rem] rounded-sm ${oscuro ? 'bg-oscuro-cuadro' : 'bg-suave'}`} /&gt;
+      &lt;i className={`col-span-2 h-[1.625rem] rounded-pill ${oscuro ? 'bg-oscuro-acento' : 'bg-azul'}`} /&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+<p>Para el motivo completo (4×3) importe el SVG de <code>marca/assets/</code> como imagen o componente.</p></details>
+        <details><summary>Código · Impresión (PDF)</summary><pre><code>@media print {
+  .motivo, .motivo-mini { -webkit-print-color-adjust: exact; print-color-adjust: exact; break-inside: avoid; }
+  img[src$=&quot;motivo-claro.svg&quot;] { width: 4cm; height: auto; }
+}</code></pre></details>
+      </article>
+<article class="comp" id="comp-portada-de-documento">
+        <header><p class="eyebrow">Componente</p><h3>Portada de documento</h3><p class="lead">Portada de propuesta o informe: nombre arriba, título grande, metadatos abajo y motivo de cuadros a la derecha.</p></header>
+        <div class="demo demo--portada-de-documento"><section class="portada">
+  <div class="portada__texto">
+    <p class="portada__nombre">Nehemias Pérez · Diseñador UI/UX</p>
+    <div>
+      <p class="portada__eyebrow">Propuesta</p>
+      <h1 class="portada__titulo">Un sistema de diseño para <em>implementarse.</em></h1>
+    </div>
+    <dl class="portada__meta">
+      <div><dt>Documento</dt><dd>Propuesta de servicios</dd></div>
+      <div><dt>Fecha</dt><dd>Noviembre de 2026</dd></div>
+    </dl>
+  </div>
+  <img class="portada__motivo" src="assets/motivo-claro.svg" alt="" />
+</section>
+
+<style>
+  .portada { display: grid; grid-template-columns: 1fr minmax(160px, 28%); gap: var(--spacing-xl); align-items: end; min-height: 100vh; padding: var(--spacing-3xl) var(--spacing-xl); background: var(--color-fondo); }
+  .portada__texto { display: grid; grid-template-rows: auto 1fr auto; gap: var(--spacing-xl); align-self: stretch; }
+  .portada__nombre { margin: 0; font: var(--font-weight-seminegrita) var(--text-sm)/var(--text-sm--line-height) var(--font-texto); color: var(--color-tinta); }
+  .portada__eyebrow { margin: 0 0 var(--spacing-md); font: var(--font-weight-negrita) var(--text-xs)/var(--text-xs--line-height) var(--font-texto); letter-spacing: var(--tracking-eyebrow); text-transform: uppercase; color: var(--color-azul); }
+  .portada__titulo { margin: 0; font: var(--font-weight-extranegrita) var(--text-5xl)/var(--text-5xl--line-height) var(--font-titulo); letter-spacing: var(--tracking-titulo); color: var(--color-tinta); }
+  .portada__titulo em { font-style: normal; color: var(--color-azul); }
+  .portada__meta { display: flex; gap: var(--spacing-xl); margin: 0; padding-top: var(--spacing-lg); border-top: 1px solid var(--color-linea); font: var(--text-sm)/var(--text-sm--line-height) var(--font-texto); }
+  .portada__meta dt { color: var(--color-apagado); }
+  .portada__meta dd { margin: 0; color: var(--color-tinta); }
+  .portada__motivo { width: 100%; height: auto; }
+</style></div>
+        <div class="comp__cols">
+          <section><h4>Para qué sirve</h4><p>Primera página de una propuesta, informe, CV o presentación. Composición fija en tres zonas: <strong>nombre arriba</strong> (marca personal), <strong>título grande</strong> al centro-izquierda con <strong>una sola palabra en azul</strong>, <strong>metadatos abajo</strong> (tipo de documento, fecha, para quién) y el <strong>motivo de cuadros a la derecha</strong>.</p></section>
+          <section><h4>Cuándo no usarlo</h4><ul><li>En páginas interiores: allí va el encabezado de sección.</li><li>Con texto largo o párrafos: la portada solo lleva nombre, título y metadatos.</li><li>Con el motivo detrás del título (el motivo ocupa su propia columna; ver <code>reglas</code>).</li><li>Con degradados, fotos de fondo o sombras.</li></ul></section>
+          <section><h4>Variantes y estados</h4><ul><li><strong>Claro:</strong> fondo <code>color.fondo</code>, título <code>color.tinta</code>, palabra destacada y eyebrow <code>color.azul</code>, motivo <code>motivo-claro.svg</code>.</li><li><strong>Oscuro:</strong> fondo <code>color.tinta</code>, título <code>color.oscuro.texto</code>, destacado <code>color.oscuro.acento</code>, motivo <code>motivo-oscuro.svg</code>.</li></ul>
+<p>Sin estados. Formato A4 vertical o 16:9 para presentaciones; mismas proporciones.</p></section>
+          <section><h4>Accesibilidad</h4><ul><li>El título es el único <code>&lt;h1&gt;</code> del documento.</li><li>El motivo es decorativo (<code>alt=&quot;&quot;</code>).</li><li>Para PDF: defina el título del documento en los metadatos y use etiquetas de estructura si el generador las permite.</li><li>Texto de metadatos mínimo 9pt impreso y con contraste AA.</li></ul></section>
+        </div>
+        <p class="comp__tokens"><strong>Tokens:</strong> <code>color.fondo</code> <code>color.tinta</code> <code>color.azul</code> <code>color.apagado</code> <code>color.linea</code> <code>tipografia.familia.titulo</code> <code>tipografia.tamano.5xl</code> <code>tipografia.tamano.sm</code> <code>tipografia.espaciado-letras.titulo</code> <code>tipografia.espaciado-letras.eyebrow</code> <code>espaciado.xl</code> <code>espaciado.3xl</code></p>
+        <details><summary>Código · HTML + CSS</summary><pre><code>&lt;section class=&quot;portada&quot;&gt;
+  &lt;div class=&quot;portada__texto&quot;&gt;
+    &lt;p class=&quot;portada__nombre&quot;&gt;Nehemias Pérez · Diseñador UI/UX&lt;/p&gt;
+    &lt;div&gt;
+      &lt;p class=&quot;portada__eyebrow&quot;&gt;Propuesta&lt;/p&gt;
+      &lt;h1 class=&quot;portada__titulo&quot;&gt;Un sistema de diseño para &lt;em&gt;implementarse.&lt;/em&gt;&lt;/h1&gt;
+    &lt;/div&gt;
+    &lt;dl class=&quot;portada__meta&quot;&gt;
+      &lt;div&gt;&lt;dt&gt;Documento&lt;/dt&gt;&lt;dd&gt;Propuesta de servicios&lt;/dd&gt;&lt;/div&gt;
+      &lt;div&gt;&lt;dt&gt;Fecha&lt;/dt&gt;&lt;dd&gt;Noviembre de 2026&lt;/dd&gt;&lt;/div&gt;
+    &lt;/dl&gt;
+  &lt;/div&gt;
+  &lt;img class=&quot;portada__motivo&quot; src=&quot;/marca/assets/motivo-claro.svg&quot; alt=&quot;&quot; /&gt;
+&lt;/section&gt;
+
+&lt;style&gt;
+  .portada { display: grid; grid-template-columns: 1fr minmax(160px, 28%); gap: var(--spacing-xl); align-items: end; min-height: 100vh; padding: var(--spacing-3xl) var(--spacing-xl); background: var(--color-fondo); }
+  .portada__texto { display: grid; grid-template-rows: auto 1fr auto; gap: var(--spacing-xl); align-self: stretch; }
+  .portada__nombre { margin: 0; font: var(--font-weight-seminegrita) var(--text-sm)/var(--text-sm--line-height) var(--font-texto); color: var(--color-tinta); }
+  .portada__eyebrow { margin: 0 0 var(--spacing-md); font: var(--font-weight-negrita) var(--text-xs)/var(--text-xs--line-height) var(--font-texto); letter-spacing: var(--tracking-eyebrow); text-transform: uppercase; color: var(--color-azul); }
+  .portada__titulo { margin: 0; font: var(--font-weight-extranegrita) var(--text-5xl)/var(--text-5xl--line-height) var(--font-titulo); letter-spacing: var(--tracking-titulo); color: var(--color-tinta); }
+  .portada__titulo em { font-style: normal; color: var(--color-azul); }
+  .portada__meta { display: flex; gap: var(--spacing-xl); margin: 0; padding-top: var(--spacing-lg); border-top: 1px solid var(--color-linea); font: var(--text-sm)/var(--text-sm--line-height) var(--font-texto); }
+  .portada__meta dt { color: var(--color-apagado); }
+  .portada__meta dd { margin: 0; color: var(--color-tinta); }
+  .portada__motivo { width: 100%; height: auto; }
+&lt;/style&gt;</code></pre></details>
+        <details><summary>Código · React + Tailwind v4</summary><pre><code>type Props = { tipo: string; antes: string; destacada: string; documento: string; fecha: string };
+
+export function PortadaDeDocumento({ tipo, antes, destacada, documento, fecha }: Props) {
+  return (
+    &lt;section className=&quot;grid min-h-screen grid-cols-[1fr_minmax(160px,28%)] items-end gap-xl bg-fondo px-xl py-3xl&quot;&gt;
+      &lt;div className=&quot;grid h-full grid-rows-[auto_1fr_auto] gap-xl&quot;&gt;
+        &lt;p className=&quot;font-texto text-sm font-seminegrita text-tinta&quot;&gt;Nehemias Pérez · Diseñador UI/UX&lt;/p&gt;
+        &lt;div className=&quot;self-center&quot;&gt;
+          &lt;p className=&quot;mb-md font-texto text-xs font-negrita uppercase tracking-eyebrow text-azul&quot;&gt;{tipo}&lt;/p&gt;
+          &lt;h1 className=&quot;font-titulo text-5xl font-extranegrita tracking-titulo text-tinta&quot;&gt;
+            {antes} &lt;em className=&quot;not-italic text-azul&quot;&gt;{destacada}&lt;/em&gt;
+          &lt;/h1&gt;
+        &lt;/div&gt;
+        &lt;dl className=&quot;flex gap-xl border-t border-linea pt-lg font-texto text-sm&quot;&gt;
+          &lt;div&gt;&lt;dt className=&quot;text-apagado&quot;&gt;Documento&lt;/dt&gt;&lt;dd className=&quot;text-tinta&quot;&gt;{documento}&lt;/dd&gt;&lt;/div&gt;
+          &lt;div&gt;&lt;dt className=&quot;text-apagado&quot;&gt;Fecha&lt;/dt&gt;&lt;dd className=&quot;text-tinta&quot;&gt;{fecha}&lt;/dd&gt;&lt;/div&gt;
+        &lt;/dl&gt;
+      &lt;/div&gt;
+      &lt;img src=&quot;/marca/assets/motivo-claro.svg&quot; alt=&quot;&quot; className=&quot;h-auto w-full&quot; /&gt;
+    &lt;/section&gt;
+  );
+}</code></pre></details>
+        <details><summary>Código · Impresión (PDF)</summary><pre><code>@page { size: A4; margin: 0; }
+@media print {
+  .portada { min-height: 297mm; height: 297mm; padding: 24mm 20mm; break-after: page; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .portada__titulo { font-size: 44pt; line-height: 1; }
+  .portada__motivo { width: 52mm; }
+}
+@font-face { font-family: &quot;Bricolage Grotesque&quot;; font-weight: 800; src: url(&quot;/marca/assets/fuentes/bricolage-grotesque-latin-800-normal.woff2&quot;) format(&quot;woff2&quot;); }
+@font-face { font-family: &quot;Instrument Sans&quot;; font-weight: 400 700; src: url(&quot;/marca/assets/fuentes/instrument-sans-latin-400-normal.woff2&quot;) format(&quot;woff2&quot;); }</code></pre></details>
+      </article>
+<article class="comp" id="comp-tabla">
+        <header><p class="eyebrow">Componente</p><h3>Tabla</h3><p class="lead">Tabla con encabezado en tinta y texto blanco; filas separadas por una línea. Para precios, comparativas y datos.</p></header>
+        <div class="demo demo--tabla"><div class="tabla-contenedor" role="region" aria-label="Tarifas" tabindex="0">
+  <table class="tabla">
+    <caption class="tabla__caption">Tarifas por entregable</caption>
+    <thead><tr><th scope="col">Entregable</th><th scope="col">Plazo</th><th scope="col" class="tabla__num">Precio</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Sistema de diseño</th><td>4 semanas</td><td class="tabla__num">$ …</td></tr>
+      <tr><th scope="row">Prototipo navegable</th><td>2 semanas</td><td class="tabla__num">$ …</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .tabla-contenedor { overflow-x: auto; }
+  .tabla { width: 100%; border-collapse: collapse; font: var(--text-sm)/var(--text-sm--line-height) var(--font-texto); color: var(--color-texto); }
+  .tabla__caption { text-align: left; padding-bottom: var(--spacing-md); color: var(--color-apagado); }
+  .tabla thead th { background: var(--color-tinta); color: var(--color-blanco); font-weight: var(--font-weight-seminegrita); text-align: left; padding: var(--spacing-md) var(--spacing-lg); }
+  .tabla thead th:first-child { border-top-left-radius: var(--radius-md); }
+  .tabla thead th:last-child { border-top-right-radius: var(--radius-md); }
+  .tabla tbody th, .tabla tbody td { padding: var(--spacing-md) var(--spacing-lg); border-bottom: 1px solid var(--color-linea); text-align: left; font-weight: var(--font-weight-normal); }
+  .tabla tbody th { color: var(--color-tinta); font-weight: var(--font-weight-seminegrita); }
+  .tabla tbody tr:hover { background: var(--color-fondo); }
+  .tabla__num { text-align: right !important; font-variant-numeric: tabular-nums; }
+</style></div>
+        <div class="comp__cols">
+          <section><h4>Para qué sirve</h4><p>Presenta datos comparables: precios, planes, entregables, calendarios. <strong>Encabezado en <code>color.tinta</code> con texto blanco</strong> y filas separadas por una línea de 1px <code>color.linea</code>; sin cebra ni rejilla completa.</p></section>
+          <section><h4>Cuándo no usarlo</h4><ul><li>Para maquetar (alinear tarjetas o formularios): use CSS grid.</li><li>Con más de cinco columnas en móvil: pase a lista o tarjetas apiladas.</li><li>Con cifras o precios inventados (ver <code>voz</code>): use solo valores reales.</li><li>Con celdas combinadas complejas: divida en dos tablas.</li></ul></section>
+          <section><h4>Variantes y estados</h4><ul><li><strong>Simple:</strong> encabezado + filas.</li><li><strong>Con total:</strong> última fila con borde superior <code>color.tinta</code> y peso 700.</li><li>Estado <strong>hover de fila</strong> opcional: fondo <code>color.fondo</code>. Cifras alineadas a la derecha; texto a la izquierda.</li></ul></section>
+          <section><h4>Accesibilidad</h4><ul><li>Use <code>&lt;table&gt;</code>, <code>&lt;caption&gt;</code>, <code>&lt;thead&gt;</code>, <code>&lt;th scope=&quot;col&quot;&gt;</code> y <code>&lt;th scope=&quot;row&quot;&gt;</code>.</li><li>Blanco sobre tinta: AAA.</li><li>En pantallas estrechas, envuelva en un contenedor con <code>overflow-x: auto</code> y <code>tabindex=&quot;0&quot;</code> con <code>role=&quot;region&quot;</code> y <code>aria-label</code>.</li><li>Alinee cifras con <code>font-variant-numeric: tabular-nums</code>.</li></ul></section>
+        </div>
+        <p class="comp__tokens"><strong>Tokens:</strong> <code>color.tinta</code> <code>color.blanco</code> <code>color.texto</code> <code>color.linea</code> <code>color.apagado</code> <code>tipografia.familia.texto</code> <code>tipografia.tamano.sm</code> <code>tipografia.peso.seminegrita</code> <code>espaciado.md</code> <code>espaciado.lg</code> <code>radio.md</code></p>
+        <details><summary>Código · HTML + CSS</summary><pre><code>&lt;div class=&quot;tabla-contenedor&quot; role=&quot;region&quot; aria-label=&quot;Tarifas&quot; tabindex=&quot;0&quot;&gt;
+  &lt;table class=&quot;tabla&quot;&gt;
+    &lt;caption class=&quot;tabla__caption&quot;&gt;Tarifas por entregable&lt;/caption&gt;
+    &lt;thead&gt;&lt;tr&gt;&lt;th scope=&quot;col&quot;&gt;Entregable&lt;/th&gt;&lt;th scope=&quot;col&quot;&gt;Plazo&lt;/th&gt;&lt;th scope=&quot;col&quot; class=&quot;tabla__num&quot;&gt;Precio&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;&lt;th scope=&quot;row&quot;&gt;Sistema de diseño&lt;/th&gt;&lt;td&gt;4 semanas&lt;/td&gt;&lt;td class=&quot;tabla__num&quot;&gt;$ …&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;th scope=&quot;row&quot;&gt;Prototipo navegable&lt;/th&gt;&lt;td&gt;2 semanas&lt;/td&gt;&lt;td class=&quot;tabla__num&quot;&gt;$ …&lt;/td&gt;&lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;
+
+&lt;style&gt;
+  .tabla-contenedor { overflow-x: auto; }
+  .tabla { width: 100%; border-collapse: collapse; font: var(--text-sm)/var(--text-sm--line-height) var(--font-texto); color: var(--color-texto); }
+  .tabla__caption { text-align: left; padding-bottom: var(--spacing-md); color: var(--color-apagado); }
+  .tabla thead th { background: var(--color-tinta); color: var(--color-blanco); font-weight: var(--font-weight-seminegrita); text-align: left; padding: var(--spacing-md) var(--spacing-lg); }
+  .tabla thead th:first-child { border-top-left-radius: var(--radius-md); }
+  .tabla thead th:last-child { border-top-right-radius: var(--radius-md); }
+  .tabla tbody th, .tabla tbody td { padding: var(--spacing-md) var(--spacing-lg); border-bottom: 1px solid var(--color-linea); text-align: left; font-weight: var(--font-weight-normal); }
+  .tabla tbody th { color: var(--color-tinta); font-weight: var(--font-weight-seminegrita); }
+  .tabla tbody tr:hover { background: var(--color-fondo); }
+  .tabla__num { text-align: right !important; font-variant-numeric: tabular-nums; }
+&lt;/style&gt;</code></pre>
+<p>Nota: los precios del ejemplo son marcadores; use solo valores reales.</p></details>
+        <details><summary>Código · React + Tailwind v4</summary><pre><code>type Fila = { entregable: string; plazo: string; precio: string };
+
+export function Tabla({ titulo, filas }: { titulo: string; filas: Fila[] }) {
+  return (
+    &lt;div role=&quot;region&quot; aria-label={titulo} tabIndex={0} className=&quot;overflow-x-auto&quot;&gt;
+      &lt;table className=&quot;w-full border-collapse font-texto text-sm text-texto&quot;&gt;
+        &lt;caption className=&quot;pb-md text-left text-apagado&quot;&gt;{titulo}&lt;/caption&gt;
+        &lt;thead&gt;
+          &lt;tr className=&quot;bg-tinta text-blanco&quot;&gt;
+            &lt;th scope=&quot;col&quot; className=&quot;rounded-tl-md px-lg py-md text-left font-seminegrita&quot;&gt;Entregable&lt;/th&gt;
+            &lt;th scope=&quot;col&quot; className=&quot;px-lg py-md text-left font-seminegrita&quot;&gt;Plazo&lt;/th&gt;
+            &lt;th scope=&quot;col&quot; className=&quot;rounded-tr-md px-lg py-md text-right font-seminegrita&quot;&gt;Precio&lt;/th&gt;
+          &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+          {filas.map((f) =&gt; (
+            &lt;tr key={f.entregable} className=&quot;hover:bg-fondo&quot;&gt;
+              &lt;th scope=&quot;row&quot; className=&quot;border-b border-linea px-lg py-md text-left font-seminegrita text-tinta&quot;&gt;{f.entregable}&lt;/th&gt;
+              &lt;td className=&quot;border-b border-linea px-lg py-md&quot;&gt;{f.plazo}&lt;/td&gt;
+              &lt;td className=&quot;border-b border-linea px-lg py-md text-right tabular-nums&quot;&gt;{f.precio}&lt;/td&gt;
+            &lt;/tr&gt;
+          ))}
+        &lt;/tbody&gt;
+      &lt;/table&gt;
+    &lt;/div&gt;
+  );
+}</code></pre></details>
+        <details><summary>Código · Impresión (PDF)</summary><pre><code>@media print {
+  .tabla thead { display: table-header-group; }          /* repite el encabezado en cada página */
+  .tabla tr { break-inside: avoid; }
+  .tabla thead th { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .tabla-contenedor { overflow: visible; }
+}</code></pre></details>
+      </article>
+<article class="comp" id="comp-tarjeta-de-proyecto">
+        <header><p class="eyebrow">Componente</p><h3>Tarjeta de proyecto</h3><p class="lead">Tarjeta con imagen, título, descripción breve, etiquetas y enlace. Presenta un proyecto del portafolio.</p></header>
+        <div class="demo demo--tarjeta-de-proyecto"><article class="tarjeta">
+  <img class="tarjeta__imagen" src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20640%20400%22%3E%3Crect%20width%3D%22640%22%20height%3D%22400%22%20fill%3D%22%23ECEDEF%22%2F%3E%3Cg%20transform%3D%22translate(250%20150)%22%3E%3Crect%20width%3D%2250%22%20height%3D%2250%22%20rx%3D%2210%22%20fill%3D%22%230E1116%22%2F%3E%3Crect%20x%3D%2260%22%20width%3D%2250%22%20height%3D%2250%22%20rx%3D%2210%22%20fill%3D%22%23FAFAF8%22%2F%3E%3Crect%20y%3D%2260%22%20width%3D%22110%22%20height%3D%2250%22%20rx%3D%2225%22%20fill%3D%22%23043565%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E" alt="Pantalla principal del panel de métricas" width="640" height="400" />
+  <div class="tarjeta__cuerpo">
+    <p class="tarjeta__eyebrow">Panel de datos · 2026</p>
+    <h3 class="tarjeta__titulo"><a href="#">Panel de métricas</a></h3>
+    <p class="tarjeta__texto">Lectura rápida de indicadores para equipos pequeños.</p>
+    <ul class="etiquetas" role="list"><li class="etiqueta">Figma</li><li class="etiqueta">React</li></ul>
+  </div>
+</article>
+
+<style>
+  .tarjeta { position: relative; background: var(--color-blanco); border: 1px solid var(--color-linea); border-radius: var(--radius-lg); overflow: hidden; transition: border-color .15s, box-shadow .15s; }
+  .tarjeta:hover { border-color: var(--color-tinta); box-shadow: var(--shadow-suave); }
+  .tarjeta:focus-within { outline: 2px solid var(--color-azul); outline-offset: 2px; }
+  .tarjeta__imagen { display: block; width: 100%; height: auto; aspect-ratio: 8 / 5; object-fit: cover; }
+  .tarjeta__cuerpo { padding: var(--spacing-lg); display: grid; gap: var(--spacing-md); }
+  .tarjeta__eyebrow { margin: 0; font: var(--font-weight-negrita) var(--text-xs)/var(--text-xs--line-height) var(--font-texto); letter-spacing: var(--tracking-eyebrow); text-transform: uppercase; color: var(--color-azul); }
+  .tarjeta__titulo { margin: 0; font: var(--font-weight-extranegrita) var(--text-xl)/var(--text-xl--line-height) var(--font-titulo); letter-spacing: var(--tracking-titulo); }
+  .tarjeta__titulo a { color: var(--color-tinta); text-decoration: none; }
+  .tarjeta__titulo a::after { content: ""; position: absolute; inset: 0; }
+  .tarjeta__texto { margin: 0; color: var(--color-texto); font: var(--text-base)/var(--text-base--line-height) var(--font-texto); }
+</style></div><p class="demo__nota">La imagen es un marcador de posición.</p>
+        <div class="comp__cols">
+          <section><h4>Para qué sirve</h4><p>Presenta un proyecto del portafolio en una rejilla: imagen, año o categoría (eyebrow), título, una frase de descripción, etiquetas con las tecnologías y un enlace al caso de estudio.</p></section>
+          <section><h4>Cuándo no usarlo</h4><ul><li>Para contenido que no es un proyecto (artículos, avisos): use <code>aviso-destacado</code> o una lista.</li><li>Con descripciones largas: máximo dos líneas; el detalle va en el caso de estudio.</li><li>Con cifras o clientes que no sean reales (ver <code>voz</code>).</li><li>Anidada dentro de otra tarjeta.</li></ul></section>
+          <section><h4>Variantes y estados</h4><ul><li><strong>Claro:</strong> fondo <code>color.blanco</code>, borde 1px <code>color.linea</code>, radio <code>radio.lg</code>, sin sombra en reposo.</li><li><strong>Oscuro:</strong> fondo <code>color.oscuro.cuadro</code>, borde <code>color.oscuro.linea</code>.</li><li><strong>Destacada:</strong> igual que la clara pero ocupa dos columnas; el título sube a <code>tipografia.tamano.2xl</code>.</li></ul>
+<p>Estados: <strong>hover</strong> (borde pasa a <code>color.tinta</code> y aparece <code>sombra.suave</code>), <strong>foco</strong> (anillo azul de 2px en toda la tarjeta, que es un solo enlace).</p></section>
+          <section><h4>Accesibilidad</h4><ul><li>Toda la tarjeta es <strong>un único enlace</strong> (<code>&lt;a&gt;</code> en el título con <code>::after</code> que cubre la tarjeta); evite enlaces anidados.</li><li>La imagen necesita <code>alt</code> descriptivo; si es decorativa, <code>alt=&quot;&quot;</code>.</li><li>El título es un encabezado (<code>&lt;h3&gt;</code>) dentro de una lista (<code>&lt;ul&gt;</code>).</li><li>El foco visible debe rodear toda la tarjeta.</li></ul></section>
+        </div>
+        <p class="comp__tokens"><strong>Tokens:</strong> <code>color.fondo</code> <code>color.blanco</code> <code>color.linea</code> <code>color.tinta</code> <code>color.texto</code> <code>color.apagado</code> <code>color.azul</code> <code>tipografia.familia.titulo</code> <code>tipografia.tamano.xl</code> <code>tipografia.tamano.base</code> <code>radio.lg</code> <code>espaciado.lg</code> <code>espaciado.md</code> <code>sombra.suave</code></p>
+        <details><summary>Código · HTML + CSS</summary><pre><code>&lt;article class=&quot;tarjeta&quot;&gt;
+  &lt;img class=&quot;tarjeta__imagen&quot; src=&quot;proyecto.jpg&quot; alt=&quot;Pantalla principal del panel de métricas&quot; width=&quot;640&quot; height=&quot;400&quot; /&gt;
+  &lt;div class=&quot;tarjeta__cuerpo&quot;&gt;
+    &lt;p class=&quot;tarjeta__eyebrow&quot;&gt;Panel de datos · 2026&lt;/p&gt;
+    &lt;h3 class=&quot;tarjeta__titulo&quot;&gt;&lt;a href=&quot;/proyectos/panel&quot;&gt;Panel de métricas&lt;/a&gt;&lt;/h3&gt;
+    &lt;p class=&quot;tarjeta__texto&quot;&gt;Lectura rápida de indicadores para equipos pequeños.&lt;/p&gt;
+    &lt;ul class=&quot;etiquetas&quot; role=&quot;list&quot;&gt;&lt;li class=&quot;etiqueta&quot;&gt;Figma&lt;/li&gt;&lt;li class=&quot;etiqueta&quot;&gt;React&lt;/li&gt;&lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/article&gt;
+
+&lt;style&gt;
+  .tarjeta { position: relative; background: var(--color-blanco); border: 1px solid var(--color-linea); border-radius: var(--radius-lg); overflow: hidden; transition: border-color .15s, box-shadow .15s; }
+  .tarjeta:hover { border-color: var(--color-tinta); box-shadow: var(--shadow-suave); }
+  .tarjeta:focus-within { outline: 2px solid var(--color-azul); outline-offset: 2px; }
+  .tarjeta__imagen { display: block; width: 100%; height: auto; aspect-ratio: 8 / 5; object-fit: cover; }
+  .tarjeta__cuerpo { padding: var(--spacing-lg); display: grid; gap: var(--spacing-md); }
+  .tarjeta__eyebrow { margin: 0; font: var(--font-weight-negrita) var(--text-xs)/var(--text-xs--line-height) var(--font-texto); letter-spacing: var(--tracking-eyebrow); text-transform: uppercase; color: var(--color-azul); }
+  .tarjeta__titulo { margin: 0; font: var(--font-weight-extranegrita) var(--text-xl)/var(--text-xl--line-height) var(--font-titulo); letter-spacing: var(--tracking-titulo); }
+  .tarjeta__titulo a { color: var(--color-tinta); text-decoration: none; }
+  .tarjeta__titulo a::after { content: &quot;&quot;; position: absolute; inset: 0; }
+  .tarjeta__texto { margin: 0; color: var(--color-texto); font: var(--text-base)/var(--text-base--line-height) var(--font-texto); }
+&lt;/style&gt;</code></pre></details>
+        <details><summary>Código · React + Tailwind v4</summary><pre><code>type Props = { href: string; imagen: string; alt: string; eyebrow: string; titulo: string; texto: string; etiquetas: string[] };
+
+export function TarjetaDeProyecto({ href, imagen, alt, eyebrow, titulo, texto, etiquetas }: Props) {
+  return (
+    &lt;article className=&quot;relative overflow-hidden rounded-lg border border-linea bg-blanco transition hover:border-tinta hover:shadow-suave focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-azul&quot;&gt;
+      &lt;img src={imagen} alt={alt} width={640} height={400} className=&quot;aspect-[8/5] w-full object-cover&quot; /&gt;
+      &lt;div className=&quot;grid gap-md p-lg&quot;&gt;
+        &lt;p className=&quot;font-texto text-xs font-negrita uppercase tracking-eyebrow text-azul&quot;&gt;{eyebrow}&lt;/p&gt;
+        &lt;h3 className=&quot;font-titulo text-xl font-extranegrita tracking-titulo text-tinta&quot;&gt;
+          &lt;a href={href} className=&quot;after:absolute after:inset-0&quot;&gt;{titulo}&lt;/a&gt;
+        &lt;/h3&gt;
+        &lt;p className=&quot;font-texto text-base text-texto&quot;&gt;{texto}&lt;/p&gt;
+        &lt;ul role=&quot;list&quot; className=&quot;flex flex-wrap gap-sm&quot;&gt;
+          {etiquetas.map((e) =&gt; (
+            &lt;li key={e} className=&quot;rounded-pill bg-suave px-md py-sm font-texto text-xs font-seminegrita text-tinta&quot;&gt;{e}&lt;/li&gt;
+          ))}
+        &lt;/ul&gt;
+      &lt;/div&gt;
+    &lt;/article&gt;
+  );
+}</code></pre></details>
+        <details><summary>Código · Impresión (PDF)</summary><pre><code>@media print {
+  .tarjeta { break-inside: avoid; box-shadow: none; border-color: var(--color-linea); }
+  .tarjeta__imagen { max-height: 5cm; }
+  .tarjeta__titulo a::after { content: none; }
+  .tarjeta__titulo a[href]::after { content: &quot; (&quot; attr(href) &quot;)&quot;; font-size: var(--text-xs); color: var(--color-apagado); position: static; }
+}</code></pre></details>
+      </article>
+</div></section>
+
+<section class="bloque" id="reglas"><div class="contenedor">
+  <header><p class="eyebrow">Reglas</p><h2>Qué sí y <em>qué no.</em></h2></header>
+  <div class="reglas"><p>Qué sí y qué no. Cada regla tiene un identificador (<code>R-…</code>) para citarla en revisiones. Las reglas de color, tipografía, radios y degradados las comprueba <code>auditar_codigo</code>; las de contraste, <code>revisar_contraste</code>; las de voz están en <code>voz</code>.</p>
+<h4>Color</h4>
+<ul><li><strong>R-COLOR-1 · Solo la paleta.</strong> Todo color sale de <code>tokens.json</code>. Si necesita uno nuevo, primero se agrega como token. <em>Sí:</em> <code>var(--color-tinta)</code>. <em>No:</em> <code>#000</code>, <code>#333</code>, <code>gray</code>.</li><li><strong>R-COLOR-2 · El azul es solo acento.</strong> <code>color.azul</code> (y <code>color.oscuro.acento</code>) se reserva para la palabra destacada, los eyebrows, la píldora del motivo, enlaces y el borde del aviso. <strong>Nunca para bloques grandes</strong> ni fondos de sección. <em>No:</em> un hero entero en azul.</li><li><strong>R-COLOR-3 · Sin degradados.</strong> Ni en fondos, ni en botones, ni en el motivo. Color plano.</li><li><strong>R-COLOR-4 · Blanco puro solo sobre tinta o azul.</strong> El fondo de página es <code>color.fondo</code> (<code>#FAFAF8</code>), no <code>#FFF</code>. <code>color.blanco</code> se usa como texto sobre <code>color.tinta</code> o <code>color.azul</code>, y como fondo de tarjetas sobre <code>color.fondo</code>.</li><li><strong>R-COLOR-5 · Sobre fondo oscuro, la variante oscura.</strong> Sobre <code>color.tinta</code> use <code>color.oscuro.*</code>; no use <code>color.azul</code> ni <code>color.apagado</code> allí.</li><li><strong>R-COLOR-6 · Contraste mínimo.</strong> Texto normal ≥ 4.5:1 (AA); texto de lectura, títulos y navegación ≥ 7:1 (AAA) cuando el par lo permite. No use <code>color.apagado</code> sobre <code>color.suave</code>.</li></ul>
+<h4>Tipografía</h4>
+<ul><li><strong>R-TIPO-1 · Dos familias.</strong> Bricolage Grotesque (solo peso 800) para títulos, nombre y cifras grandes; Instrument Sans (400, 500, 600, 700) para todo lo demás. Ninguna otra. Única excepción: fragmentos de código en documentación, con la pila del sistema <code>tipografia.familia.codigo</code>.</li><li><strong>R-TIPO-2 · Una sola palabra destacada por título</strong>, en <code>color.azul</code>. <em>Sí:</em> «Interfaces pensadas para <strong>implementarse.</strong>» <em>No:</em> dos o tres palabras en azul, ni negrita más color.</li><li><strong>R-TIPO-3 · Espaciado de letras.</strong> Títulos con <code>-0.02em</code>; eyebrows con <code>0.12em</code>, en mayúsculas, Instrument Sans 700, <code>color.azul</code>.</li><li><strong>R-TIPO-4 · Solo tamaños de la escala</strong> (<code>tipografia.tamano.*</code>) con su interlineado. Sin tamaños sueltos como <code>17px</code> o <code>2.3rem</code>.</li><li><strong>R-TIPO-5 · Texto de lectura</strong> en <code>color.texto</code>, 16px/26px, a un máximo de ~70 caracteres por línea.</li></ul>
+<h4>Forma y espacio</h4>
+<ul><li><strong>R-FORMA-1 · Radios del set</strong> (<code>radio.*</code>). <em>No:</em> <code>border-radius: 8px</code> ni <code>3px</code>.</li><li><strong>R-FORMA-2 · Sin sombras por defecto.</strong> Se usa solo <code>sombra.suave</code> (tarjetas, hover) o <code>sombra.elevada</code> (menús, diálogos). Nunca sombras de color.</li><li><strong>R-FORMA-3 · Espaciado de la escala</strong> (<code>espaciado.*</code>, base 4px).</li><li><strong>R-FORMA-4 · Bordes de 1px</strong> en <code>color.linea</code> (o <code>color.oscuro.linea</code>). El único borde grueso es el izquierdo de 4px del aviso destacado.</li></ul>
+<h4>Motivo de cuadros</h4>
+<ul><li><strong>R-MOTIVO-1 · Nunca detrás de texto largo.</strong> Ocupa su propio espacio (columna, esquina, cierre) y deja aire alrededor.</li><li><strong>R-MOTIVO-2 · Uno por pantalla o página.</strong> Completo (4×3) desde 120px de ancho; por debajo, mini (2×2).</li><li><strong>R-MOTIVO-3 · Colores del motivo solo los definidos</strong> (claro y oscuro). Sin recolorear, sin degradados, sin deformar.</li><li><strong>R-MOTIVO-4 · Es decorativo:</strong> <code>alt=&quot;&quot;</code> o <code>aria-hidden</code>.</li></ul>
+<h4>Composición</h4>
+<ul><li><strong>R-COMP-1 · Un solo botón principal por vista.</strong></li><li><strong>R-COMP-2 · Un solo aviso destacado por pantalla.</strong></li><li><strong>R-COMP-3 · La frase de marca</strong> es «Interfaces pensadas para implementarse.», con «implementarse.» en azul. No se traduce ni se abrevia.</li><li><strong>R-COMP-4 · Documentos:</strong> portada con nombre arriba, título grande, metadatos abajo y motivo a la derecha; cierre con bloque de contacto.</li></ul>
+<h4>Accesibilidad</h4>
+<ul><li><strong>R-A11Y-1 · Foco visible</strong> siempre (<code>outline</code> de 2px <code>color.azul</code>).</li><li><strong>R-A11Y-2 · Áreas táctiles</strong> de al menos 44 × 44 px.</li><li><strong>R-A11Y-3 · El color no es el único portador de significado.</strong></li><li><strong>R-A11Y-4 · Imágenes con <code>alt</code></strong>; decorativas con <code>alt=&quot;&quot;</code>.</li></ul>
+<h4>Cómo agregar una regla</h4>
+<p>Agregue una viñeta con su identificador en la sección que corresponda y, si puede comprobarse con código, un caso en <code>tests/</code>.</p></div>
+</div></section>
+</main>
+<footer><div class="contenedor">Generado desde <code>marca/tokens.json</code>, los componentes y las reglas de Marca MCP. Fuentes: Bricolage Grotesque e Instrument Sans (SIL OFL 1.1).</div></footer>
+</body>
+</html>

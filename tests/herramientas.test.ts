@@ -28,9 +28,9 @@ describe('catálogo de herramientas', () => {
 });
 
 describe('obtener_tokens', () => {
-  it('sin categoría devuelve los 58 tokens', async () => {
+  it('sin categoría devuelve los 59 tokens', async () => {
     const r = await llamar('obtener_tokens', {});
-    expect(r.s.total).toBe(58);
+    expect(r.s.total).toBe(59);
     expect(r.s.tokens.find((t: any) => t.ruta === 'color.azul')).toMatchObject({ valor: '#043565', variable: '--color-azul' });
   });
   it('filtra por categoría', async () => {
