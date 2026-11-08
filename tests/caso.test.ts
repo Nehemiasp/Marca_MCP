@@ -5,6 +5,7 @@ import { existsSync } from 'node:fs';
 import { auditarCodigo } from '../src/nucleo/auditor.js';
 import { cargarTokens } from '../src/nucleo/tokens.js';
 import { revisarTexto } from '../src/nucleo/voz.js';
+import { CARPETA_EVALS, CARPETA_SALIDAS, leerCorrida, totalesDeCorrida } from '../evals/reporte.js';
 
 const leer = (f: string) => readFileSync(join(import.meta.dirname, '..', 'caso-de-estudio', f), 'utf8');
 
@@ -17,18 +18,34 @@ describe('material del caso de estudio', () => {
     });
   }
 
-  it('las cifras del caso coinciden con el reporte de la evaluación', () => {
-    const reporte = readFileSync(join(import.meta.dirname, '..', 'evals', 'reporte.md'), 'utf8');
-    const fila = (nombre: string) => reporte.split('\n').find((l) => l.startsWith(`| ${nombre}`))!.split('|').map((c) => c.trim());
+  it('las cifras del caso coinciden con las corridas guardadas de la evaluación', () => {
+    const sin = totalesDeCorrida(leerCorrida(CARPETA_SALIDAS, 'sin'));
+    const con1 = totalesDeCorrida(leerCorrida(join(CARPETA_EVALS, 'historial', 'corrida-1-skill-original'), 'con'));
     const caso = leer('caso-de-estudio.md');
-    const codigo = fila('Valores fuera de los tokens');
-    expect(caso).toContain(`| ${codigo[2]} | ${codigo[3]} |`);
-    const colores = fila('Colores renderizados fuera de la paleta');
-    expect(caso).toContain(`| ${colores[2]} | ${colores[3]} |`);
-    const fuentes = fila('Fuentes ajenas');
-    expect(caso).toContain(`| ${fuentes[2]} | ${fuentes[3]} |`);
-    const contraste = fila('Textos que no llegan a AA');
-    expect(caso).toContain(`| ${contraste[2]} | ${contraste[3]} |`);
+    for (const [nombre, a, b] of [
+      ['Valores fuera de los tokens en el código', sin.codigo, con1.codigo],
+      ['Colores renderizados fuera de la paleta', sin.colores, con1.colores],
+      ['Fuentes ajenas a la marca', sin.fuentes, con1.fuentes],
+      ['Textos que no llegan a AA de contraste', sin.contraste, con1.contraste],
+      ['Fallos de voz', sin.voz, con1.voz]
+    ] as const) expect(caso, nombre).toContain(`| ${nombre} | ${a} | ${b} |`);
+    expect(caso).toContain(`| Piezas sin ningún hallazgo | ${sin.sinHallazgos} de ${sin.tareas} | ${con1.sinHallazgos} de ${con1.tareas} |`);
+  });
+
+  it('las cifras de «lo que probé después» coinciden con las corridas guardadas', () => {
+    const sin = totalesDeCorrida(leerCorrida(CARPETA_SALIDAS, 'sin'));
+    const c2 = totalesDeCorrida(leerCorrida(CARPETA_SALIDAS, 'con'));
+    const c3 = totalesDeCorrida(leerCorrida(join(CARPETA_EVALS, 'variantes', 'hook'), 'con'));
+    const h = totalesDeCorrida(leerCorrida(join(CARPETA_EVALS, 'variantes', 'hook-sin'), 'sin'));
+    const c1 = totalesDeCorrida(leerCorrida(join(CARPETA_EVALS, 'historial', 'corrida-1-skill-original'), 'con'));
+    const caso = leer('caso-de-estudio.md');
+    expect(caso).toContain(`| Valores fuera de los tokens | ${c1.codigo} | ${c2.codigo} | ${c3.codigo} | ${h.codigo} |`);
+    expect(caso).toContain(`| Piezas sin ningún hallazgo | ${c1.sinHallazgos} de 7 | ${c2.sinHallazgos} de 7 | ${c3.sinHallazgos} de 7 | ${h.sinHallazgos} de 7 |`);
+    const audit = (t: typeof c1) => `${t.usoRevision['auditar_codigo']} de 7`;
+    expect(caso).toContain(`| Veces que corrió \`auditar_codigo\` | ${audit(c1)} | ${audit(c2)} | ${audit(c3)} | ${audit(h)} |`);
+    // El texto afirma «9 de 16 guardados bloqueados» y «de 130 errores a cero»:
+    expect(`${h.hookBloqueos} de ${h.hookDisparos}`).toBe('9 de 16');
+    expect(sin.codigo).toBe(130);
   });
 });
 

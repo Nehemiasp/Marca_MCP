@@ -25,6 +25,7 @@ Que Claude (y cualquier cliente MCP) conozca colores, tipografías, espaciados, 
 | `npm run evals` | Evaluación con/sin servidor → `evals/reporte.md` |
 | `npm run sitio` | Genera `sitio/publico/` (página `/marca`) desde los tokens |
 | `npm run dev:http` / `npm run start:http` | Servidor HTTP local (`/mcp`, puerto `PORT`) |
+| `npm run revisar -- archivo.html` | Revisa un archivo contra la marca (código y voz); sale con 1 si hay errores |
 | `npm run caso` | Capturas lado a lado para el caso de estudio |
 | `npm run casos` | Imágenes de evidencia de los casos desarrollados (`caso-de-estudio/casos/`) |
 
@@ -79,4 +80,7 @@ Genera `caso-de-estudio/errores/<id>.png` y actualiza `caso-de-estudio/registro-
 - **El auditor distingue `@font-face` de uso:** ahí valen las fuentes de la marca y la de código; usar JetBrains Mono a mano fuera de un `@font-face` sigue siendo error (solo entra por el token).
 - **JetBrains Mono (OFL) empaquetada para `tipografia.familia.codigo`:** el código de la documentación se ve igual en cualquier máquina. Es la única excepción a la regla de dos familias.
 - **Las salidas de la evaluación se conservan y se vuelven a medir (`--medir`) al cambiar el auditor:** así se detectan regresiones (una pieza «con servidor» apareció con un error tras un arreglo mío). Los totales solo se comparan con el mismo auditor en las dos condiciones.
+- **Hook de verificación (`dist/hook.js`) en lugar de pedirlo en la skill:** reforzar la redacción de la skill no cambió la conducta del agente; un hook PostToolUse que revisa cada archivo guardado y devuelve los errores (código de salida 2) sí cierra el ciclo. Es de solo lectura y local. Evidencia en `evals/conclusiones.md`.
+- **Las corridas de la evaluación se archivan y se comparan (`evals/historial/`, `evals/variantes/`):** una sola corrida no dice cuánto varía el modelo. Una prueba exige que las cifras citadas en el caso de estudio coincidan con las corridas guardadas.
+- **La evaluación mide SVG por `fill`:** en un SVG el color visible es `fill`, no `color`; solo cuentan las formas que pintan (no `<svg>` ni `<g>`).
 - **Paridad por contrato, no por edición:** no hay acceso a ese repositorio; se documenta cómo leer la marca (`docs/paridad.md`) con un ejemplo probado.

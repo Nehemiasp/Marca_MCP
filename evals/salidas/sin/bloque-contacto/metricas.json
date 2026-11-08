@@ -1,8 +1,9 @@
 {
   "codigoErrores": 14,
   "codigoAvisos": 6,
-  "coloresFueraDePaleta": 5,
+  "coloresFueraDePaleta": 6,
   "coloresFueraDePaletaLista": [
+    "#000000",
     "#0F766E",
     "#14213D",
     "#5B6475",

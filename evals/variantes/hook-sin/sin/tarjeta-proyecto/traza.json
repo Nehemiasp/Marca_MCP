@@ -1,0 +1,11 @@
+{
+  "herramientasDeMarca": [],
+  "hooks": {
+    "disparos": 2,
+    "bloqueos": 1
+  },
+  "costoUsd": 0.0804568,
+  "turnos": 5,
+  "duracionSeg": 31,
+  "respuesta": "He creado `salida.html` con la tarjeta del panel de métricas, usando los tokens de marca que indicó el validador (colores, tipografías, radios, sin degradados ni sombras) y sin cifras inventadas. No pude volver a ejecutar el validador, así que no está comprobado. Los enlaces \"Ver demo\" y \"Código\" apuntan a `#`, y los valores hex de `:root` los tomé de los mensajes del validador."
+}

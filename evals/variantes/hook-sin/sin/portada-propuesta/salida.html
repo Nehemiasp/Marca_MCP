@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Propuesta de Servicios</title>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Instrument+Sans:wght@400;600;700&display=swap");
+:root {
+  --color-azul: #043565;
+  --color-suave: #ECEDEF;
+  --color-linea: #DADDE2;
+  --color-apagado: #6A707A;
+  --color-blanco: #fff;
+  --font-titulo: "Bricolage Grotesque", "Instrument Sans", sans-serif;
+  --font-texto: "Instrument Sans", "Bricolage Grotesque", sans-serif;
+}
+@page { size: A4; margin: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: var(--color-suave); }
+body { font-family: var(--font-texto); color: var(--color-azul); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.page { width: 210mm; height: 297mm; margin: 0 auto; background: var(--color-blanco); position: relative; overflow: hidden; }
+.band { position: absolute; top: 0; left: 0; bottom: 0; width: 14mm; background: var(--color-azul); }
+.block { position: absolute; right: 0; top: 0; width: 70mm; height: 90mm; background: var(--color-suave); }
+.content { position: relative; padding: 28mm 22mm 22mm 36mm; display: flex; flex-direction: column; height: 100%; }
+.brand { font-family: var(--font-titulo); font-size: 11pt; font-weight: 800; letter-spacing: .28em; text-transform: uppercase; }
+.main { margin: auto 0; padding-top: 30mm; }
+.kicker { font-size: 10pt; letter-spacing: .25em; text-transform: uppercase; color: var(--color-apagado); font-weight: 700; margin-bottom: 8mm; }
+h1 { font-family: var(--font-titulo); font-size: 44pt; line-height: 1.05; font-weight: 800; letter-spacing: -.02em; }
+.rule { width: 24mm; height: 1.2mm; background: var(--color-azul); margin: 10mm 0; }
+.sub { font-size: 14pt; line-height: 1.5; color: var(--color-apagado); max-width: 115mm; }
+.meta { display: grid; grid-template-columns: 1fr 1fr; gap: 8mm 10mm; border-top: .3mm solid var(--color-linea); padding-top: 8mm; }
+.meta dt { font-size: 8pt; letter-spacing: .2em; text-transform: uppercase; color: var(--color-apagado); margin-bottom: 1.5mm; }
+.meta dd { font-size: 11pt; font-weight: 600; line-height: 1.4; }
+@media print { html, body { background: none; } .page { margin: 0; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="band"></div><div class="block"></div>
+  <div class="content">
+    <div class="brand">Tu Empresa</div>
+    <div class="main">
+      <div class="kicker">Propuesta de servicios</div>
+      <h1>Estrategia y soluciones a la medida de su negocio</h1>
+      <div class="rule"></div>
+      <p class="sub">Documento con el alcance, la metodología, los plazos y la inversión del proyecto propuesto.</p>
+    </div>
+    <dl class="meta">
+      <div><dt>Preparado para</dt><dd>[Nombre del cliente]<br>[Empresa]</dd></div>
+      <div><dt>Preparado por</dt><dd>[Nombre del responsable]<br>[Cargo]</dd></div>
+      <div><dt>Fecha</dt><dd>8 de noviembre de 2026</dd></div>
+      <div><dt>Referencia · Validez</dt><dd>PS-2026-001 · 30 días</dd></div>
+    </dl>
+  </div>
+</div>
+</body>
+</html>

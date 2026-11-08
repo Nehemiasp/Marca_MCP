@@ -1,0 +1,16 @@
+{
+  "herramientasDeMarca": [
+    "buscar_componente",
+    "obtener_tokens",
+    "obtener_componente",
+    "revisar_texto"
+  ],
+  "hooks": {
+    "disparos": 1,
+    "bloqueos": 0
+  },
+  "costoUsd": 0.0784159,
+  "turnos": 6,
+  "duracionSeg": 21,
+  "respuesta": "Creé `salida.html` en la carpeta actual con la tarjeta del panel de métricas, usando los tokens y el componente de la marca. La revisión de texto no encontró hallazgos, pero no pasé el código por `auditar_codigo` ni revisé el contraste."
+}

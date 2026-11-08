@@ -1,0 +1,11 @@
+{
+  "herramientasDeMarca": [],
+  "hooks": {
+    "disparos": 2,
+    "bloqueos": 1
+  },
+  "costoUsd": 0.08253880000000001,
+  "turnos": 5,
+  "duracionSeg": 32,
+  "respuesta": "Listo: `salida.html` está en la carpeta actual con tu hero, y ya lo ajusté a los colores y fuentes de la marca que marcó el validador. No pude volver a pasar el validador ni ver la página en un navegador, y no tuve acceso a los archivos de tokens, así que definí las variables a mano con los valores que indicó el aviso."
+}

@@ -92,7 +92,9 @@ export async function medirSalida(rutaHtml: string, tarea: Tarea, rutaCaptura?: 
           const b = getComputedStyle(e).backgroundColor;
           if (alfa(b) >= 0.99) { bg = b; break; }
         }
-        salida.push({ texto: t.slice(0, 50), color: cs.color, bg, size: parseFloat(cs.fontSize), weight: parseInt(cs.fontWeight, 10) || 400, family: cs.fontFamily });
+        // En SVG el color visible del texto es `fill`, no `color`.
+        const colorTexto = el instanceof SVGElement ? cs.fill : cs.color;
+        salida.push({ texto: t.slice(0, 50), color: colorTexto, bg, size: parseFloat(cs.fontSize), weight: parseInt(cs.fontWeight, 10) || 400, family: cs.fontFamily });
       }
       return salida;
     });
@@ -108,8 +110,13 @@ export async function medirSalida(rutaHtml: string, tarea: Tarea, rutaCaptura?: 
       for (const el of Array.from(document.body.querySelectorAll('*')).concat([document.body, document.documentElement])) {
         const cs = getComputedStyle(el);
         if (cs.display === 'none') continue;
+        const esSvg = el instanceof SVGElement;
         const tieneTexto = Array.from(el.childNodes).some((n) => n.nodeType === 3 && (n.textContent ?? '').trim());
-        if (tieneTexto && alfa(cs.color) > 0.5) set.add(cs.color);
+        // Texto: `color` en HTML, `fill` en SVG. Formas de SVG (rect, path…): su relleno.
+        if (tieneTexto && alfa(esSvg ? cs.fill : cs.color) > 0.5) set.add(esSvg ? cs.fill : cs.color);
+        // Solo las formas que pintan: un <svg> o un <g> tienen fill negro por defecto aunque no dibujen nada.
+        const FORMAS = ['rect', 'path', 'circle', 'ellipse', 'polygon', 'polyline'];
+        if (esSvg && FORMAS.includes(el.tagName.toLowerCase()) && cs.fill !== 'none' && alfa(cs.fill) > 0.5) set.add(cs.fill);
         if (alfa(cs.backgroundColor) > 0.5) set.add(cs.backgroundColor);
         for (const lado of ['Top', 'Right', 'Bottom', 'Left'] as const) {
           const ancho = parseFloat(cs.getPropertyValue(`border-${lado.toLowerCase()}-width`));

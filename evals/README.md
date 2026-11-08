@@ -8,7 +8,7 @@ Mide si un agente produce piezas más fieles a la marca **con** el servidor que 
   - **sin:** sin servidor, sin skills (`--disable-slash-commands`), solo `Write`, `Edit` y `Read`.
   - **con:** servidor MCP `marca` conectado + skill `/marca`.
 - `medir.ts`: abre cada `salida.html` en Chromium (Playwright) y mide con **las propias herramientas del servidor** (`auditar_codigo`, `revisar_texto`) más lo que realmente se renderiza: colores fuera de la paleta, fuentes ajenas y contraste AA.
-- `reporte.ts`: arma `reporte.md` (tabla comparativa y conclusiones) y la plantilla `calificaciones.md`.
+- `reporte.ts`: arma `reporte.md` (tabla comparativa, todas las corridas y conclusiones) y la plantilla `calificaciones.md`.
 
 ## Comandos
 ```bash
@@ -18,6 +18,13 @@ npm run evals -- --tareas=aviso-destacado,tabla-precios --condicion=con
 npm run evals -- --medir              # vuelve a medir las salidas existentes (sin llamar a Claude)
 npm run evals -- --solo-reporte       # solo regenera reporte.md (p. ej. tras llenar las calificaciones)
 ```
+Variantes experimentales (no tocan el reporte principal; guardan en `variantes/<nombre>/`):
+```bash
+npm run evals -- --variante=hook        # con servidor + hook de verificación
+npm run evals -- --variante=hook-sin    # SIN servidor, solo con el hook
+```
+`historial/` guarda corridas anteriores completas (HTML, captura, métricas y traza) para poder compararlas. Con `--medir` se vuelven a medir las salidas guardadas, por ejemplo tras cambiar el auditor; mida también las de `historial/` y `variantes/` para que todas usen el mismo criterio.
+
 Variables: `EVALS_MODEL` (o `--modelo=`) fija el modelo; `--concurrencia=N` (por omisión 3).
 
 Requiere la CLI `claude` autenticada. Cada corrida usa su cuota (en la ejecución incluida, menos de $1 en total).

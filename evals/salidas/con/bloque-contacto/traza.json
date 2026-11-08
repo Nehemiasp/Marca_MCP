@@ -4,8 +4,8 @@
     "obtener_tokens",
     "obtener_componente"
   ],
-  "costoUsd": 0.1132643,
+  "costoUsd": 0.13786569999999998,
   "turnos": 6,
-  "duracionSeg": 39,
-  "respuesta": "Creé `salida.html` con el bloque de contacto (nombre, «Diseñador UI/UX», web, correo y un QR a https://nehemiasperez.com), pero no pude ejecutar ni escanear nada aquí, así que el QR sin probar; escanéelo antes de publicar. El QR se genera con JavaScript dentro del propio archivo, y el correo es nehemiasp880@gmail.com, que puede cambiar por el que prefiera."
+  "duracionSeg": 47,
+  "respuesta": "Creé `salida.html` en la carpeta actual con el bloque de contacto de la marca (nombre, «Diseñador UI/UX», web y correo) y un QR que apunta a nehemiasperez.com. No pude ejecutar ni escanear el QR, así que pruébelo con el móvil antes de publicar. El correo `correo@ejemplo.com` es un dato de ejemplo y hay que cambiarlo por el real."
 }

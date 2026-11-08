@@ -1,0 +1,16 @@
+{
+  "herramientasDeMarca": [
+    "obtener_tokens",
+    "buscar_componente",
+    "obtener_componente",
+    "revisar_texto"
+  ],
+  "hooks": {
+    "disparos": 1,
+    "bloqueos": 0
+  },
+  "costoUsd": 0.0771983,
+  "turnos": 6,
+  "duracionSeg": 21,
+  "respuesta": "Creé `salida.html` en la carpeta actual: una tabla comparativa con los planes Esencial, Profesional e Integral, con montos de ejemplo y los tokens de la marca. El texto pasó la revisión de voz; no corrí `auditar_codigo` ni `revisar_contraste`."
+}

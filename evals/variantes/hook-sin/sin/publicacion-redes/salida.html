@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080">
+<title>Nuevo portafolio</title>
+<style>
+:root{
+  --color-tinta:#0E1116;
+  --color-apagado:#6A707A;
+  --color-fondo:#FAFAF8;
+  --color-linea:#DADDE2;
+  --color-blanco:#FFFFFF;
+  --color-oscuro-texto-apagado:#A3ABB6;
+  --font-titulo:"Bricolage Grotesque","Instrument Sans",sans-serif;
+  --font-texto:"Instrument Sans","Bricolage Grotesque",sans-serif;
+  --text-2xl:28px;
+  --text-3xl:36px;
+  --text-5xl:64px;
+  --radius-pill:999px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1350px;background:var(--color-tinta)}
+body{font-family:var(--font-texto)}
+.post{position:relative;width:1080px;height:1350px;overflow:hidden;background:var(--color-fondo);color:var(--color-tinta);padding:90px}
+.top{display:flex;justify-content:space-between;align-items:center;font-size:var(--text-2xl);color:var(--color-apagado)}
+.tag{padding:14px 32px;background:var(--color-tinta);color:var(--color-blanco);border-radius:var(--radius-pill)}
+.panel{position:absolute;left:90px;right:90px;top:240px;height:700px;background:var(--color-tinta);color:var(--color-blanco);padding:80px;display:flex;flex-direction:column;justify-content:space-between}
+.panel .lbl{font-size:var(--text-2xl);color:var(--color-oscuro-texto-apagado)}
+h1{font-family:var(--font-titulo);font-size:var(--text-5xl);line-height:1.1;font-weight:800;letter-spacing:-1px}
+.panel p{font-size:var(--text-2xl);line-height:1.4;color:var(--color-linea)}
+.cta{position:absolute;left:90px;right:90px;bottom:90px;display:flex;justify-content:space-between;align-items:center;border-top:2px solid var(--color-linea);padding-top:48px}
+.cta b{font-family:var(--font-titulo);font-size:var(--text-3xl)}
+.cta span{font-size:var(--text-3xl);color:var(--color-apagado)}
+</style>
+</head>
+<body>
+<div class="post">
+<div class="top"><span>Portafolio</span><span class="tag">Ya online</span></div>
+<div class="panel">
+<div class="lbl">Novedad</div>
+<div>
+<h1>Abrí mi nuevo portafolio</h1>
+<p style="margin-top:32px">Proyectos recientes, procesos y el trabajo del que estoy más orgulloso. Pasa a verlo.</p>
+</div>
+</div>
+<div class="cta"><b>Link en la bio</b><span>→</span></div>
+</div>
+</body>
+</html>

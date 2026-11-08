@@ -1,0 +1,11 @@
+{
+  "herramientasDeMarca": [],
+  "hooks": {
+    "disparos": 2,
+    "bloqueos": 1
+  },
+  "costoUsd": 0.0354359,
+  "turnos": 4,
+  "duracionSeg": 14,
+  "respuesta": "He creado `salida.html` con el aviso destacado de respuesta en dos días hábiles, ajustado a los tokens de la marca (colores, fuentes, radio y tamaños) para corregir los errores del validador. No volví a ejecutar el validador, y el archivo usa variables `var(--...)` sin definirlas, así que el estilo de marca solo se verá si tu sitio ya las carga."
+}

@@ -1,0 +1,11 @@
+{
+  "herramientasDeMarca": [],
+  "hooks": {
+    "disparos": 3,
+    "bloqueos": 2
+  },
+  "costoUsd": 0.15146359999999998,
+  "turnos": 7,
+  "duracionSeg": 63,
+  "respuesta": "Se corrigió el último aviso del validador de marca; el archivo ya usa solo tokens.\n\n`salida.html` está listo en la carpeta actual: un bloque de contacto con un QR generado en línea (sin dependencias) que apunta a la URL de ejemplo `https://ejemplo.com/contacto`. Los datos de contacto y esa URL son marcadores de posición que debe sustituir, y no pude abrirlo ni escanear el QR aquí. Además, `--color-azul` no tiene valor en el archivo, así que los acentos salen en el color tinta."
+}

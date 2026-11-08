@@ -2,13 +2,14 @@
   "herramientasDeMarca": [
     "obtener_tokens",
     "buscar_componente",
+    "obtener_asset",
     "obtener_componente",
     "obtener_componente",
     "obtener_asset",
     "revisar_texto"
   ],
-  "costoUsd": 0.0844671,
-  "turnos": 8,
-  "duracionSeg": 21,
-  "respuesta": "Listo: `salida.html` es una portada A4 con los tokens de la marca. Le falta reemplazar el marcador «[Nombre del cliente]» por el nombre real, y las fuentes Bricolage Grotesque e Instrument Sans no van incrustadas, así que si no están instaladas se verá la tipografía de reserva."
+  "costoUsd": 0.1185526,
+  "turnos": 9,
+  "duracionSeg": 23,
+  "respuesta": "Creé `salida.html`, una portada A4 con el logo, el motivo de cuadros y un título con «crecer» en azul. Revisé el texto con la herramienta de voz de la marca y no tuvo hallazgos. No auditó el CSS ni el contraste, y tampoco abrí la portada para comprobar cómo se ve ni la exporté a PDF. Cambie «[Nombre del cliente]» por el nombre real antes de enviarla. Las fuentes no están incrustadas, así que si no las tiene instaladas se verán con la fuente de respaldo del sistema."
 }

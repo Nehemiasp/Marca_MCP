@@ -20,6 +20,11 @@ Se agregan con `npm run error -- --titulo="…" --salida="…"` (ver `errores.ts
 | 13 | 9 | [El auditor solo leía la primera fuente si la lista empezaba con comillas](#2026-11-08-el-auditor-solo-leia-la-primera-fuente-si-la-lis) | 2026-11-08 |
 | 14 | 9 | [Mi corrección rompió el atributo font-family de un SVG](#2026-11-08-mi-correccion-rompio-el-atributo-font-family-de-) | 2026-11-08 |
 | 15 | 9 | [El auditor marcaba como ajena la fuente que el sistema incluye](#2026-11-08-el-auditor-marcaba-como-ajena-la-fuente-que-el-s) | 2026-11-08 |
+| 16 | 9 | [El auditor no veía un radio al final de un atributo style](#2026-11-08-el-auditor-no-veia-un-radio-al-final-de-un-atrib) | 2026-11-08 |
+| 17 | 9 | [Mi métrica contó como negro el texto blanco de un SVG](#2026-11-08-mi-metrica-conto-como-negro-el-texto-blanco-de-u) | 2026-11-08 |
+| 18 | 9 | [La skill reforzada no cambió lo que hace el agente](#2026-11-08-la-skill-reforzada-no-cambio-lo-que-hace-el-agen) | 2026-11-08 |
+| 19 | 9 | [Un comando mío fue bloqueado por una comprobación de seguridad](#2026-11-08-un-comando-mio-fue-bloqueado-por-una-comprobacio) | 2026-11-08 |
+| 20 | 9 | [Un script falló porque faltaba la carpeta .claude](#2026-11-08-un-script-fallo-porque-faltaba-la-carpeta-claude) | 2026-11-08 |
 
 ## Un componente apunta a un token que no existe <a id="2026-11-08-token-inexistente"></a>
 
@@ -140,3 +145,43 @@ Se agregan con `npm run error -- --titulo="…" --salida="…"` (ver `errores.ts
 - **Causa:** Al empaquetar JetBrains Mono para el código, la página la declara en un @font-face. El auditor leyó esa declaración como un uso de fuente ajena.
 - **Solución:** El auditor distingue el @font-face: ahí valen las fuentes de la marca y la de código; cualquier otra sigue siendo error. Fuera de un @font-face, escribir JetBrains Mono a mano sigue fallando: entra solo por el token.
 - **Aprendizaje:** Declarar una fuente que se carga y usarla son cosas distintas. La misma pregunta que con el código mostrado en prosa: el auditor tiene que saber qué está mirando.
+
+## El auditor no veía un radio al final de un atributo style <a id="2026-11-08-el-auditor-no-veia-un-radio-al-final-de-un-atrib"></a>
+
+![El auditor no veía un radio al final de un atributo style](errores/2026-11-08-el-auditor-no-veia-un-radio-al-final-de-un-atrib.png)
+
+- **Causa:** Con `style="… border-radius: 8px"` el valor capturado incluía el cierre del atributo y el texto siguiente (`8px">Soy Product Designer</p>`), y no se reconocía como medida. Es el mismo defecto de lectura que ya había aparecido con las fuentes.
+- **Solución:** Una función compartida limpia el valor de un atributo, y la usan fuentes y radios. Pruebas con el radio al final del atributo, con `!important` y con texto después.
+- **Aprendizaje:** Un defecto de lectura reaparece en cada lugar que copió la misma lectura. Al arreglarlo en uno, hay que buscar los otros.
+
+## Mi métrica contó como negro el texto blanco de un SVG <a id="2026-11-08-mi-metrica-conto-como-negro-el-texto-blanco-de-u"></a>
+
+![Mi métrica contó como negro el texto blanco de un SVG](errores/2026-11-08-mi-metrica-conto-como-negro-el-texto-blanco-de-u.png)
+
+- **Causa:** La evaluación leía la propiedad `color` de cada texto. En un SVG el color visible es `fill`, y `color` queda en negro por defecto: dos textos claros sobre fondo oscuro se contaron como fallos de contraste.
+- **Solución:** Para SVG se lee `fill` (texto y formas). Un primer arreglo contó también los contenedores `<svg>` y `<g>`, cuyo fill es negro aunque no dibujen nada; lo limité a las formas que pintan. Volví a medir todas las salidas guardadas.
+- **Aprendizaje:** Una métrica también se equivoca. Los números cambiaron un poco (47 a 48 colores fuera de la paleta sin servidor) y lo dejé escrito.
+
+## La skill reforzada no cambió lo que hace el agente <a id="2026-11-08-la-skill-reforzada-no-cambio-lo-que-hace-el-agen"></a>
+
+![La skill reforzada no cambió lo que hace el agente](errores/2026-11-08-la-skill-reforzada-no-cambio-lo-que-hace-el-agen.png)
+
+- **Causa:** Reescribí la skill como una puerta de verificación («una respuesta que diga que no pasó las revisiones cuenta como un fallo»). El agente la leyó, la citó y la omitió igual.
+- **Solución:** Dejé el resultado en el reporte y probé otra vía: un hook que corre la revisión cada vez que el agente guarda un archivo.
+- **Aprendizaje:** Pedir algo con más fuerza no es automatizarlo. El agente sabía que debía revisar y lo dijo.
+
+## Un comando mío fue bloqueado por una comprobación de seguridad <a id="2026-11-08-un-comando-mio-fue-bloqueado-por-una-comprobacio"></a>
+
+![Un comando mío fue bloqueado por una comprobación de seguridad](errores/2026-11-08-un-comando-mio-fue-bloqueado-por-una-comprobacio.png)
+
+- **Causa:** Escribí `rm -f $H/$t.json` con dos variables sin protección. Si alguna hubiera estado vacía, el borrado apuntaría a la raíz.
+- **Solución:** Usé la reescritura que la propia comprobación sugería: `rm -f "${H:?}"/"${t:?}".json`, que se detiene con error si una variable está vacía. No intenté partir el comando ni evitar la comprobación. Como el comando completo no se ejecutó, tuve que repetir también los pasos que venían antes.
+- **Aprendizaje:** El bloqueo tenía razón. Una variable vacía en un `rm` es el tipo de error que se repara cuando ya es tarde. Hoy escribo el borrado con la variable protegida desde el principio.
+
+## Un script falló porque faltaba la carpeta .claude <a id="2026-11-08-un-script-fallo-porque-faltaba-la-carpeta-claude"></a>
+
+![Un script falló porque faltaba la carpeta .claude](errores/2026-11-08-un-script-fallo-porque-faltaba-la-carpeta-claude.png)
+
+- **Causa:** En la condición «con servidor» la carpeta `.claude` se creaba al copiar la skill. En la condición «sin servidor» no hay skill, así que no existía y la escritura del hook falló.
+- **Solución:** Creo la carpeta antes de escribir la configuración del hook.
+- **Aprendizaje:** Un código que solo se probó con una condición supone cosas de esa condición. La segunda lo desmintió en el primer intento.

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tarjeta de proyecto · Panel de métricas</title>
+<style>
+  :root{
+    --color-tinta:#0E1116;--color-azul:#043565;--color-azul-suave:#E8EFF7;
+    --color-apagado:#6A707A;--color-linea:#DADDE2;--color-blanco:#FFFFFF;
+    --font-titulo:"Bricolage Grotesque",system-ui,sans-serif;
+    --font-texto:"Instrument Sans",system-ui,sans-serif;
+    --text-xs:12px;--text-sm:14px;--text-lg:18px;
+    --radius-sm:6px;--radius-md:10px;--radius-lg:16px;--radius-pill:999px;--radius-cuadro-mini:4px;
+  }
+  *{box-sizing:border-box;margin:0}
+  body{min-height:100vh;display:grid;place-items:center;background:var(--color-azul-suave);font-family:var(--font-texto);color:var(--color-tinta);padding:24px}
+  .card{max-width:420px;width:100%;background:var(--color-blanco);border:1px solid var(--color-linea);border-radius:var(--radius-lg);overflow:hidden}
+  .preview{background:var(--color-azul);padding:24px;color:var(--color-blanco)}
+  .kpis{display:flex;gap:10px;margin-bottom:16px}
+  .kpi{flex:1;background:var(--color-blanco);color:var(--color-tinta);border-radius:var(--radius-md);padding:10px}
+  .kpi small{display:block;font-size:var(--text-xs);color:var(--color-apagado)}
+  .kpi b{font-family:var(--font-titulo);font-size:var(--text-lg)}
+  .bars{display:flex;align-items:flex-end;gap:8px;height:80px}
+  .bars span{flex:1;background:var(--color-azul-suave);border-radius:var(--radius-cuadro-mini) var(--radius-cuadro-mini) 0 0}
+  .body{padding:24px}
+  h2{font-family:var(--font-titulo);font-size:var(--text-lg);color:var(--color-tinta);margin-bottom:8px}
+  p{color:var(--color-apagado);font-size:var(--text-sm);line-height:1.6;margin-bottom:16px}
+  ul{list-style:none;padding:0;margin-bottom:16px;color:var(--color-tinta);font-size:var(--text-sm)}
+  li{padding-left:22px;position:relative;margin-bottom:6px}
+  li::before{content:"✓";position:absolute;left:0;color:var(--color-azul);font-weight:700}
+  .tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:24px}
+  .tags span{background:var(--color-azul-suave);color:var(--color-azul);font-size:var(--text-xs);padding:4px 10px;border-radius:var(--radius-pill)}
+  .links{display:flex;gap:10px}
+  a{flex:1;text-align:center;padding:10px;border-radius:var(--radius-sm);font-size:var(--text-sm);font-weight:600;text-decoration:none}
+  .p{background:var(--color-azul);color:var(--color-blanco)}
+  .s{border:1px solid var(--color-linea);color:var(--color-tinta)}
+  a:hover{opacity:.88}
+</style>
+</head>
+<body>
+<article class="card">
+  <div class="preview" aria-hidden="true">
+    <div class="kpis">
+      <div class="kpi"><small>Usuarios activos</small><b>Hoy</b></div>
+      <div class="kpi"><small>Conversión</small><b>Mes</b></div>
+      <div class="kpi"><small>Tareas</small><b>Sprint</b></div>
+    </div>
+    <div class="bars"><span style="height:40%"></span><span style="height:55%"></span><span style="height:45%"></span><span style="height:70%"></span><span style="height:62%"></span><span style="height:85%"></span><span style="height:100%"></span></div>
+  </div>
+  <div class="body">
+    <h2>Panel de métricas para equipos pequeños</h2>
+    <p>Un dashboard simple que reúne los indicadores clave del equipo en una sola vista, sin la complejidad de las herramientas empresariales.</p>
+    <ul>
+      <li>Indicadores en tiempo real</li>
+      <li>Informes semanales automáticos</li>
+      <li>Configuración en minutos</li>
+    </ul>
+    <div class="tags"><span>JavaScript</span><span>API REST</span><span>Gráficos</span><span>UX</span></div>
+    <div class="links"><a class="p" href="#">Ver demo</a><a class="s" href="#">Código</a></div>
+  </div>
+</article>
+</body>
+</html>

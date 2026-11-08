@@ -1,24 +1,17 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Nehemias Pérez · Diseñador UI/UX</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --color-tinta: #0E1116;
-    --color-texto: #2B2F36;
-    --color-apagado: #6A707A;
-    --color-linea: #DADDE2;
-    --color-fondo: #FAFAF8;
-    --color-blanco: #FFFFFF;
-    --color-azul: #043565;
+    --color-tinta: #0E1116; --color-texto: #2B2F36; --color-apagado: #6A707A;
+    --color-linea: #DADDE2; --color-suave: #ECEDEF; --color-fondo: #FAFAF8;
+    --color-blanco: #FFFFFF; --color-azul: #043565;
     --font-titulo: "Bricolage Grotesque", "Instrument Sans", system-ui, sans-serif;
     --font-texto: "Instrument Sans", system-ui, sans-serif;
-    --text-xs: 12px; --text-sm: 14px; --text-lg: 18px; --text-4xl: 48px; --text-5xl: 64px;
+    --text-xs: 12px; --text-sm: 14px; --text-lg: 18px; --text-3xl: 36px; --text-4xl: 48px; --text-5xl: 64px;
     --tracking-titulo: -0.02em; --tracking-eyebrow: 0.12em;
     --spacing-sm: 8px; --spacing-md: 12px; --spacing-base: 16px; --spacing-lg: 24px;
     --spacing-xl: 32px; --spacing-2xl: 48px; --spacing-4xl: 96px;
@@ -26,83 +19,62 @@
   }
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--color-fondo); color: var(--color-texto); font-family: var(--font-texto); }
-
-  .nav {
-    max-width: 1200px; margin: 0 auto; padding: var(--spacing-lg) var(--spacing-lg);
-    display: flex; justify-content: space-between; align-items: center;
-    font-size: var(--text-sm); line-height: 20px; font-weight: 600; color: var(--color-tinta);
-  }
-  .nav a { color: inherit; text-decoration: none; margin-left: var(--spacing-lg); }
-  .nav a:first-child { margin-left: 0; }
-  .nav a:hover { text-decoration: underline; }
-  .nav a:focus-visible, .boton:focus-visible { outline: 2px solid var(--color-azul); outline-offset: 2px; }
-
   .hero {
-    max-width: 1200px; margin: 0 auto; padding: var(--spacing-2xl) var(--spacing-lg) var(--spacing-4xl);
-    display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-    gap: var(--spacing-2xl); align-items: center;
+    max-width: 1120px; margin: 0 auto;
+    padding: var(--spacing-2xl) var(--spacing-lg) var(--spacing-4xl);
+    min-height: 100vh; display: flex; flex-direction: column;
   }
-  .hero__eyebrow {
-    margin: 0 0 var(--spacing-base);
-    font: 700 var(--text-xs)/16px var(--font-texto);
-    letter-spacing: var(--tracking-eyebrow); text-transform: uppercase; color: var(--color-azul);
-  }
-  .hero__titulo {
-    margin: 0; color: var(--color-tinta);
-    font: 800 var(--text-5xl)/64px var(--font-titulo);
-    letter-spacing: var(--tracking-titulo);
-  }
-  .hero__titulo em { font-style: normal; color: var(--color-azul); }
-  .hero__texto { margin: var(--spacing-lg) 0 var(--spacing-xl); max-width: 52ch; font-size: var(--text-lg); line-height: 28px; }
-  .hero__acciones { display: flex; flex-wrap: wrap; gap: var(--spacing-md); }
-
+  .nav { display: flex; justify-content: space-between; align-items: center; padding-bottom: var(--spacing-lg); border-bottom: 1px solid var(--color-linea); }
+  .nav__nombre { font: 800 var(--text-sm)/20px var(--font-titulo); color: var(--color-tinta); letter-spacing: var(--tracking-titulo); }
+  .nav a { font: 500 var(--text-sm)/20px var(--font-texto); color: var(--color-texto); text-decoration: none; margin-left: var(--spacing-lg); }
+  .nav a:hover { text-decoration: underline; }
+  .hero__cuerpo { flex: 1; display: grid; grid-template-columns: 1fr; gap: var(--spacing-2xl); align-items: center; padding-top: var(--spacing-2xl); }
+  .eyebrow { margin: 0 0 var(--spacing-base); font: 700 var(--text-xs)/16px var(--font-texto); letter-spacing: var(--tracking-eyebrow); text-transform: uppercase; color: var(--color-azul); }
+  h1 { margin: 0; color: var(--color-tinta); font: 800 var(--text-3xl)/40px var(--font-titulo); letter-spacing: var(--tracking-titulo); }
+  h1 em { font-style: normal; color: var(--color-azul); }
+  .intro { margin: var(--spacing-lg) 0 0; max-width: 52ch; font: 400 var(--text-lg)/28px var(--font-texto); color: var(--color-texto); }
+  .acciones { display: flex; flex-wrap: wrap; gap: var(--spacing-md); margin-top: var(--spacing-xl); }
   .boton {
-    display: inline-flex; align-items: center; justify-content: center; text-decoration: none;
-    font: 600 var(--text-sm)/20px var(--font-texto);
-    min-height: 44px; padding: var(--spacing-md) var(--spacing-lg);
-    border: 1px solid transparent; border-radius: var(--radius-md);
-    transition: background-color .15s, border-color .15s;
+    display: inline-flex; align-items: center; min-height: 44px;
+    padding: var(--spacing-md) var(--spacing-lg); border: 1px solid transparent; border-radius: var(--radius-md);
+    font: 600 var(--text-sm)/20px var(--font-texto); text-decoration: none; transition: background-color .15s, border-color .15s;
   }
+  .boton:focus-visible { outline: 2px solid var(--color-azul); outline-offset: 2px; }
   .boton--principal { background: var(--color-tinta); color: var(--color-blanco); }
   .boton--principal:hover { background: var(--color-texto); }
   .boton--secundario { color: var(--color-tinta); border-color: var(--color-linea); }
   .boton--secundario:hover { border-color: var(--color-tinta); }
-
-  .hero__motivo { display: flex; justify-content: center; }
-  .hero__motivo svg { width: 100%; max-width: 436px; height: auto; }
-
-  @media (max-width: 860px) {
-    .hero { grid-template-columns: 1fr; padding-bottom: var(--spacing-2xl); }
-    .hero__titulo { font-size: var(--text-4xl); line-height: 52px; }
-    .hero__motivo { justify-content: flex-start; }
-    .hero__motivo svg { max-width: 260px; }
+  .motivo { width: 100%; max-width: 320px; height: auto; justify-self: start; }
+  @media (min-width: 720px) {
+    h1 { font-size: var(--text-4xl); line-height: 52px; }
+  }
+  @media (min-width: 960px) {
+    .hero__cuerpo { grid-template-columns: 1.4fr 1fr; }
+    h1 { font-size: var(--text-5xl); line-height: 64px; }
+    .motivo { justify-self: end; max-width: 380px; }
   }
 </style>
 </head>
 <body>
+<section class="hero">
   <nav class="nav" aria-label="Principal">
-    <a href="#inicio">Nehemias Pérez</a>
-    <div>
-      <a href="#proyectos">Proyectos</a>
-      <a href="#contacto">Contacto</a>
-    </div>
+    <span class="nav__nombre">Nehemias Pérez</span>
+    <div><a href="#proyectos">Proyectos</a><a href="#contacto">Contacto</a></div>
   </nav>
 
-  <main>
-    <section class="hero" id="inicio">
-      <div>
-        <p class="hero__eyebrow">Diseñador UI/UX</p>
-        <h1 class="hero__titulo">Hola, soy Nehemias Pérez. Diseño interfaces <em>claras.</em></h1>
-        <p class="hero__texto">Diseñador UI/UX. Trabajo en interfaces que se entienden a la primera y que el equipo puede construir sin adivinar.</p>
-        <div class="hero__acciones">
-          <a class="boton boton--principal" href="#contacto">Escribirme</a>
-          <a class="boton boton--secundario" href="#proyectos">Ver proyectos</a>
-        </div>
+  <div class="hero__cuerpo">
+    <div>
+      <p class="eyebrow">Nehemias Pérez · Diseñador UI/UX</p>
+      <h1>Diseño interfaces claras y fáciles de <em>usar.</em></h1>
+      <p class="intro">Soy diseñador UI/UX. Convierto ideas en productos digitales ordenados, accesibles y listos para implementarse.</p>
+      <div class="acciones">
+        <a class="boton boton--principal" href="mailto:nehemiasp880@gmail.com" id="contacto">Escribirme</a>
+        <a class="boton boton--secundario" href="#proyectos">Ver proyectos</a>
       </div>
-      <div class="hero__motivo" aria-hidden="true">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 436 324"><rect x="0" y="0" width="100" height="100" rx="14" fill="#0E1116"/><rect x="112" y="0" width="100" height="100" rx="14" fill="#ECEDEF"/><rect x="225" y="1" width="98" height="98" rx="14" fill="none" stroke="#DADDE2" stroke-width="2"/><rect x="336" y="0" width="100" height="100" rx="14" fill="#0E1116"/><rect x="0" y="112" width="100" height="100" rx="14" fill="#ECEDEF"/><rect x="112" y="112" width="212" height="100" rx="50" fill="#043565"/><rect x="336" y="112" width="100" height="100" rx="14" fill="#ECEDEF"/><rect x="1" y="225" width="98" height="98" rx="14" fill="none" stroke="#DADDE2" stroke-width="2"/><rect x="112" y="224" width="100" height="100" rx="14" fill="#0E1116"/><rect x="224" y="224" width="100" height="100" rx="14" fill="#ECEDEF"/><rect x="337" y="225" width="98" height="98" rx="14" fill="none" stroke="#DADDE2" stroke-width="2"/></svg>
-      </div>
-    </section>
-  </main>
+    </div>
+
+    <svg class="motivo" viewBox="0 0 436 324" aria-hidden="true" focusable="false"><rect x="0" y="0" width="100" height="100" rx="14" fill="#0E1116"/><rect x="112" y="0" width="100" height="100" rx="14" fill="#ECEDEF"/><rect x="225" y="1" width="98" height="98" rx="14" fill="none" stroke="#DADDE2" stroke-width="2"/><rect x="336" y="0" width="100" height="100" rx="14" fill="#0E1116"/><rect x="0" y="112" width="100" height="100" rx="14" fill="#ECEDEF"/><rect x="112" y="112" width="212" height="100" rx="50" fill="#043565"/><rect x="336" y="112" width="100" height="100" rx="14" fill="#ECEDEF"/><rect x="1" y="225" width="98" height="98" rx="14" fill="none" stroke="#DADDE2" stroke-width="2"/><rect x="112" y="224" width="100" height="100" rx="14" fill="#0E1116"/><rect x="224" y="224" width="100" height="100" rx="14" fill="#ECEDEF"/><rect x="337" y="225" width="98" height="98" rx="14" fill="none" stroke="#DADDE2" stroke-width="2"/></svg>
+  </div>
+</section>
 </body>
 </html>

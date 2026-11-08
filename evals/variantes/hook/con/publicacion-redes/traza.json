@@ -1,0 +1,17 @@
+{
+  "herramientasDeMarca": [
+    "obtener_tokens",
+    "buscar_componente",
+    "obtener_asset",
+    "obtener_asset",
+    "revisar_texto"
+  ],
+  "hooks": {
+    "disparos": 1,
+    "bloqueos": 0
+  },
+  "costoUsd": 0.0699092,
+  "turnos": 7,
+  "duracionSeg": 20,
+  "respuesta": "Creé `salida.html` en la carpeta actual: una publicación de 1080×1350 px con los colores, tipografías, logo y motivo de cuadros de la marca. El texto no tuvo hallazgos en `revisar_texto`. No pasé el código por `auditar_codigo` ni por `revisar_contraste`, y tampoco lo abrí en un navegador."
+}

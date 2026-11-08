@@ -8,15 +8,34 @@ Generado por `npm run evals` el 2026-11-08. Tareas: 7; corridas medidas: 14 (7 s
 
 | Métrica (menos es mejor) | Sin servidor (total) | Con servidor (total) | Sin (promedio por tarea) | Con (promedio por tarea) |
 |---|---:|---:|---:|---:|
-| Valores fuera de los tokens en el código (`auditar_codigo`, errores) | 130 | 0 | 18.6 | 0 |
-| Colores renderizados fuera de la paleta | 47 | 0 | 6.7 | 0 |
+| Valores fuera de los tokens en el código (`auditar_codigo`, errores) | 130 | 3 | 18.6 | 0.4 |
+| Colores renderizados fuera de la paleta | 48 | 0 | 6.9 | 0 |
 | Fuentes ajenas a la marca (renderizadas) | 8 | 0 | 1.1 | 0 |
 | Textos que no llegan a AA de contraste | 26 | 0 | 3.7 | 0 |
 | Fallos de voz (`revisar_texto`, errores) | 1 | 0 | 0.1 | 0 |
 | Avisos de voz (cifras por verificar, relleno) | 2 | 0 | 0.3 | 0 |
-| **Tareas sin ningún hallazgo** | 0 de 7 | 7 de 7 | | |
-| Costo de las corridas (USD) | $0.27 | $0.62 | $0.04 | $0.09 |
-| Turnos del agente (promedio) | 2.3 | 7.1 | | |
+| **Tareas sin ningún hallazgo** | 0 de 7 | 6 de 7 | | |
+| Costo de las corridas (USD) | $0.27 | $0.73 | $0.04 | $0.10 |
+| Turnos del agente (promedio) | 2.3 | 7.4 | | |
+
+## Todas las corridas
+
+Las condiciones se corrieron más de una vez para ver cuánto varía y si reforzar la skill o agregar un hook de verificación cambia algo. Todas se miden con el mismo auditor y las mismas métricas. El hook revisa cada archivo de diseño que el agente guarda y le devuelve los errores.
+
+| | Con servidor · corrida 1 (skill original) | Con servidor · corrida 2 (skill reforzada) | Con servidor · corrida 3 (skill reforzada + hook) | Sin servidor · con hook | Sin servidor (corrida principal) |
+|---|---:|---:|---:|---:|---:|
+| Valores fuera de los tokens (código) | 0 | 3 | 0 | 0 | 130 |
+| Colores renderizados fuera de la paleta | 0 | 0 | 0 | 1 | 48 |
+| Fuentes ajenas | 0 | 0 | 0 | 2 | 8 |
+| Textos bajo AA | 0 | 0 | 0 | 1 | 26 |
+| Fallos de voz | 0 | 0 | 0 | 3 | 1 |
+| **Tareas sin ningún hallazgo** | 7 de 7 | 6 de 7 | 7 de 7 | 3 de 7 | 0 de 7 |
+| Tareas donde el agente corrió `auditar_codigo` | 1 de 7 | 0 de 7 | 1 de 7 | 0 de 7 | 0 de 7 |
+| Tareas donde el agente corrió `revisar_contraste` | 0 de 7 | 0 de 7 | 0 de 7 | 0 de 7 | 0 de 7 |
+| Tareas donde el agente corrió `revisar_texto` | 5 de 7 | 5 de 7 | 5 de 7 | 0 de 7 | 0 de 7 |
+| Veces que el hook devolvió errores al agente (guardados bloqueados / guardados revisados) | — | — | 0 / 7 | 9 / 16 | — |
+| Turnos (promedio) | 7.1 | 7.4 | 7.3 | 4.7 | 2.3 |
+| Costo total (USD) | $0.62 | $0.73 | $0.61 | $0.56 | $0.27 |
 
 ## Calificación visual (1 a 5, la llena usted)
 
@@ -27,19 +46,19 @@ Aún sin calificar. Llene [`calificaciones.md`](calificaciones.md) y vuelva a co
 | Tarea | Condición | Código | Colores fuera | Fuentes ajenas | Contraste | Voz | Usó el servidor | Costo | Turnos |
 |---|---|---:|---:|---:|---:|---:|---|---:|---:|
 | Hero para el portafolio | sin | 20 | 5 | 2 | 0 | 0 | — | $0.03 | 2 |
-| Hero para el portafolio | con | 0 | 0 | 0 | 0 | 0 | 7 llamadas | $0.10 | 9 |
+| Hero para el portafolio | con | 0 | 0 | 0 | 0 | 0 | 8 llamadas | $0.13 | 10 |
 | Tarjeta de proyecto | sin | 18 | 7 | 1 | 6 | 0 | — | $0.03 | 2 |
-| Tarjeta de proyecto | con | 0 | 0 | 0 | 0 | 0 | 6 llamadas | $0.08 | 8 |
+| Tarjeta de proyecto | con | 0 | 0 | 0 | 0 | 0 | 5 llamadas | $0.09 | 7 |
 | Portada de propuesta (PDF) | sin | 13 | 6 | 1 | 6 | 0 | — | $0.03 | 2 |
-| Portada de propuesta (PDF) | con | 0 | 0 | 0 | 0 | 0 | 6 llamadas | $0.08 | 8 |
+| Portada de propuesta (PDF) | con | 0 | 0 | 0 | 0 | 0 | 7 llamadas | $0.12 | 9 |
 | Publicación para redes | sin | 28 | 8 | 1 | 0 | 0 | — | $0.03 | 2 |
-| Publicación para redes | con | 0 | 0 | 0 | 0 | 0 | 7 llamadas | $0.09 | 9 |
+| Publicación para redes | con | 3 | 0 | 0 | 0 | 0 | 7 llamadas | $0.11 | 9 |
 | Aviso destacado | sin | 12 | 5 | 1 | 0 | 0 | — | $0.02 | 2 |
-| Aviso destacado | con | 0 | 0 | 0 | 0 | 0 | 2 llamadas | $0.07 | 4 |
+| Aviso destacado | con | 0 | 0 | 0 | 0 | 0 | 2 llamadas | $0.05 | 4 |
 | Tabla de precios | sin | 25 | 11 | 1 | 14 | 1 | — | $0.03 | 2 |
-| Tabla de precios | con | 0 | 0 | 0 | 0 | 0 | 4 llamadas | $0.08 | 6 |
-| Bloque de contacto con QR | sin | 14 | 5 | 1 | 0 | 0 | — | $0.11 | 4 |
-| Bloque de contacto con QR | con | 0 | 0 | 0 | 0 | 0 | 3 llamadas | $0.11 | 6 |
+| Tabla de precios | con | 0 | 0 | 0 | 0 | 0 | 5 llamadas | $0.09 | 7 |
+| Bloque de contacto con QR | sin | 14 | 6 | 1 | 0 | 0 | — | $0.11 | 4 |
+| Bloque de contacto con QR | con | 0 | 0 | 0 | 0 | 0 | 3 llamadas | $0.14 | 6 |
 
 ## Qué salió fuera de la marca
 
@@ -55,7 +74,7 @@ Aún sin calificar. Llene [`calificaciones.md`](calificaciones.md) y vuelva a co
 - **Aviso destacado · con:** sin hallazgos
 - **Tabla de precios · sin:** colores: #1A9B57, #1F2433, #3D4CF2, #4A3700, #5B6275, #B0B5C4, #D9DCFF, #E8EAF2… · fuentes: system-ui · voz: trato-usted: «tu»
 - **Tabla de precios · con:** sin hallazgos
-- **Bloque de contacto con QR · sin:** colores: #0F766E, #14213D, #5B6475, #E1E5EA, #F4F6F8 · fuentes: system-ui
+- **Bloque de contacto con QR · sin:** colores: #000000, #0F766E, #14213D, #5B6475, #E1E5EA, #F4F6F8 · fuentes: system-ui
 - **Bloque de contacto con QR · con:** sin hallazgos
 
 ## Conclusiones

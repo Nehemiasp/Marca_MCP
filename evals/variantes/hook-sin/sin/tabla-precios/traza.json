@@ -1,0 +1,11 @@
+{
+  "herramientasDeMarca": [],
+  "hooks": {
+    "disparos": 2,
+    "bloqueos": 1
+  },
+  "costoUsd": 0.073752,
+  "turnos": 3,
+  "duracionSeg": 27,
+  "respuesta": "Creé `salida.html` con tres planes (Básico $250, Profesional $690, Premium $1,490/mes) y corregí los errores de marca que marcó el validador, pero no volví a ejecutarlo para confirmarlo."
+}

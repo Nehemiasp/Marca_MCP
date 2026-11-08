@@ -3,74 +3,82 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Planes de servicios de diseño</title>
+<title>Planes de diseño UI/UX</title>
 <style>
   :root {
-    --color-tinta:#0E1116; --color-texto:#2B2F36; --color-apagado:#6A707A; --color-linea:#DADDE2;
-    --color-suave:#ECEDEF; --color-fondo:#FAFAF8; --color-blanco:#FFFFFF; --color-azul:#043565;
-    --font-titulo:"Bricolage Grotesque","Instrument Sans",system-ui,sans-serif;
-    --font-texto:"Instrument Sans",system-ui,sans-serif;
-    --text-xs:12px; --text-sm:14px; --text-base:16px; --text-lg:18px; --text-3xl:36px;
-    --spacing-sm:8px; --spacing-md:12px; --spacing-base:16px; --spacing-lg:24px; --spacing-2xl:48px; --spacing-3xl:64px;
-    --radius-md:10px; --radius-lg:16px; --radius-pill:999px;
-    --shadow-suave:0px 1px 2px 0px #0E11160F;
+    --color-tinta: #0E1116; --color-texto: #2B2F36; --color-apagado: #6A707A;
+    --color-linea: #DADDE2; --color-suave: #ECEDEF; --color-fondo: #FAFAF8;
+    --color-blanco: #FFFFFF; --color-azul: #043565;
+    --font-titulo: "Bricolage Grotesque", "Instrument Sans", system-ui, sans-serif;
+    --font-texto: "Instrument Sans", system-ui, sans-serif;
+    --text-xs: 12px; --text-sm: 14px; --text-base: 16px; --text-xl: 22px; --text-3xl: 36px;
+    --spacing-sm: 8px; --spacing-md: 12px; --spacing-base: 16px; --spacing-lg: 24px; --spacing-2xl: 48px; --spacing-3xl: 64px;
+    --radius-md: 10px; --radius-pill: 999px;
   }
-  * { box-sizing:border-box; }
-  body { margin:0; background:var(--color-fondo); color:var(--color-texto); font:400 var(--text-base)/26px var(--font-texto); }
-  main { max-width:960px; margin:0 auto; padding:var(--spacing-3xl) var(--spacing-lg); }
-  .eyebrow { font-size:var(--text-xs); line-height:16px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--color-azul); margin:0 0 var(--spacing-sm); }
-  h1 { font:800 var(--text-3xl)/40px var(--font-titulo); letter-spacing:-.02em; color:var(--color-tinta); margin:0 0 var(--spacing-md); }
-  .intro { font-size:var(--text-lg); line-height:28px; margin:0 0 var(--spacing-2xl); max-width:60ch; }
-  .tabla-contenedor { overflow-x:auto; background:var(--color-blanco); border:1px solid var(--color-linea); border-radius:var(--radius-lg); box-shadow:var(--shadow-suave); }
-  .tabla { width:100%; min-width:640px; border-collapse:collapse; font:400 var(--text-sm)/20px var(--font-texto); }
-  .tabla__caption { text-align:left; padding:var(--spacing-base) var(--spacing-lg); color:var(--color-apagado); }
-  .tabla thead th { background:var(--color-tinta); color:var(--color-blanco); font-weight:600; text-align:left; padding:var(--spacing-md) var(--spacing-lg); }
-  .tabla tbody th, .tabla tbody td { padding:var(--spacing-md) var(--spacing-lg); border-bottom:1px solid var(--color-linea); text-align:left; vertical-align:top; }
-  .tabla tbody th { color:var(--color-tinta); font-weight:600; }
-  .tabla tbody tr:last-child th, .tabla tbody tr:last-child td { border-bottom:0; }
-  .tabla tbody tr:hover { background:var(--color-fondo); }
-  .tabla .precio th, .tabla .precio td { padding-top:var(--spacing-lg); padding-bottom:var(--spacing-lg); }
-  .cifra { font:800 var(--text-3xl)/40px var(--font-titulo); letter-spacing:-.02em; color:var(--color-tinta); font-variant-numeric:tabular-nums; }
-  .unidad { display:block; color:var(--color-apagado); font-size:var(--text-xs); line-height:16px; }
-  .etiqueta { display:inline-block; margin-left:var(--spacing-sm); padding:2px var(--spacing-md); border-radius:var(--radius-pill); background:var(--color-suave); color:var(--color-azul); font-size:var(--text-xs); line-height:16px; font-weight:700; vertical-align:middle; }
-  .nota { font-size:var(--text-xs); line-height:16px; color:var(--color-apagado); margin-top:var(--spacing-base); }
-  :focus-visible { outline:2px solid var(--color-azul); outline-offset:2px; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--color-fondo); color: var(--color-texto); font: 400 var(--text-base)/26px var(--font-texto); }
+  main { max-width: 960px; margin: 0 auto; padding: var(--spacing-3xl) var(--spacing-lg); }
+  .eyebrow { font-size: var(--text-xs); line-height: 16px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--color-azul); margin: 0 0 var(--spacing-sm); }
+  h1 { font: 800 var(--text-3xl)/40px var(--font-titulo); letter-spacing: -.02em; color: var(--color-tinta); margin: 0 0 var(--spacing-md); }
+  .intro { margin: 0 0 var(--spacing-2xl); max-width: 60ch; }
+  .tabla-contenedor { overflow-x: auto; }
+  .tabla { width: 100%; min-width: 640px; border-collapse: collapse; font: var(--text-sm)/20px var(--font-texto); color: var(--color-texto); }
+  .tabla__caption { text-align: left; padding-bottom: var(--spacing-md); color: var(--color-apagado); }
+  .tabla thead th { background: var(--color-tinta); color: var(--color-blanco); font-weight: 600; text-align: left; padding: var(--spacing-md) var(--spacing-lg); vertical-align: bottom; }
+  .tabla thead th:first-child { border-top-left-radius: var(--radius-md); }
+  .tabla thead th:last-child { border-top-right-radius: var(--radius-md); }
+  .tabla tbody th, .tabla tbody td { padding: var(--spacing-md) var(--spacing-lg); border-bottom: 1px solid var(--color-linea); text-align: left; font-weight: 400; }
+  .tabla tbody th { color: var(--color-tinta); font-weight: 600; }
+  .tabla tbody tr:hover { background: var(--color-fondo); }
+  .plan { display: block; font: 800 var(--text-xl)/30px var(--font-titulo); letter-spacing: -.02em; }
+  .etiqueta { display: inline-block; margin-top: 4px; padding: 2px var(--spacing-md); border-radius: var(--radius-pill); background: var(--color-suave); color: var(--color-tinta); font-size: var(--text-xs); line-height: 16px; font-weight: 700; }
+  .precio { font: 800 var(--text-xl)/30px var(--font-titulo); letter-spacing: -.02em; color: var(--color-tinta); font-variant-numeric: tabular-nums; }
+  .precio small { font: 400 var(--text-xs)/16px var(--font-texto); color: var(--color-apagado); letter-spacing: 0; }
+  .boton { font: 600 var(--text-sm)/20px var(--font-texto); min-height: 44px; padding: var(--spacing-md) var(--spacing-lg); border: 1px solid transparent; border-radius: var(--radius-md); cursor: pointer; transition: background-color .15s, border-color .15s; }
+  .boton:focus-visible { outline: 2px solid var(--color-azul); outline-offset: 2px; }
+  .boton--principal { background: var(--color-tinta); color: var(--color-blanco); }
+  .boton--principal:hover { background: var(--color-texto); }
+  .boton--secundario { background: transparent; color: var(--color-tinta); border-color: var(--color-linea); }
+  .boton--secundario:hover { border-color: var(--color-tinta); }
+  .nota { font-size: var(--text-xs); line-height: 16px; color: var(--color-apagado); margin-top: var(--spacing-base); }
 </style>
 </head>
 <body>
 <main>
   <p class="eyebrow">Servicios</p>
-  <h1>Planes de diseño</h1>
-  <p class="intro">Tres formas de trabajar juntos, según el alcance del proyecto. Los montos son de ejemplo.</p>
+  <h1>Planes de diseño UI/UX</h1>
+  <p class="intro">Tres formas de trabajar según el alcance del proyecto. Cada plan incluye reuniones de seguimiento y entrega de archivos editables.</p>
 
   <div class="tabla-contenedor" role="region" aria-label="Comparativa de planes" tabindex="0">
     <table class="tabla">
-      <caption class="tabla__caption">Comparativa de planes de servicios de diseño</caption>
+      <caption class="tabla__caption">Comparativa de planes (montos de ejemplo)</caption>
       <thead>
         <tr>
           <th scope="col">Incluye</th>
-          <th scope="col">Esencial</th>
-          <th scope="col">Producto <span class="etiqueta">Más elegido</span></th>
-          <th scope="col">Sistema</th>
+          <th scope="col"><span class="plan">Esencial</span></th>
+          <th scope="col"><span class="plan">Profesional</span><span class="etiqueta">Más elegido</span></th>
+          <th scope="col"><span class="plan">A medida</span></th>
         </tr>
       </thead>
       <tbody>
-        <tr class="precio">
-          <th scope="row">Precio</th>
-          <td><span class="cifra">$900</span><span class="unidad">pago único (ejemplo)</span></td>
-          <td><span class="cifra">$2.800</span><span class="unidad">pago único (ejemplo)</span></td>
-          <td><span class="cifra">$6.500</span><span class="unidad">pago único (ejemplo)</span></td>
-        </tr>
-        <tr><th scope="row">Ideal para</th><td>Una pantalla o una landing</td><td>Una app o un sitio completo</td><td>Un producto con varios equipos</td></tr>
-        <tr><th scope="row">Plazo</th><td>1 semana</td><td>4 semanas</td><td>8 semanas</td></tr>
-        <tr><th scope="row">Pantallas diseñadas</th><td>Hasta 3</td><td>Hasta 15</td><td>Sin límite acordado</td></tr>
-        <tr><th scope="row">Prototipo navegable</th><td>—</td><td>Incluido</td><td>Incluido</td></tr>
-        <tr><th scope="row">Sistema de diseño</th><td>—</td><td>Base de componentes</td><td>Completo y documentado</td></tr>
+        <tr><th scope="row">Precio</th>
+          <td><span class="precio">$ 900</span> <small>pago único</small></td>
+          <td><span class="precio">$ 2.400</span> <small>pago único</small></td>
+          <td><span class="precio">$ 5.500</span> <small>desde</small></td></tr>
+        <tr><th scope="row">Plazo</th><td>2 semanas</td><td>4 semanas</td><td>8 semanas o más</td></tr>
+        <tr><th scope="row">Pantallas diseñadas</th><td>Hasta 5</td><td>Hasta 15</td><td>Según alcance</td></tr>
+        <tr><th scope="row">Investigación de usuarios</th><td>—</td><td>Sí</td><td>Sí</td></tr>
+        <tr><th scope="row">Prototipo navegable</th><td>—</td><td>Sí</td><td>Sí</td></tr>
+        <tr><th scope="row">Sistema de diseño</th><td>—</td><td>Básico</td><td>Completo</td></tr>
         <tr><th scope="row">Rondas de revisión</th><td>1</td><td>2</td><td>3</td></tr>
+        <tr><th scope="row"><span style="position:absolute;left:-9999px">Contratar</span></th>
+          <td><button class="boton boton--secundario" type="button">Elegir Esencial</button></td>
+          <td><button class="boton boton--principal" type="button">Elegir Profesional</button></td>
+          <td><button class="boton boton--secundario" type="button">Pedir presupuesto</button></td></tr>
       </tbody>
     </table>
   </div>
-  <p class="nota">Montos de ejemplo en dólares; no son tarifas vigentes.</p>
+  <p class="nota">Los montos son ejemplos ilustrativos y no representan tarifas reales.</p>
 </main>
 </body>
 </html>

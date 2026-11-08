@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Panel de métricas · Portafolio</title>
+<style>
+  :root {
+    --color-tinta: #0E1116; --color-texto: #2B2F36; --color-apagado: #6A707A;
+    --color-linea: #DADDE2; --color-suave: #ECEDEF; --color-fondo: #FAFAF8;
+    --color-blanco: #FFFFFF; --color-azul: #043565; --color-azul-suave: #E8EFF7;
+    --font-titulo: "Bricolage Grotesque", "Instrument Sans", system-ui, sans-serif;
+    --font-texto: "Instrument Sans", system-ui, sans-serif;
+    --font-weight-extranegrita: 800; --font-weight-negrita: 700; --font-weight-medio: 500;
+    --text-xs: 12px; --text-xs--line-height: 16px;
+    --text-sm: 14px; --text-sm--line-height: 20px;
+    --text-base: 16px; --text-base--line-height: 26px;
+    --text-xl: 22px; --text-xl--line-height: 30px;
+    --tracking-titulo: -0.02em; --tracking-eyebrow: 0.12em;
+    --spacing-xs: 4px; --spacing-sm: 8px; --spacing-md: 12px; --spacing-lg: 24px;
+    --radius-sm: 6px; --radius-lg: 16px; --radius-pill: 999px;
+    --shadow-suave: 0px 1px 2px 0px #0E11160F;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: var(--spacing-lg); background: var(--color-fondo); font-family: var(--font-texto); }
+  .tarjeta { position: relative; width: 100%; max-width: 380px; background: var(--color-blanco); border: 1px solid var(--color-linea); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-suave); transition: border-color .15s, box-shadow .15s; }
+  .tarjeta:hover { border-color: var(--color-tinta); }
+  .tarjeta:focus-within { outline: 2px solid var(--color-azul); outline-offset: 2px; }
+  .tarjeta__imagen { display: block; width: 100%; height: auto; aspect-ratio: 8 / 5; }
+  .tarjeta__cuerpo { padding: var(--spacing-lg); display: grid; gap: var(--spacing-md); }
+  .tarjeta__eyebrow { margin: 0; font: var(--font-weight-negrita) var(--text-xs)/var(--text-xs--line-height) var(--font-texto); letter-spacing: var(--tracking-eyebrow); text-transform: uppercase; color: var(--color-azul); }
+  .tarjeta__titulo { margin: 0; font: var(--font-weight-extranegrita) var(--text-xl)/var(--text-xl--line-height) var(--font-titulo); letter-spacing: var(--tracking-titulo); }
+  .tarjeta__titulo a { color: var(--color-tinta); text-decoration: none; }
+  .tarjeta__titulo a::after { content: ""; position: absolute; inset: 0; }
+  .tarjeta__texto { margin: 0; color: var(--color-texto); font: var(--text-base)/var(--text-base--line-height) var(--font-texto); }
+  .etiquetas { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--spacing-sm); }
+  .etiqueta { padding: var(--spacing-xs) var(--spacing-md); background: var(--color-suave); color: var(--color-texto); border-radius: var(--radius-pill); font: var(--font-weight-medio) var(--text-xs)/var(--text-xs--line-height) var(--font-texto); }
+</style>
+</head>
+<body>
+  <article class="tarjeta">
+    <svg class="tarjeta__imagen" viewBox="0 0 640 400" role="img" aria-label="Ilustración de un panel con tres indicadores y un gráfico de barras">
+      <rect width="640" height="400" fill="#ECEDEF"/>
+      <rect x="40" y="40" width="560" height="320" rx="16" fill="#FFFFFF" stroke="#DADDE2"/>
+      <g fill="#FAFAF8" stroke="#DADDE2">
+        <rect x="64" y="64" width="160" height="72" rx="10"/>
+        <rect x="240" y="64" width="160" height="72" rx="10"/>
+        <rect x="416" y="64" width="160" height="72" rx="10"/>
+      </g>
+      <g fill="#0E1116">
+        <rect x="80" y="82" width="64" height="8" rx="4" opacity=".35"/>
+        <rect x="256" y="82" width="64" height="8" rx="4" opacity=".35"/>
+        <rect x="432" y="82" width="64" height="8" rx="4" opacity=".35"/>
+        <rect x="80" y="102" width="88" height="20" rx="6"/>
+        <rect x="256" y="102" width="72" height="20" rx="6"/>
+        <rect x="432" y="102" width="96" height="20" rx="6"/>
+      </g>
+      <g fill="#ECEDEF">
+        <rect x="84" y="268" width="40" height="64" rx="6"/>
+        <rect x="148" y="236" width="40" height="96" rx="6"/>
+        <rect x="212" y="252" width="40" height="80" rx="6"/>
+        <rect x="276" y="212" width="40" height="120" rx="6"/>
+        <rect x="340" y="244" width="40" height="88" rx="6"/>
+        <rect x="404" y="196" width="40" height="136" rx="6"/>
+      </g>
+      <rect x="468" y="164" width="40" height="168" rx="6" fill="#043565"/>
+      <rect x="532" y="220" width="28" height="112" rx="6" fill="#0E1116"/>
+    </svg>
+    <div class="tarjeta__cuerpo">
+      <p class="tarjeta__eyebrow">Panel de datos · 2026</p>
+      <h3 class="tarjeta__titulo"><a href="#caso-de-estudio">Panel de métricas para equipos pequeños</a></h3>
+      <p class="tarjeta__texto">Lectura rápida de los indicadores clave, sin configuración ni hojas de cálculo.</p>
+      <ul class="etiquetas" role="list"><li class="etiqueta">Figma</li><li class="etiqueta">React</li><li class="etiqueta">Diseño de interfaz</li></ul>
+    </div>
+  </article>
+</body>
+</html>

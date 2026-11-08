@@ -1,0 +1,20 @@
+{
+  "herramientasDeMarca": [
+    "obtener_tokens",
+    "buscar_componente",
+    "exportar_tokens",
+    "obtener_componente",
+    "obtener_componente",
+    "obtener_componente",
+    "obtener_asset",
+    "revisar_texto"
+  ],
+  "hooks": {
+    "disparos": 1,
+    "bloqueos": 0
+  },
+  "costoUsd": 0.09952130000000001,
+  "turnos": 10,
+  "duracionSeg": 20,
+  "respuesta": "Creé `salida.html` en la carpeta actual: un hero con tu nombre, el título «Diseñador UI/UX» y los tokens de la marca. Pasó `revisar_texto` sin hallazgos, pero no corrí `auditar_codigo` ni `revisar_contraste`."
+}

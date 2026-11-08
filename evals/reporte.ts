@@ -8,6 +8,8 @@ export interface Traza {
   turnos?: number;
   duracionSeg?: number;
   herramientasDeMarca: string[];
+  /** Solo en la variante con hook: veces que corrió y veces que devolvió errores al agente (código de salida 2). */
+  hooks?: { disparos: number; bloqueos: number };
   respuesta?: string;
   error?: string;
 }
@@ -88,6 +90,15 @@ const METRICAS: { clave: keyof Metricas; nombre: string }[] = [
   { clave: 'vozAvisos', nombre: 'Avisos de voz (cifras por verificar, relleno)' }
 ];
 
+/** Corridas de la condición «con servidor», en orden. La actual vive en salidas/; las otras se guardan aparte. */
+const CORRIDAS_CON: { etiqueta: string; base: string; condicion: Condicion }[] = [
+  { etiqueta: 'Con servidor · corrida 1 (skill original)', base: join(CARPETA_EVALS, 'historial', 'corrida-1-skill-original'), condicion: 'con' },
+  { etiqueta: 'Con servidor · corrida 2 (skill reforzada)', base: CARPETA_SALIDAS, condicion: 'con' },
+  { etiqueta: 'Con servidor · corrida 3 (skill reforzada + hook)', base: join(CARPETA_EVALS, 'variantes', 'hook'), condicion: 'con' },
+  { etiqueta: 'Sin servidor · con hook', base: join(CARPETA_EVALS, 'variantes', 'hook-sin'), condicion: 'sin' },
+  { etiqueta: 'Sin servidor (corrida principal)', base: CARPETA_SALIDAS, condicion: 'sin' }
+];
+
 export function generarReporte(resultados: Resultado[]): string {
   const por = (c: Condicion) => resultados.filter((r) => r.condicion === c);
   const sin = por('sin');
@@ -118,6 +129,29 @@ export function generarReporte(resultados: Resultado[]): string {
   const turnos = (rs: Resultado[]) => media(rs.map((r) => r.traza.turnos ?? NaN).filter(Number.isFinite));
   L.push(`| Costo de las corridas (USD) | ${usd(costo(sin))} | ${usd(costo(con))} | ${usd(costo(sin) / (sin.length || 1))} | ${usd(costo(con) / (con.length || 1))} |`);
   L.push(`| Turnos del agente (promedio) | ${f1(turnos(sin))} | ${f1(turnos(con))} | | |`, '');
+
+  // Corridas de la condición «con servidor»
+  const corridas = CORRIDAS_CON.map((c) => ({ ...c, filas: leerCorrida(c.base, c.condicion) })).filter((c) => c.filas.length > 0);
+  if (corridas.length > 1) {
+    L.push('## Todas las corridas', '');
+    L.push('Las condiciones se corrieron más de una vez para ver cuánto varía y si reforzar la skill o agregar un hook de verificación cambia algo. Todas se miden con el mismo auditor y las mismas métricas. El hook revisa cada archivo de diseño que el agente guarda y le devuelve los errores.', '');
+    const ts = corridas.map((c) => totalesDeCorrida(c.filas));
+    L.push(`| | ${corridas.map((c) => c.etiqueta).join(' | ')} |`, `|---|${corridas.map(() => '---:').join('|')}|`);
+    const fila = (nombre: string, f: (t: ReturnType<typeof totalesDeCorrida>) => string | number) => L.push(`| ${nombre} | ${ts.map((t) => f(t)).join(' | ')} |`);
+    fila('Valores fuera de los tokens (código)', (t) => t.codigo);
+    fila('Colores renderizados fuera de la paleta', (t) => t.colores);
+    fila('Fuentes ajenas', (t) => t.fuentes);
+    fila('Textos bajo AA', (t) => t.contraste);
+    fila('Fallos de voz', (t) => t.voz);
+    fila('**Tareas sin ningún hallazgo**', (t) => `${t.sinHallazgos} de ${t.tareas}`);
+    fila('Tareas donde el agente corrió `auditar_codigo`', (t) => `${t.usoRevision['auditar_codigo']} de ${t.tareas}`);
+    fila('Tareas donde el agente corrió `revisar_contraste`', (t) => `${t.usoRevision['revisar_contraste']} de ${t.tareas}`);
+    fila('Tareas donde el agente corrió `revisar_texto`', (t) => `${t.usoRevision['revisar_texto']} de ${t.tareas}`);
+    if (ts.some((t) => t.hookDisparos > 0)) fila('Veces que el hook devolvió errores al agente (guardados bloqueados / guardados revisados)', (t) => (t.hookDisparos > 0 ? `${t.hookBloqueos} / ${t.hookDisparos}` : '—'));
+    fila('Turnos (promedio)', (t) => f1(t.turnos));
+    fila('Costo total (USD)', (t) => usd(t.costo));
+    L.push('');
+  }
 
   // Calificación visual
   const notasSin = cal.map((c) => c.sin).filter((n): n is number => n !== undefined);
@@ -190,4 +224,55 @@ export function generarReporte(resultados: Resultado[]): string {
 
 export function escribirReporte(resultados: Resultado[]): void {
   writeFileSync(join(CARPETA_EVALS, 'reporte.md'), generarReporte(resultados));
+}
+
+// ───────────── Variantes experimentales y corridas anteriores ─────────────
+export interface FilaCorrida { tarea: string; metricas: Metricas; traza: Traza }
+
+export function leerCorrida(base: string, condicion: Condicion = 'con'): FilaCorrida[] {
+  const filas: FilaCorrida[] = [];
+  for (const t of TAREAS) {
+    const dir = join(base, condicion, t.id);
+    const m = join(dir, 'metricas.json');
+    if (!existsSync(m)) continue;
+    filas.push({
+      tarea: t.id,
+      metricas: JSON.parse(readFileSync(m, 'utf8')) as Metricas,
+      traza: existsSync(join(dir, 'traza.json')) ? (JSON.parse(readFileSync(join(dir, 'traza.json'), 'utf8')) as Traza) : { herramientasDeMarca: [] }
+    });
+  }
+  return filas;
+}
+
+const REVISIONES = ['auditar_codigo', 'revisar_contraste', 'revisar_texto'];
+
+/** Totales de una corrida: las cinco métricas, las tareas sin hallazgos y cuántas usaron cada herramienta de revisión. */
+export function totalesDeCorrida(filas: FilaCorrida[]) {
+  const total = (k: keyof Metricas) => suma(filas.map((f) => Number(f.metricas[k])));
+  return {
+    tareas: filas.length,
+    codigo: total('codigoErrores'), colores: total('coloresFueraDePaleta'), fuentes: total('fuentesAjenas'), contraste: total('fallosContraste'), voz: total('vozErrores'),
+    sinHallazgos: filas.filter((f) => METRICAS.every((m) => Number(f.metricas[m.clave]) === 0)).length,
+    usoRevision: Object.fromEntries(REVISIONES.map((h) => [h, filas.filter((f) => f.traza.herramientasDeMarca.includes(h)).length])),
+    hookDisparos: suma(filas.map((f) => f.traza.hooks?.disparos ?? 0)),
+    hookBloqueos: suma(filas.map((f) => f.traza.hooks?.bloqueos ?? 0)),
+    costo: suma(filas.map((f) => f.traza.costoUsd ?? 0)),
+    turnos: media(filas.map((f) => f.traza.turnos ?? NaN).filter(Number.isFinite))
+  };
+}
+
+export function resumirVariante(nombre: string, base: string, condicion: Condicion = 'con'): void {
+  const filas = leerCorrida(base, condicion);
+  const t = totalesDeCorrida(filas);
+  const md = [
+    `# Variante «${nombre}»`, '',
+    `Condición «con servidor» con la variante activa. ${t.tareas} tareas.`, '',
+    '| Métrica | Total |', '|---|---:|',
+    `| Valores fuera de los tokens (código) | ${t.codigo} |`, `| Colores fuera de la paleta | ${t.colores} |`, `| Fuentes ajenas | ${t.fuentes} |`,
+    `| Textos bajo AA | ${t.contraste} |`, `| Fallos de voz | ${t.voz} |`, `| Tareas sin ningún hallazgo | ${t.sinHallazgos} de ${t.tareas} |`,
+    `| Costo (USD) | ${usd(t.costo)} |`, `| Turnos (promedio) | ${f1(t.turnos)} |`, '',
+    '| Tarea | Código | Colores | Fuentes | Contraste | Voz | Turnos | Costo |', '|---|---:|---:|---:|---:|---:|---:|---:|',
+    ...filas.map((f) => `| ${f.tarea} | ${f.metricas.codigoErrores} | ${f.metricas.coloresFueraDePaleta} | ${f.metricas.fuentesAjenas} | ${f.metricas.fallosContraste} | ${f.metricas.vozErrores} | ${f.traza.turnos ?? '—'} | ${usd(f.traza.costoUsd)} |`), ''
+  ].join('\n');
+  writeFileSync(join(base, 'resumen.md'), md);
 }

@@ -1,0 +1,11 @@
+{
+  "herramientasDeMarca": [],
+  "hooks": {
+    "disparos": 3,
+    "bloqueos": 2
+  },
+  "costoUsd": 0.074842,
+  "turnos": 5,
+  "duracionSeg": 28,
+  "respuesta": "La portada A4 está lista en `salida.html`, con la paleta y las tipografías de la marca (Bricolage Grotesque e Instrument Sans). Antes de enviarla, sustituya los datos de ejemplo («Tu Empresa», el cliente, el responsable y la referencia). No pude comprobar cómo se ve al exportarla a PDF."
+}

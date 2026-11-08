@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Planes de servicios de diseño</title>
+<style>
+:root{
+--font-texto:"Instrument Sans",sans-serif;
+--font-titulo:"Bricolage Grotesque",sans-serif;
+--color-suave:#ECEDEF;
+--color-oscuro-cuadro:#262C35;
+--color-apagado:#6A707A;
+--color-azul:#043565;
+--color-azul-suave:#E8EFF7;
+--color-blanco:#FFFFFF;
+--text-xs:12px;--text-sm:14px;--text-base:16px;--text-lg:18px;--text-2xl:28px;--text-3xl:36px;
+--radius-md:10px;--radius-lg:16px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--font-texto);font-size:var(--text-base);background:var(--color-suave);color:var(--color-oscuro-cuadro);padding:48px 16px}
+h1,h2,.precio{font-family:var(--font-titulo)}
+h1{text-align:center;margin:0 0 8px;font-size:var(--text-2xl)}
+p.sub{text-align:center;margin:0 0 40px;color:var(--color-apagado)}
+.planes{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;max-width:960px;margin:0 auto}
+.plan{background:var(--color-blanco);border-radius:var(--radius-lg);padding:32px 28px;display:flex;flex-direction:column;position:relative;border:2px solid var(--color-blanco)}
+.plan.dest{border-color:var(--color-azul)}
+.etiqueta{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--color-azul);color:var(--color-blanco);font-size:var(--text-xs);padding:4px 14px;border-radius:var(--radius-lg)}
+h2{margin:0 0 4px;font-size:var(--text-lg)}
+.desc{color:var(--color-apagado);font-size:var(--text-sm);margin:0 0 20px}
+.precio{font-size:var(--text-3xl);font-weight:700;margin:0;color:var(--color-azul)}
+.precio small{font-family:var(--font-texto);font-size:var(--text-sm);font-weight:400;color:var(--color-apagado)}
+ul{list-style:none;padding:0;margin:24px 0;flex:1}
+li{padding:8px 0 8px 26px;position:relative;border-bottom:1px solid var(--color-suave);font-size:var(--text-base)}
+li::before{content:"✓";position:absolute;left:0;color:var(--color-azul);font-weight:700}
+a.btn{text-align:center;text-decoration:none;padding:12px;border-radius:var(--radius-md);background:var(--color-azul-suave);color:var(--color-azul);font-weight:600}
+.dest a.btn{background:var(--color-azul);color:var(--color-blanco)}
+</style>
+</head>
+<body>
+<h1>Planes de servicios de diseño</h1>
+<p class="sub">Elige el plan que mejor se adapte a tu proyecto. Montos de ejemplo en USD.</p>
+<div class="planes">
+  <div class="plan">
+    <h2>Básico</h2>
+    <p class="desc">Ideal para emprendedores que inician.</p>
+    <p class="precio">$250 <small>/ proyecto</small></p>
+    <ul>
+      <li>Diseño de logotipo</li>
+      <li>2 propuestas iniciales</li>
+      <li>2 rondas de revisión</li>
+      <li>Archivos PNG y JPG</li>
+    </ul>
+    <a class="btn" href="#">Contratar</a>
+  </div>
+  <div class="plan dest">
+    <span class="etiqueta">Más popular</span>
+    <h2>Profesional</h2>
+    <p class="desc">Identidad visual completa para tu marca.</p>
+    <p class="precio">$690 <small>/ proyecto</small></p>
+    <ul>
+      <li>Logotipo y paleta de colores</li>
+      <li>Tipografías y papelería</li>
+      <li>Diseños para redes sociales</li>
+      <li>5 rondas de revisión</li>
+      <li>Archivos vectoriales editables</li>
+    </ul>
+    <a class="btn" href="#">Contratar</a>
+  </div>
+  <div class="plan">
+    <h2>Premium</h2>
+    <p class="desc">Acompañamiento integral de diseño.</p>
+    <p class="precio">$1,490 <small>/ mes</small></p>
+    <ul>
+      <li>Manual de marca completo</li>
+      <li>Diseño web (hasta 5 páginas)</li>
+      <li>Material impreso y digital ilimitado</li>
+      <li>Revisiones ilimitadas</li>
+      <li>Soporte prioritario</li>
+    </ul>
+    <a class="btn" href="#">Contratar</a>
+  </div>
+</div>
+</body>
+</html>

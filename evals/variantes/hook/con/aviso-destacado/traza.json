@@ -1,0 +1,14 @@
+{
+  "herramientasDeMarca": [
+    "obtener_componente",
+    "obtener_tokens"
+  ],
+  "hooks": {
+    "disparos": 1,
+    "bloqueos": 0
+  },
+  "costoUsd": 0.0437971,
+  "turnos": 4,
+  "duracionSeg": 9,
+  "respuesta": "Creé `salida.html` en la carpeta actual con el aviso destacado: «Importante — Respondo los mensajes en un plazo de dos días hábiles». No ejecuté las herramientas de revisión de la marca sobre el resultado."
+}

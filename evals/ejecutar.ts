@@ -3,7 +3,7 @@ import { copyFileSync, cpSync, existsSync, mkdirSync, readdirSync, readFileSync,
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { medirSalida } from './medir.js';
-import { asegurarPlantillaDeCalificacion, CARPETA_SALIDAS, escribirReporte, leerResultados, type Traza } from './reporte.js';
+import { asegurarPlantillaDeCalificacion, CARPETA_EVALS, CARPETA_SALIDAS, escribirReporte, leerResultados, resumirVariante, type Traza } from './reporte.js';
 import { CONDICIONES, SUFIJO_DE_ENTREGA, TAREAS, type Condicion, type Tarea } from './tareas.js';
 
 const RAIZ = resolve(import.meta.dirname, '..');
@@ -14,8 +14,11 @@ const valor = (n: string) => args.find((a) => a.startsWith(`--${n}=`))?.split('=
 const soloReporte = bandera('solo-reporte');
 const soloMedir = bandera('medir');
 const forzar = bandera('forzar');
+/** Variante experimental (p. ej. «hook»): corre la condición «con servidor» con algo extra y guarda aparte, sin tocar el reporte principal. */
+const variante = valor('variante');
+const SALIDAS = variante ? join(CARPETA_EVALS, 'variantes', variante) : CARPETA_SALIDAS;
 const tareasPedidas = valor('tareas')?.split(',');
-const condicionesPedidas = (valor('condicion')?.split(',') ?? [...CONDICIONES]) as Condicion[];
+const condicionesPedidas = (variante ? [variante === 'hook-sin' ? 'sin' : 'con'] : (valor('condicion')?.split(',') ?? [...CONDICIONES])) as Condicion[];
 const concurrencia = Number(valor('concurrencia') ?? 3);
 const modelo = valor('modelo') ?? process.env['EVALS_MODEL'];
 const TIEMPO_MAX_MS = 15 * 60_000;
@@ -55,6 +58,10 @@ function ejecutarClaude(cond: Condicion, tarea: Tarea, carpetaTrabajo: string): 
           for (const c of ev.message?.content ?? []) {
             if (c.type === 'tool_use' && typeof c.name === 'string' && c.name.startsWith('mcp__marca__')) traza.herramientasDeMarca.push(c.name.replace('mcp__marca__', ''));
           }
+        } else if (ev.type === 'system' && ev.subtype === 'hook_response') {
+          traza.hooks ??= { disparos: 0, bloqueos: 0 };
+          traza.hooks.disparos++;
+          if (ev.exit_code === 2) traza.hooks.bloqueos++;
         } else if (ev.type === 'result') {
           traza.costoUsd = ev.total_cost_usd;
           traza.turnos = ev.num_turns;
@@ -82,7 +89,7 @@ function ejecutarClaude(cond: Condicion, tarea: Tarea, carpetaTrabajo: string): 
 }
 
 async function generar(cond: Condicion, tarea: Tarea): Promise<void> {
-  const salida = join(CARPETA_SALIDAS, cond, tarea.id);
+  const salida = join(SALIDAS, cond, tarea.id);
   mkdirSync(salida, { recursive: true });
   if (!forzar && existsSync(join(salida, 'salida.html'))) {
     console.log(`= ${cond}/${tarea.id}: ya existe (use --forzar para repetir)`);
@@ -93,6 +100,13 @@ async function generar(cond: Condicion, tarea: Tarea): Promise<void> {
   const trabajo = join(base, 'trabajo');
   mkdirSync(trabajo, { recursive: true });
   if (cond === 'con') cpSync(join(RAIZ, '.claude', 'skills', 'marca'), join(trabajo, '.claude', 'skills', 'marca'), { recursive: true });
+  if (variante === 'hook' || variante === 'hook-sin') {
+    // El hook revisa cada archivo de diseño que el agente guarda y le devuelve los errores (código de salida 2).
+    mkdirSync(join(trabajo, '.claude'), { recursive: true });
+    writeFileSync(join(trabajo, '.claude', 'settings.json'), JSON.stringify({
+      hooks: { PostToolUse: [{ matcher: 'Write|Edit|MultiEdit', hooks: [{ type: 'command', command: `node ${join(RAIZ, 'dist', 'hook.js')}`, timeout: 30 }] }] }
+    }, null, 2));
+  }
   console.log(`→ ${cond}/${tarea.id}: generando…`);
   const traza = await ejecutarClaude(cond, tarea, trabajo);
   const html = existsSync(join(trabajo, 'salida.html'))
@@ -106,7 +120,7 @@ async function generar(cond: Condicion, tarea: Tarea): Promise<void> {
 }
 
 async function medir(cond: Condicion, tarea: Tarea): Promise<void> {
-  const salida = join(CARPETA_SALIDAS, cond, tarea.id);
+  const salida = join(SALIDAS, cond, tarea.id);
   const html = join(salida, 'salida.html');
   if (!existsSync(html)) return;
   const m = await medirSalida(html, tarea, join(salida, 'captura.png'));
@@ -133,6 +147,11 @@ if (!soloReporte) {
   for (const { t, c } of pares) await medir(c, t);
 }
 
-asegurarPlantillaDeCalificacion();
-escribirReporte(leerResultados());
-console.log('Reporte: evals/reporte.md  ·  Calificación: evals/calificaciones.md');
+if (variante) {
+  resumirVariante(variante, SALIDAS, variante === 'hook-sin' ? 'sin' : 'con');
+  console.log(`Resumen: evals/variantes/${variante}/resumen.md`);
+} else {
+  asegurarPlantillaDeCalificacion();
+  escribirReporte(leerResultados());
+  console.log('Reporte: evals/reporte.md  ·  Calificación: evals/calificaciones.md');
+}

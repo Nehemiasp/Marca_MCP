@@ -1,0 +1,15 @@
+{
+  "codigoErrores": 0,
+  "codigoAvisos": 0,
+  "coloresFueraDePaleta": 0,
+  "coloresFueraDePaletaLista": [],
+  "fuentesAjenas": 0,
+  "fuentesAjenasLista": [],
+  "fallosContraste": 0,
+  "paresContrasteRevisados": 17,
+  "vozErrores": 0,
+  "vozAvisos": 0,
+  "vozDetalle": [],
+  "degradados": 0,
+  "texto": "Usuarios activos\nHoy\nConversión\nMes\nTareas\nSprint\nPanel de métricas para equipos pequeños\nUn dashboard simple que reúne los indicadores clav\nIndicadores en tiempo real\nInformes semanales automáticos\nConfiguración en minutos\nJavaScript\nAPI REST\nGráficos\nUX\nVer demo\nCódigo"
+}

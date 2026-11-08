@@ -1,0 +1,19 @@
+{
+  "codigoErrores": 0,
+  "codigoAvisos": 0,
+  "coloresFueraDePaleta": 1,
+  "coloresFueraDePaletaLista": [
+    "#000000"
+  ],
+  "fuentesAjenas": 1,
+  "fuentesAjenasLista": [
+    "Times New Roman"
+  ],
+  "fallosContraste": 0,
+  "paresContrasteRevisados": 4,
+  "vozErrores": 0,
+  "vozAvisos": 0,
+  "vozDetalle": [],
+  "degradados": 0,
+  "texto": "⏰\nTiempo de respuesta\nRespondo todos los mensajes en un plazo de\ndos días hábiles"
+}

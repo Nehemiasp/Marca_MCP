@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contacto · Nehemias Pérez</title>
+<style>
+  :root {
+    --color-tinta: #0E1116; --color-texto: #2B2F36; --color-apagado: #6A707A;
+    --color-linea: #DADDE2; --color-fondo: #FAFAF8; --color-blanco: #FFFFFF; --color-azul: #043565;
+    --font-titulo: "Bricolage Grotesque", "Instrument Sans", system-ui, sans-serif;
+    --font-texto: "Instrument Sans", system-ui, sans-serif;
+    --text-sm: 14px; --text-sm--line-height: 20px; --text-2xl: 28px; --text-2xl--line-height: 34px;
+    --tracking-titulo: -0.02em; --font-weight-extranegrita: 800; --font-weight-negrita: 700;
+    --spacing-sm: 8px; --spacing-md: 12px; --spacing-lg: 24px; --radius-md: 10px;
+  }
+  body { margin: 0; padding: var(--spacing-lg); background: var(--color-fondo); }
+  .contacto { max-width: 720px; margin: 0 auto; display: flex; gap: var(--spacing-lg); align-items: center; justify-content: space-between; padding: var(--spacing-lg); border-top: 1px solid var(--color-linea); font: var(--text-sm)/var(--text-sm--line-height) var(--font-texto); color: var(--color-texto); }
+  .contacto__nombre { margin: 0; font: var(--font-weight-extranegrita) var(--text-2xl)/var(--text-2xl--line-height) var(--font-titulo); letter-spacing: var(--tracking-titulo); color: var(--color-tinta); }
+  .contacto__titulo { margin: 0 0 var(--spacing-md); color: var(--color-azul); font-weight: var(--font-weight-negrita); }
+  .contacto__lista { display: grid; grid-template-columns: auto 1fr; gap: var(--spacing-sm) var(--spacing-md); margin: 0; }
+  .contacto__lista dt { color: var(--color-apagado); }
+  .contacto__lista dd { margin: 0; }
+  .contacto__lista a { color: var(--color-azul); }
+  .contacto__qr { flex: none; width: 120px; height: 120px; box-sizing: content-box; background: var(--color-blanco); padding: var(--spacing-md); border: 1px solid var(--color-linea); border-radius: var(--radius-md); }
+  .contacto__qr svg { display: block; width: 100%; height: 100%; }
+  @media (max-width: 480px) { .contacto { flex-direction: column; align-items: flex-start; } }
+</style>
+</head>
+<body>
+<section class="contacto" aria-label="Contacto">
+  <div class="contacto__datos">
+    <h2 class="contacto__nombre">Nehemias Pérez</h2>
+    <p class="contacto__titulo">Diseñador UI/UX</p>
+    <dl class="contacto__lista">
+      <dt>Web</dt><dd><a href="https://nehemiasperez.com">nehemiasperez.com</a></dd>
+      <dt>Correo</dt><dd><a href="mailto:nehemiasp880@gmail.com">nehemiasp880@gmail.com</a></dd>
+    </dl>
+  </div>
+  <div class="contacto__qr" id="qr" role="img" aria-label="Código QR al portafolio"></div>
+</section>
+
+<script>
+(function () {
+  var URL_QR = "https://nehemiasperez.com", N = 29, DATA = 44, EC = 26;
+  // Datos: modo byte, versión 3, nivel M
+  var bytes = Array.from(new TextEncoder().encode(URL_QR)), bits = [];
+  function put(v, n) { for (var i = n - 1; i >= 0; i--) bits.push((v >>> i) & 1); }
+  put(4, 4); put(bytes.length, 8); bytes.forEach(function (b) { put(b, 8); });
+  put(0, Math.min(4, DATA * 8 - bits.length));
+  while (bits.length % 8) bits.push(0);
+  var cw = [];
+  for (var i = 0; i < bits.length; i += 8) cw.push(parseInt(bits.slice(i, i + 8).join(""), 2));
+  for (var p = 0xEC; cw.length < DATA; p ^= 0xEC ^ 0x11) cw.push(p);
+  // Reed-Solomon
+  function mul(a, b) { var r = 0; for (var i = 7; i >= 0; i--) { r = (r << 1) ^ ((r >>> 7) * 0x11D); r ^= ((b >>> i) & 1) * a; } return r & 255; }
+  var gen = []; for (i = 0; i < EC; i++) gen.push(0); gen[EC - 1] = 1;
+  for (var root = 1, k = 0; k < EC; k++) {
+    for (var j = 0; j < EC; j++) { gen[j] = mul(gen[j], root); if (j + 1 < EC) gen[j] ^= gen[j + 1]; }
+    root = mul(root, 2);
+  }
+  var rem = []; for (i = 0; i < EC; i++) rem.push(0);
+  cw.forEach(function (b) { var f = b ^ rem.shift(); rem.push(0); for (var i = 0; i < EC; i++) rem[i] ^= mul(gen[i], f); });
+  var all = cw.concat(rem), dbits = [];
+  all.forEach(function (b) { put(b, 8); });
+  dbits = bits.slice(bits.length - all.length * 8);
+  // Matriz
+  var m = [], fn = [];
+  for (var y = 0; y < N; y++) { m.push(new Array(N).fill(false)); fn.push(new Array(N).fill(false)); }
+  function set(x, y, v) { m[y][x] = v; fn[y][x] = true; }
+  for (i = 0; i < N; i++) { set(6, i, i % 2 === 0); set(i, 6, i % 2 === 0); }
+  [[3, 3], [N - 4, 3], [3, N - 4]].forEach(function (c) {
+    for (var dy = -4; dy <= 4; dy++) for (var dx = -4; dx <= 4; dx++) {
+      var x = c[0] + dx, y = c[1] + dy, d = Math.max(Math.abs(dx), Math.abs(dy));
+      if (x >= 0 && x < N && y >= 0 && y < N) set(x, y, d !== 2 && d !== 4);
+    }
+  });
+  for (var dy = -2; dy <= 2; dy++) for (var dx = -2; dx <= 2; dx++) set(22 + dx, 22 + dy, Math.max(Math.abs(dx), Math.abs(dy)) !== 1);
+  // Formato: nivel M (00), máscara 0
+  var d5 = 0, r = d5 << 10;
+  for (i = 14; i >= 10; i--) if ((r >>> i) & 1) r ^= 0x537 << (i - 10);
+  var f = ((d5 << 10) | r) ^ 0x5412;
+  function fb(i) { return ((f >>> i) & 1) !== 0; }
+  for (i = 0; i <= 5; i++) set(8, i, fb(i));
+  set(8, 7, fb(6)); set(8, 8, fb(7)); set(7, 8, fb(8));
+  for (i = 9; i < 15; i++) set(14 - i, 8, fb(i));
+  for (i = 0; i < 8; i++) set(N - 1 - i, 8, fb(i));
+  for (i = 8; i < 15; i++) set(8, N - 15 + i, fb(i));
+  set(8, N - 8, true);
+  // Datos en zigzag con máscara 0
+  var n = 0;
+  for (var right = N - 1; right >= 1; right -= 2) {
+    if (right === 6) right = 5;
+    for (var v = 0; v < N; v++) for (j = 0; j < 2; j++) {
+      var x = right - j, up = ((right + 1) & 2) === 0, yy = up ? N - 1 - v : v;
+      if (!fn[yy][x]) {
+        var bit = n < dbits.length ? dbits[n] === 1 : false; n++;
+        m[yy][x] = bit !== ((x + yy) % 2 === 0);
+      }
+    }
+  }
+  // SVG con zona de silencio de 4 módulos
+  var Q = 4, S = N + Q * 2, path = "";
+  for (y = 0; y < N; y++) for (var x2 = 0; x2 < N; x2++) if (m[y][x2]) path += "M" + (x2 + Q) + " " + (y + Q) + "h1v1h-1z";
+  document.getElementById("qr").innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + S + ' ' + S + '" shape-rendering="crispEdges" aria-hidden="true"><rect width="' + S + '" height="' + S + '" fill="#FFFFFF"/><path d="' + path + '" fill="#0E1116"/></svg>';
+})();
+</script>
+</body>
+</html>

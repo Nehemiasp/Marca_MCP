@@ -148,5 +148,55 @@
     "causa": "Al empaquetar JetBrains Mono para el código, la página la declara en un @font-face. El auditor leyó esa declaración como un uso de fuente ajena.",
     "solucion": "El auditor distingue el @font-face: ahí valen las fuentes de la marca y la de código; cualquier otra sigue siendo error. Fuera de un @font-face, escribir JetBrains Mono a mano sigue fallando: entra solo por el token.",
     "aprendizaje": "Declarar una fuente que se carga y usarla son cosas distintas. La misma pregunta que con el código mostrado en prosa: el auditor tiene que saber qué está mirando."
+  },
+  {
+    "id": "2026-11-08-el-auditor-no-veia-un-radio-al-final-de-un-atrib",
+    "fecha": "2026-11-08",
+    "fase": "9",
+    "titulo": "El auditor no veía un radio al final de un atributo style",
+    "salida": "$ npm run revisar -- prueba.html\n(archivo con: border-radius: 8px)\n/tmp/claude-0/prueba.html: 3 error(es) y 0 aviso(s) contra la marca.\n  L1:11 [error] fuente: La fuente «Inter» no es de la marca (solo Bricolage Grotesque e Instrument Sans).\n  L1:38 [error] color: #333 (#333333) no está en la paleta. Más cercano: color.texto (#2B2F36), ΔE 4.74.\n  [error] voz (titulo-incorrecto): «Product Designer» no es su título.\n(no aparece ningún hallazgo de radio)",
+    "causa": "Con `style=\"… border-radius: 8px\"` el valor capturado incluía el cierre del atributo y el texto siguiente (`8px\">Soy Product Designer</p>`), y no se reconocía como medida. Es el mismo defecto de lectura que ya había aparecido con las fuentes.",
+    "solucion": "Una función compartida limpia el valor de un atributo, y la usan fuentes y radios. Pruebas con el radio al final del atributo, con `!important` y con texto después.",
+    "aprendizaje": "Un defecto de lectura reaparece en cada lugar que copió la misma lectura. Al arreglarlo en uno, hay que buscar los otros."
+  },
+  {
+    "id": "2026-11-08-mi-metrica-conto-como-negro-el-texto-blanco-de-u",
+    "fecha": "2026-11-08",
+    "fase": "9",
+    "titulo": "Mi métrica contó como negro el texto blanco de un SVG",
+    "salida": "{'codigoErrores': 0, 'codigoAvisos': 16, 'coloresFueraDePaleta': 1, 'coloresFueraDePaletaLista': ['#000000'], 'fallosContraste': 2, 'paresContrasteRevisados': 7}\n<text x=\"74\" y=\"30\" ... fill=\"#FFFFFF\">Nehemias Pérez\n<text x=\"74\" y=\"52\" ... fill=\"#8DB6E8\">DISEÑADOR UI/UX",
+    "causa": "La evaluación leía la propiedad `color` de cada texto. En un SVG el color visible es `fill`, y `color` queda en negro por defecto: dos textos claros sobre fondo oscuro se contaron como fallos de contraste.",
+    "solucion": "Para SVG se lee `fill` (texto y formas). Un primer arreglo contó también los contenedores `<svg>` y `<g>`, cuyo fill es negro aunque no dibujen nada; lo limité a las formas que pintan. Volví a medir todas las salidas guardadas.",
+    "aprendizaje": "Una métrica también se equivoca. Los números cambiaron un poco (47 a 48 colores fuera de la paleta sin servidor) y lo dejé escrito."
+  },
+  {
+    "id": "2026-11-08-la-skill-reforzada-no-cambio-lo-que-hace-el-agen",
+    "fecha": "2026-11-08",
+    "fase": "9",
+    "titulo": "La skill reforzada no cambió lo que hace el agente",
+    "salida": "Tareas donde el agente corrió… (corrida 1 → corrida 2)\nauditar_codigo:    1 de 7 → 0 de 7\nrevisar_contraste: 0 de 7 → 0 de 7\nrevisar_texto:     5 de 7 → 5 de 7\n— respuesta del agente (tarea publicacion-redes): «Revisé el texto con `revisar_texto` y no tuvo hallazgos. No ejecuté `auditar_codigo` ni `revisar_contraste`, y tampoco abrí el archivo para ver cómo se ve.»",
+    "causa": "Reescribí la skill como una puerta de verificación («una respuesta que diga que no pasó las revisiones cuenta como un fallo»). El agente la leyó, la citó y la omitió igual.",
+    "solucion": "Dejé el resultado en el reporte y probé otra vía: un hook que corre la revisión cada vez que el agente guarda un archivo.",
+    "aprendizaje": "Pedir algo con más fuerza no es automatizarlo. El agente sabía que debía revisar y lo dijo."
+  },
+  {
+    "id": "2026-11-08-un-comando-mio-fue-bloqueado-por-una-comprobacio",
+    "fecha": "2026-11-08",
+    "fase": "9",
+    "titulo": "Un comando mío fue bloqueado por una comprobación de seguridad",
+    "salida": "Permission for this command was denied by a built-in Claude Code safety check, not by the user. [...] What was flagged: Dangerous rm operation detected in `rm -f $H/$t.json`. The target '$H/$t.json' is a shell variable expansion: when $H or $t is unset or empty it becomes `/`, `/*` or a top-level path.\nThe command was NOT run",
+    "causa": "Escribí `rm -f $H/$t.json` con dos variables sin protección. Si alguna hubiera estado vacía, el borrado apuntaría a la raíz.",
+    "solucion": "Usé la reescritura que la propia comprobación sugería: `rm -f \"${H:?}\"/\"${t:?}\".json`, que se detiene con error si una variable está vacía. No intenté partir el comando ni evitar la comprobación. Como el comando completo no se ejecutó, tuve que repetir también los pasos que venían antes.",
+    "aprendizaje": "El bloqueo tenía razón. Una variable vacía en un `rm` es el tipo de error que se repara cuando ya es tarde. Hoy escribo el borrado con la variable protegida desde el principio."
+  },
+  {
+    "id": "2026-11-08-un-script-fallo-porque-faltaba-la-carpeta-claude",
+    "fecha": "2026-11-08",
+    "fase": "9",
+    "titulo": "Un script falló porque faltaba la carpeta .claude",
+    "salida": "Error: ENOENT: no such file or directory, open '/tmp/marca-evals/sin-hero-portafolio-1794112545074/trabajo/.claude/settings.json'",
+    "causa": "En la condición «con servidor» la carpeta `.claude` se creaba al copiar la skill. En la condición «sin servidor» no hay skill, así que no existía y la escritura del hook falló.",
+    "solucion": "Creo la carpeta antes de escribir la configuración del hook.",
+    "aprendizaje": "Un código que solo se probó con una condición supone cosas de esa condición. La segunda lo desmintió en el primer intento."
   }
 ]

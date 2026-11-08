@@ -1,0 +1,17 @@
+{
+  "codigoErrores": 0,
+  "codigoAvisos": 0,
+  "coloresFueraDePaleta": 0,
+  "coloresFueraDePaletaLista": [],
+  "fuentesAjenas": 0,
+  "fuentesAjenasLista": [],
+  "fallosContraste": 0,
+  "paresContrasteRevisados": 12,
+  "vozErrores": 1,
+  "vozAvisos": 0,
+  "vozDetalle": [
+    "trato-usted: «TU»"
+  ],
+  "degradados": 0,
+  "texto": "Tu Empresa\nPropuesta de servicios\nEstrategia y soluciones a la medida de su negocio\nDocumento con el alcance, la metodología, los plaz\nPreparado para\n[Nombre del cliente]\nPreparado por\n[Nombre del responsable]\nFecha\n8 de noviembre de 2026\nReferencia · Validez\nPS-2026-001 · 30 días"
+}

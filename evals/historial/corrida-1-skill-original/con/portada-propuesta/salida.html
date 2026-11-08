@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Propuesta de servicios · Nehemias Pérez, Diseñador UI/UX</title>
+<style>
+  :root {
+    --color-tinta:#0E1116; --color-apagado:#6A707A; --color-linea:#DADDE2; --color-fondo:#FAFAF8; --color-azul:#043565;
+    --font-titulo:"Bricolage Grotesque","Instrument Sans",system-ui,sans-serif;
+    --font-texto:"Instrument Sans",system-ui,sans-serif;
+    --spacing-md:12px; --spacing-lg:24px; --spacing-xl:32px;
+  }
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--color-fondo); }
+  .portada { width: 210mm; height: 297mm; padding: 24mm 20mm; display: grid; grid-template-columns: 1fr 52mm; gap: var(--spacing-xl); align-items: end; background: var(--color-fondo); break-after: page; overflow: hidden; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .portada__texto { display: grid; grid-template-rows: auto 1fr auto; gap: var(--spacing-xl); align-self: stretch; }
+  .portada__nombre { margin: 0; font: 600 10pt/1.4 var(--font-texto); color: var(--color-tinta); }
+  .portada__centro { align-self: center; }
+  .portada__eyebrow { margin: 0 0 var(--spacing-md); font: 700 9pt/1.4 var(--font-texto); letter-spacing: .12em; text-transform: uppercase; color: var(--color-azul); }
+  .portada__titulo { margin: 0; font: 800 44pt/1 var(--font-titulo); letter-spacing: -.02em; color: var(--color-tinta); }
+  .portada__titulo em { font-style: normal; color: var(--color-azul); }
+  .portada__meta { display: flex; gap: var(--spacing-xl); margin: 0; padding-top: var(--spacing-lg); border-top: 1px solid var(--color-linea); font: 400 10pt/1.4 var(--font-texto); }
+  .portada__meta dt { color: var(--color-apagado); }
+  .portada__meta dd { margin: 0; color: var(--color-tinta); }
+  .portada__motivo { width: 100%; height: auto; display: block; }
+</style>
+</head>
+<body>
+<section class="portada">
+  <div class="portada__texto">
+    <p class="portada__nombre">Nehemias Pérez · Diseñador UI/UX</p>
+    <div class="portada__centro">
+      <p class="portada__eyebrow">Propuesta</p>
+      <h1 class="portada__titulo">Propuesta de servicios de <em>diseño.</em></h1>
+    </div>
+    <dl class="portada__meta">
+      <div><dt>Documento</dt><dd>Propuesta de servicios</dd></div>
+      <div><dt>Fecha</dt><dd>Noviembre de 2026</dd></div>
+      <div><dt>Para</dt><dd>[Nombre del cliente]</dd></div>
+    </dl>
+  </div>
+  <svg class="portada__motivo" aria-hidden="true" viewBox="0 0 436 324" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="100" height="100" rx="14" fill="#0E1116"/><rect x="112" y="0" width="100" height="100" rx="14" fill="#ECEDEF"/><rect x="225" y="1" width="98" height="98" rx="14" fill="none" stroke="#DADDE2" stroke-width="2"/><rect x="336" y="0" width="100" height="100" rx="14" fill="#0E1116"/><rect x="0" y="112" width="100" height="100" rx="14" fill="#ECEDEF"/><rect x="112" y="112" width="212" height="100" rx="50" fill="#043565"/><rect x="336" y="112" width="100" height="100" rx="14" fill="#ECEDEF"/><rect x="1" y="225" width="98" height="98" rx="14" fill="none" stroke="#DADDE2" stroke-width="2"/><rect x="112" y="224" width="100" height="100" rx="14" fill="#0E1116"/><rect x="224" y="224" width="100" height="100" rx="14" fill="#ECEDEF"/><rect x="337" y="225" width="98" height="98" rx="14" fill="none" stroke="#DADDE2" stroke-width="2"/></svg>
+</section>
+</body>
+</html>

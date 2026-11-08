@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nehemias Pérez — Diseñador</title>
+<style>
+  :root{
+    --color-fondo:#FAFAF8;--color-tinta:#0E1116;--color-apagado:#6A707A;
+    --font-titulo:"Bricolage Grotesque",sans-serif;--font-texto:"Instrument Sans",sans-serif;
+    --text-xs:12px;--text-sm:14px;--radius-pill:999px
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{background:var(--color-fondo);color:var(--color-tinta);font-family:var(--font-texto);-webkit-font-smoothing:antialiased}
+  .hero{min-height:100vh;display:grid;grid-template-rows:auto 1fr auto;padding:28px clamp(20px,5vw,64px);position:relative;overflow:hidden}
+  nav{display:flex;justify-content:space-between;align-items:center;font-size:var(--text-sm);z-index:2}
+  nav .logo{font-family:var(--font-titulo);font-weight:700;letter-spacing:-.02em}
+  nav ul{display:flex;gap:28px;list-style:none}
+  nav a{color:var(--color-tinta);text-decoration:none;position:relative}
+  nav a::after{content:"";position:absolute;left:0;bottom:-3px;width:0;height:1px;background:var(--color-tinta);transition:width .25s}
+  nav a:hover::after{width:100%}
+  .main{display:flex;flex-direction:column;justify-content:center;z-index:2;max-width:1100px}
+  .tag{display:inline-flex;align-items:center;gap:10px;font-size:var(--text-sm);color:var(--color-apagado);margin-bottom:28px}
+  .tag i{width:9px;height:9px;border-radius:var(--radius-pill);background:var(--color-tinta);animation:p 2s infinite}
+  @keyframes p{50%{opacity:.25}}
+  h1{font-family:var(--font-titulo);font-size:clamp(44px,9vw,132px);line-height:.95;letter-spacing:-.045em;font-weight:800}
+  h1 em{font-style:normal;color:var(--color-apagado)}
+  .sub{margin-top:32px;max-width:520px;font-size:clamp(16px,1.6vw,20px);line-height:1.5;color:var(--color-apagado)}
+  .cta{margin-top:40px;display:flex;gap:14px;flex-wrap:wrap}
+  .btn{padding:16px 28px;border-radius:var(--radius-pill);font-size:var(--text-sm);text-decoration:none;font-weight:600;transition:transform .2s,background .2s}
+  .btn.primary{background:var(--color-tinta);color:var(--color-fondo)}
+  .btn.primary:hover{background:var(--color-apagado);transform:translateY(-2px)}
+  .btn.ghost{border:1.5px solid var(--color-tinta);color:var(--color-tinta)}
+  .btn.ghost:hover{background:var(--color-tinta);color:var(--color-fondo)}
+  .shape{position:absolute;right:-6vw;top:50%;width:min(46vw,560px);aspect-ratio:1;transform:translateY(-50%);z-index:1}
+  .shape .c{position:absolute;inset:0;border-radius:var(--radius-pill);background:var(--color-tinta);clip-path:inset(0 0 50% 0);animation:spin 18s linear infinite}
+  .shape .s{position:absolute;inset:18%;border:2px solid var(--color-apagado);animation:spin 26s linear infinite reverse}
+  .shape .d{position:absolute;width:22%;aspect-ratio:1;right:8%;bottom:10%;background:var(--color-apagado);border-radius:var(--radius-pill)}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  footer{display:flex;justify-content:space-between;font-size:var(--text-xs);color:var(--color-apagado);z-index:2}
+  @media(max-width:700px){nav ul{gap:16px}.shape{opacity:.2;right:-25vw;width:80vw}}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <nav>
+    <span class="logo">N. Pérez</span>
+    <ul>
+      <li><a href="#trabajos">Trabajos</a></li>
+      <li><a href="#sobre-mi">Sobre mí</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <div class="main">
+    <span class="tag"><i></i>Disponible para nuevos proyectos</span>
+    <h1>Hola, soy<br>Nehemias <em>Pérez</em>,<br>diseñador.</h1>
+    <p class="sub">Diseño ideas claras y con personalidad: marcas, interfaces y experiencias que se sienten bien y se recuerdan.</p>
+    <div class="cta">
+      <a class="btn primary" href="#trabajos">Ver mi trabajo</a>
+      <a class="btn ghost" href="#contacto">Hablemos</a>
+    </div>
+  </div>
+
+  <footer>
+    <span></span>
+    <span>Desplázate ↓</span>
+  </footer>
+
+  <div class="shape" aria-hidden="true"><div class="c"></div><div class="s"></div><div class="d"></div></div>
+</header>
+<script>document.querySelector('footer span').textContent='Portafolio '+new Date().getFullYear()</script>
+</body>
+</html>

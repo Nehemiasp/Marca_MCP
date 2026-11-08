@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Panel de métricas · Tarjeta de proyecto</title>
+<style>
+  :root {
+    --color-tinta: #0E1116; --color-texto: #2B2F36; --color-apagado: #6A707A;
+    --color-linea: #DADDE2; --color-suave: #ECEDEF; --color-fondo: #FAFAF8;
+    --color-blanco: #FFFFFF; --color-azul: #043565; --color-azul-suave: #E8EFF7;
+    --font-titulo: "Bricolage Grotesque", "Instrument Sans", system-ui, sans-serif;
+    --font-texto: "Instrument Sans", system-ui, sans-serif;
+    --font-weight-extranegrita: 800; --font-weight-seminegrita: 600; --font-weight-negrita: 700;
+    --text-xs: 12px; --text-base: 16px; --text-xl: 22px;
+    --text-xs--line-height: 16px; --text-base--line-height: 26px; --text-xl--line-height: 30px;
+    --tracking-titulo: -0.02em; --tracking-eyebrow: 0.12em;
+    --spacing-sm: 8px; --spacing-md: 12px; --spacing-lg: 24px; --spacing-2xl: 48px;
+    --radius-lg: 16px; --radius-pill: 999px;
+    --shadow-suave: 0px 1px 2px 0px #0E11160F;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: var(--spacing-2xl) var(--spacing-lg); background: var(--color-fondo); font-family: var(--font-texto); }
+  .tarjeta { position: relative; width: 100%; max-width: 400px; background: var(--color-blanco); border: 1px solid var(--color-linea); border-radius: var(--radius-lg); overflow: hidden; transition: border-color .15s, box-shadow .15s; }
+  .tarjeta:hover { border-color: var(--color-tinta); box-shadow: var(--shadow-suave); }
+  .tarjeta:focus-within { outline: 2px solid var(--color-azul); outline-offset: 2px; }
+  .tarjeta__imagen { display: block; width: 100%; height: auto; aspect-ratio: 8 / 5; object-fit: cover; }
+  .tarjeta__cuerpo { padding: var(--spacing-lg); display: grid; gap: var(--spacing-md); }
+  .tarjeta__eyebrow { margin: 0; font: var(--font-weight-negrita) var(--text-xs)/var(--text-xs--line-height) var(--font-texto); letter-spacing: var(--tracking-eyebrow); text-transform: uppercase; color: var(--color-azul); }
+  .tarjeta__titulo { margin: 0; font: var(--font-weight-extranegrita) var(--text-xl)/var(--text-xl--line-height) var(--font-titulo); letter-spacing: var(--tracking-titulo); }
+  .tarjeta__titulo a { color: var(--color-tinta); text-decoration: none; }
+  .tarjeta__titulo a::after { content: ""; position: absolute; inset: 0; }
+  .tarjeta__texto { margin: 0; color: var(--color-texto); font: var(--text-base)/var(--text-base--line-height) var(--font-texto); }
+  .etiquetas { display: flex; flex-wrap: wrap; gap: var(--spacing-sm); list-style: none; margin: 0; padding: 0; }
+  .etiqueta { font: var(--font-weight-seminegrita) var(--text-xs)/var(--text-xs--line-height) var(--font-texto); background: var(--color-suave); color: var(--color-tinta); padding: var(--spacing-sm) var(--spacing-md); border-radius: var(--radius-pill); }
+</style>
+</head>
+<body>
+<article class="tarjeta">
+  <img class="tarjeta__imagen" width="640" height="400" alt="Maqueta del panel de métricas: barra lateral, tres indicadores y un gráfico de barras"
+    src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 400'%3E%3Crect width='640' height='400' fill='%23E8EFF7'/%3E%3Crect x='40' y='40' width='560' height='320' rx='14' fill='%23FFFFFF' stroke='%23DADDE2'/%3E%3Crect x='40' y='40' width='120' height='320' rx='14' fill='%23043565'/%3E%3Crect x='184' y='64' width='120' height='64' rx='10' fill='%23ECEDEF'/%3E%3Crect x='320' y='64' width='120' height='64' rx='10' fill='%23ECEDEF'/%3E%3Crect x='456' y='64' width='120' height='64' rx='10' fill='%23ECEDEF'/%3E%3Crect x='200' y='290' width='36' height='50' rx='6' fill='%238DB6E8'/%3E%3Crect x='256' y='250' width='36' height='90' rx='6' fill='%238DB6E8'/%3E%3Crect x='312' y='270' width='36' height='70' rx='6' fill='%238DB6E8'/%3E%3Crect x='368' y='210' width='36' height='130' rx='6' fill='%23043565'/%3E%3Crect x='424' y='235' width='36' height='105' rx='6' fill='%238DB6E8'/%3E%3Crect x='480' y='180' width='36' height='160' rx='6' fill='%23043565'/%3E%3C/svg%3E">
+  <div class="tarjeta__cuerpo">
+    <p class="tarjeta__eyebrow">Panel de datos · 2026</p>
+    <h3 class="tarjeta__titulo"><a href="#">Panel de métricas</a></h3>
+    <p class="tarjeta__texto">Lectura rápida de indicadores para equipos pequeños.</p>
+    <ul class="etiquetas" role="list"><li class="etiqueta">Figma</li><li class="etiqueta">React</li></ul>
+  </div>
+</article>
+</body>
+</html>

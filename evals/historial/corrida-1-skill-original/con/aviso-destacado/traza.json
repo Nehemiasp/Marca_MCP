@@ -1,0 +1,10 @@
+{
+  "herramientasDeMarca": [
+    "obtener_componente",
+    "obtener_tokens"
+  ],
+  "costoUsd": 0.0664913,
+  "turnos": 4,
+  "duracionSeg": 8,
+  "respuesta": "Creé `salida.html` en la carpeta actual con el aviso destacado de la marca, que dice que respondes los mensajes en un plazo de dos días hábiles. No pasé las herramientas de revisión de la marca (código, contraste y texto) sobre el resultado."
+}

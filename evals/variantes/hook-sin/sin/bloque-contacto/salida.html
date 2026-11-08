@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contacto — Propuesta</title>
+<style>
+  :root {
+    --color-tinta:#0E1116; --color-apagado:#6A707A; --color-azul-suave:#E8EFF7;
+    --color-suave:#ECEDEF; --color-blanco:#FFFFFF;
+    --radius-sm:6px; --radius-md:10px;
+    --text-xs:12px; --text-sm:14px; --text-2xl:28px;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; padding:40px 16px; background:var(--color-suave); color:var(--color-tinta);
+         font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; }
+  .contacto { max-width:720px; margin:0 auto; background:var(--color-blanco); border:1px solid var(--color-azul-suave);
+              border-top:4px solid var(--color-azul, var(--color-tinta)); border-radius:var(--radius-md); padding:32px;
+              display:grid; grid-template-columns:1fr auto; gap:32px; align-items:center; }
+  .eyebrow { margin:0 0 4px; font-size:var(--text-xs); letter-spacing:.12em; text-transform:uppercase; color:var(--color-azul, var(--color-tinta)); font-weight:600; }
+  h2 { margin:0 0 8px; font-size:var(--text-2xl); line-height:1.2; }
+  .lead { margin:0 0 20px; color:var(--color-apagado); }
+  dl { margin:0; display:grid; grid-template-columns:auto 1fr; gap:6px 16px; }
+  dt { color:var(--color-apagado); font-size:var(--text-sm); }
+  dd { margin:0; font-weight:500; }
+  a { color:var(--color-tinta); text-decoration-color:var(--color-azul, var(--color-tinta)); text-underline-offset:3px; }
+  figure { margin:0; text-align:center; }
+  #qr { width:176px; height:176px; display:block; padding:8px; background:var(--color-blanco); border:1px solid var(--color-azul-suave); border-radius:var(--radius-sm); }
+  figcaption { margin-top:8px; font-size:var(--text-sm); color:var(--color-apagado); }
+  @media (max-width:560px) { .contacto { grid-template-columns:1fr; padding:24px; } figure { justify-self:center; } }
+  @media print { body { background:var(--color-blanco); padding:0; } .contacto { border-color:var(--color-apagado); } }
+</style>
+</head>
+<body>
+<section class="contacto" aria-labelledby="t-contacto">
+  <div>
+    <p class="eyebrow">Siguientes pasos</p>
+    <h2 id="t-contacto">¿Hablamos de su proyecto?</h2>
+    <p class="lead">Estaremos encantados de resolver dudas y ajustar esta propuesta a sus necesidades.</p>
+    <dl>
+      <dt>Contacto</dt><dd>Nombre Apellido</dd>
+      <dt>Correo</dt><dd><a href="mailto:contacto@ejemplo.com">contacto@ejemplo.com</a></dd>
+      <dt>Teléfono</dt><dd><a href="tel:+34600000000">+34 600 000 000</a></dd>
+      <dt>Web</dt><dd><a href="https://ejemplo.com/contacto">ejemplo.com/contacto</a></dd>
+    </dl>
+  </div>
+  <figure>
+    <svg id="qr" role="img" aria-label="Código QR que enlaza a https://ejemplo.com/contacto" xmlns="http://www.w3.org/2000/svg"></svg>
+    <figcaption>Escanee para contactarnos</figcaption>
+  </figure>
+</section>
+
+<script>
+// Generador QR mínimo (modo byte, corrección M, versiones 1–6, máscara 0). Sin dependencias.
+function makeQR(text) {
+  const data = Array.from(new TextEncoder().encode(text));
+  const ECC = [0,10,16,26,18,24,16], BLK = [0,1,1,1,2,2,4];
+  let ver = 1, raw, nEcc, nBlk, dataCw;
+  const rawModules = v => { let r=(16*v+128)*v+64; if (v>=2){const n=Math.floor(v/7)+2; r-=(25*n-10)*n-55;} return r; };
+  for (; ver<=6; ver++) {
+    raw = Math.floor(rawModules(ver)/8); nEcc = ECC[ver]; nBlk = BLK[ver];
+    dataCw = raw - nEcc*nBlk;
+    if (data.length + 2 <= dataCw) break;
+  }
+  if (ver > 6) throw new Error("Texto demasiado largo");
+  const size = ver*4+17;
+  // bits de datos
+  const bits = [];
+  const put = (v,n)=>{ for (let i=n-1;i>=0;i--) bits.push((v>>i)&1); };
+  put(4,4); put(data.length,8); data.forEach(b=>put(b,8));
+  put(0, Math.min(4, dataCw*8-bits.length));
+  while (bits.length%8) bits.push(0);
+  const cw = [];
+  for (let i=0;i<bits.length;i+=8) cw.push(parseInt(bits.slice(i,i+8).join(""),2));
+  for (let p=0xEC; cw.length<dataCw; p^=0xEC^0x11) cw.push(p);
+  // Reed-Solomon
+  const mul=(x,y)=>{ let z=0; for(let i=7;i>=0;i--){ z=(z<<1)^((z>>>7)*0x11D); z^=((y>>>i)&1)*x; } return z&255; };
+  const divisor = (d)=>{ const r=new Array(d).fill(0); r[d-1]=1; let root=1;
+    for(let i=0;i<d;i++){ for(let j=0;j<d;j++){ r[j]=mul(r[j],root); if(j+1<d) r[j]^=r[j+1]; } root=mul(root,2); } return r; };
+  const rem = (blk,div)=>{ const r=new Array(div.length).fill(0);
+    for(const b of blk){ const f=b^r.shift(); r.push(0); div.forEach((c,i)=>{ r[i]^=mul(c,f); }); } return r; };
+  const div = divisor(nEcc);
+  const nShort = nBlk - raw%nBlk, shortLen = Math.floor(raw/nBlk);
+  const blocks = []; let k = 0;
+  for (let i=0;i<nBlk;i++){
+    const len = shortLen - nEcc + (i<nShort?0:1);
+    const d = cw.slice(k,k+len); k+=len;
+    blocks.push({d, e: rem(d,div)});
+  }
+  const all = [];
+  for (let i=0;i<=shortLen-nEcc;i++) blocks.forEach(b=>{ if(i<b.d.length) all.push(b.d[i]); });
+  for (let i=0;i<nEcc;i++) blocks.forEach(b=>all.push(b.e[i]));
+  // matriz
+  const M = Array.from({length:size},()=>new Array(size).fill(false));
+  const F = Array.from({length:size},()=>new Array(size).fill(false));
+  const set=(x,y,v)=>{ if(x>=0&&y>=0&&x<size&&y<size){ M[y][x]=v; F[y][x]=true; } };
+  for (let i=0;i<size;i++){ set(6,i,i%2==0); set(i,6,i%2==0); }
+  [[3,3],[size-4,3],[3,size-4]].forEach(([cx,cy])=>{
+    for(let dy=-4;dy<=4;dy++) for(let dx=-4;dx<=4;dx++){ const d=Math.max(Math.abs(dx),Math.abs(dy)); set(cx+dx,cy+dy,d!=2&&d!=4); } });
+  if (ver>=2){
+    const n=Math.floor(ver/7)+2, step=Math.ceil((ver*4+4)/(n*2-2))*2, pos=[6];
+    for(let p=size-7;pos.length<n;p-=step) pos.splice(1,0,p);
+    pos.forEach((cy,i)=>pos.forEach((cx,j)=>{
+      if((i==0&&j==0)||(i==0&&j==n-1)||(i==n-1&&j==0)) return;
+      for(let dy=-2;dy<=2;dy++) for(let dx=-2;dx<=2;dx++) set(cx+dx,cy+dy,Math.max(Math.abs(dx),Math.abs(dy))!=1);
+    }));
+  }
+  // formato (ECC M = 00, máscara 0)
+  let r = 0; const fd = 0; r = fd;
+  for(let i=0;i<10;i++) r=(r<<1)^((r>>>9)*0x537);
+  const fb = ((fd<<10)|r)^0x5412, bit=i=>((fb>>>i)&1)!=0;
+  for(let i=0;i<=5;i++) set(8,i,bit(i));
+  set(8,7,bit(6)); set(8,8,bit(7)); set(7,8,bit(8));
+  for(let i=9;i<15;i++) set(14-i,8,bit(i));
+  for(let i=0;i<8;i++) set(size-1-i,8,bit(i));
+  for(let i=8;i<15;i++) set(8,size-15+i,bit(i));
+  set(8,size-8,true);
+  // colocar datos
+  let i = 0;
+  for (let right=size-1; right>=1; right-=2){
+    if (right==6) right=5;
+    for (let v=0; v<size; v++) for (let j=0;j<2;j++){
+      const x=right-j, up=((right+1)&2)==0, y=up?size-1-v:v;
+      if(!F[y][x] && i<all.length*8){ M[y][x]=((all[i>>>3]>>>(7-(i&7)))&1)!=0; i++; }
+      if(!F[y][x]) M[y][x] = M[y][x] !== ((x+y)%2==0);
+    }
+  }
+  return M;
+}
+
+(function(){
+  const m = makeQR("https://ejemplo.com/contacto"), n = m.length, q = 2;
+  const svg = document.getElementById("qr");
+  svg.setAttribute("viewBox", `0 0 ${n+q*2} ${n+q*2}`);
+  svg.setAttribute("shape-rendering", "crispEdges");
+  let d = "";
+  m.forEach((row,y)=>row.forEach((v,x)=>{ if(v) d += `M${x+q} ${y+q}h1v1h-1z`; }));
+  svg.innerHTML = `<rect width="100%" height="100%" style="fill:var(--color-blanco)"/><path d="${d}" style="fill:var(--color-tinta)"/>`;
+})();
+</script>
+</body>
+</html>

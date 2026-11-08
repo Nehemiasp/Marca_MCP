@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Planes de servicios de diseño</title>
+<style>
+  :root {
+    --color-tinta: #0E1116; --color-texto: #2B2F36; --color-apagado: #6A707A;
+    --color-linea: #DADDE2; --color-suave: #ECEDEF; --color-fondo: #FAFAF8;
+    --color-blanco: #FFFFFF; --color-azul: #043565;
+    --font-titulo: "Bricolage Grotesque", "Instrument Sans", system-ui, sans-serif;
+    --font-texto: "Instrument Sans", system-ui, sans-serif;
+    --text-xs: 12px; --text-sm: 14px; --text-base: 16px; --text-xl: 22px; --text-3xl: 36px;
+    --spacing-sm: 8px; --spacing-md: 12px; --spacing-base: 16px; --spacing-lg: 24px; --spacing-2xl: 48px;
+    --radius-md: 10px; --radius-pill: 999px;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--color-fondo); color: var(--color-texto); font: 400 var(--text-base)/26px var(--font-texto); }
+  main { max-width: 960px; margin: 0 auto; padding: var(--spacing-2xl) var(--spacing-lg); }
+  .eyebrow { margin: 0 0 var(--spacing-sm); color: var(--color-azul); font-size: var(--text-xs); line-height: 16px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+  h1 { margin: 0 0 var(--spacing-md); color: var(--color-tinta); font: 800 var(--text-3xl)/40px var(--font-titulo); letter-spacing: -0.02em; }
+  h1 span { color: var(--color-azul); }
+  .intro { margin: 0 0 var(--spacing-lg); max-width: 60ch; }
+  .tabla-contenedor { overflow-x: auto; }
+  .tabla { width: 100%; min-width: 640px; border-collapse: collapse; font: 400 var(--text-sm)/20px var(--font-texto); color: var(--color-texto); }
+  .tabla caption { text-align: left; padding-bottom: var(--spacing-md); color: var(--color-apagado); }
+  .tabla thead th { background: var(--color-tinta); color: var(--color-blanco); font-weight: 600; text-align: left; padding: var(--spacing-md) var(--spacing-lg); }
+  .tabla thead th:first-child { border-top-left-radius: var(--radius-md); }
+  .tabla thead th:last-child { border-top-right-radius: var(--radius-md); }
+  .tabla tbody th, .tabla tbody td { padding: var(--spacing-md) var(--spacing-lg); border-bottom: 1px solid var(--color-linea); text-align: left; font-weight: 400; vertical-align: middle; }
+  .tabla tbody th { color: var(--color-tinta); font-weight: 600; }
+  .tabla tbody tr:hover { background: var(--color-fondo); }
+  .precio { color: var(--color-tinta); font: 800 var(--text-xl)/30px var(--font-titulo); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+  .precio small { color: var(--color-apagado); font: 400 var(--text-xs)/16px var(--font-texto); letter-spacing: 0; }
+  .etiqueta { display: inline-block; margin-left: var(--spacing-sm); padding: 2px var(--spacing-md); background: var(--color-suave); color: var(--color-tinta); border-radius: var(--radius-pill); font-size: var(--text-xs); line-height: 16px; font-weight: 700; }
+  .nota { margin: var(--spacing-base) 0 0; color: var(--color-apagado); font-size: var(--text-xs); line-height: 16px; }
+</style>
+</head>
+<body>
+<main>
+  <p class="eyebrow">Servicios</p>
+  <h1>Planes de <span>diseño UI/UX</span></h1>
+  <p class="intro">Tres formas de trabajar juntos, según el alcance de su producto. Cada plan incluye reuniones de seguimiento y archivos fuente.</p>
+
+  <div class="tabla-contenedor" role="region" aria-label="Comparativa de planes" tabindex="0">
+    <table class="tabla">
+      <caption>Comparativa de planes de servicios de diseño</caption>
+      <thead>
+        <tr>
+          <th scope="col">Concepto</th>
+          <th scope="col">Esencial</th>
+          <th scope="col">Profesional</th>
+          <th scope="col">Integral</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Precio</th>
+          <td class="precio">$ 600 <small>pago único</small></td>
+          <td class="precio">$ 1.800 <small>pago único</small> <span class="etiqueta">Más elegido</span></td>
+          <td class="precio">$ 4.200 <small>pago único</small></td>
+        </tr>
+        <tr><th scope="row">Ideal para</th><td>Una página o flujo corto</td><td>Un producto digital nuevo</td><td>Un producto completo en crecimiento</td></tr>
+        <tr><th scope="row">Plazo</th><td>1 semana</td><td>4 semanas</td><td>8 semanas</td></tr>
+        <tr><th scope="row">Pantallas diseñadas</th><td>Hasta 3</td><td>Hasta 12</td><td>Hasta 30</td></tr>
+        <tr><th scope="row">Prototipo navegable</th><td>—</td><td>Incluido</td><td>Incluido</td></tr>
+        <tr><th scope="row">Sistema de diseño</th><td>—</td><td>Base</td><td>Completo</td></tr>
+        <tr><th scope="row">Rondas de revisión</th><td>1</td><td>2</td><td>3</td></tr>
+        <tr><th scope="row">Entrega a desarrollo</th><td>—</td><td>Archivos y guía</td><td>Archivos, guía y acompañamiento</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="nota">Los montos son de ejemplo, en dólares, y pueden ajustarse según el proyecto.</p>
+</main>
+</body>
+</html>

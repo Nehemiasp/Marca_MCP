@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Propuesta de servicios de diseño UI/UX · Nehemias Pérez</title>
+<style>
+  :root {
+    --color-tinta:#0E1116; --color-apagado:#6A707A; --color-linea:#DADDE2; --color-fondo:#FAFAF8; --color-azul:#043565;
+    --font-titulo:"Bricolage Grotesque","Instrument Sans",system-ui,sans-serif;
+    --font-texto:"Instrument Sans",system-ui,sans-serif;
+  }
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { background: var(--color-fondo); }
+  body { font-family: var(--font-texto); color: var(--color-tinta); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .portada { width: 210mm; height: 297mm; padding: 24mm 20mm; display: grid; grid-template-columns: 1fr 52mm; grid-template-rows: auto 1fr auto; column-gap: 12mm; overflow: hidden; break-after: page; }
+  .marca { grid-column: 1 / -1; }
+  .marca svg { height: 12mm; width: auto; display: block; }
+  .centro { grid-column: 1; align-self: center; }
+  .eyebrow { font-size: 10pt; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--color-azul); margin-bottom: 8mm; }
+  h1 { font-family: var(--font-titulo); font-weight: 800; font-size: 44pt; line-height: 1; letter-spacing: -0.02em; color: var(--color-tinta); }
+  h1 em { font-style: normal; color: var(--color-azul); }
+  .motivo { grid-column: 2; grid-row: 2; align-self: center; width: 52mm; }
+  .motivo img { width: 100%; height: auto; display: block; }
+  .meta { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8mm; border-top: 1px solid var(--color-linea); padding-top: 8mm; }
+  .meta dt { font-size: 9pt; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--color-apagado); margin-bottom: 2mm; }
+  .meta dd { font-size: 11pt; font-weight: 500; color: var(--color-tinta); line-height: 1.4; }
+</style>
+</head>
+<body>
+<main class="portada">
+  <div class="marca">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 56" role="img" aria-label="Nehemias Pérez · Diseñador UI/UX"><g><rect x="0" y="0" width="26" height="26" rx="4" fill="#0E1116"/><rect x="30" y="0" width="26" height="26" rx="4" fill="#ECEDEF"/><rect x="0" y="30" width="56" height="26" rx="13" fill="#043565"/></g><text x="74" y="30" font-family="'Bricolage Grotesque','Instrument Sans',system-ui,sans-serif" font-weight="800" font-size="30" letter-spacing="-0.6" fill="#0E1116">Nehemias Pérez</text><text x="74" y="52" font-family="'Instrument Sans',system-ui,sans-serif" font-weight="700" font-size="11" letter-spacing="1.3" fill="#043565">DISEÑADOR UI/UX</text></svg>
+  </div>
+
+  <div class="centro">
+    <p class="eyebrow">Propuesta de servicios</p>
+    <h1>Diseño de producto pensado para <em>crecer</em> con su negocio</h1>
+  </div>
+
+  <div class="motivo" aria-hidden="true">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 436 324" alt=""><rect x="0" y="0" width="100" height="100" rx="14" fill="#0E1116"/><rect x="112" y="0" width="100" height="100" rx="14" fill="#ECEDEF"/><rect x="225" y="1" width="98" height="98" rx="14" fill="none" stroke="#DADDE2" stroke-width="2"/><rect x="336" y="0" width="100" height="100" rx="14" fill="#0E1116"/><rect x="0" y="112" width="100" height="100" rx="14" fill="#ECEDEF"/><rect x="112" y="112" width="212" height="100" rx="50" fill="#043565"/><rect x="336" y="112" width="100" height="100" rx="14" fill="#ECEDEF"/><rect x="1" y="225" width="98" height="98" rx="14" fill="none" stroke="#DADDE2" stroke-width="2"/><rect x="112" y="224" width="100" height="100" rx="14" fill="#0E1116"/><rect x="224" y="224" width="100" height="100" rx="14" fill="#ECEDEF"/><rect x="337" y="225" width="98" height="98" rx="14" fill="none" stroke="#DADDE2" stroke-width="2"/></svg>
+  </div>
+
+  <dl class="meta">
+    <div><dt>Documento</dt><dd>Propuesta de servicios</dd></div>
+    <div><dt>Fecha</dt><dd>Noviembre de 2026</dd></div>
+    <div><dt>Preparada para</dt><dd>[Nombre del cliente]</dd></div>
+  </dl>
+</main>
+</body>
+</html>

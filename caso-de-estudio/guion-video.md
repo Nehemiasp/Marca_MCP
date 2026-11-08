@@ -32,7 +32,7 @@ Para abrir el resultado: `open tarjeta.html` (macOS) o doble clic. Use el mismo 
 | 3 | 0:15–0:30 | Se escribe el mismo pedido en las dos. A la derecha se ven las llamadas a `obtener_tokens` y `obtener_componente` | «A la derecha, Claude consulta mi sistema de diseño antes de construir.» |
 | 4 | 0:30–0:50 | Se abren los dos HTML lado a lado, a pantalla completa | «Sin el servidor: correcta, pero no es mía. Con el servidor: es mi marca, sin que yo se la explique.» |
 | 5 | 0:50–1:05 | Acercamiento a detalles: el azul solo como acento, el eyebrow, el título. Luego, `auditar_codigo` marcando valores en el lado izquierdo | «La revisión la hacen mis propias herramientas: 130 valores fuera de los tokens sin servidor, cero con él.» |
-| 6 | 1:05–1:15 | Tabla del reporte (4 filas) sobre `color.tinta` | «Siete tareas, medidas con mis propias herramientas.» |
+| 6 | 1:05–1:15 | Tabla del reporte (4 filas) sobre `color.tinta` | «Siete tareas, medidas con mis propias herramientas. Y un hook que revisa cada archivo que la IA guarda.» |
 | 7 | 1:15–1:25 | Logo claro y el texto «nehemiasperez.com/laboratorio» | «Lo escribí una vez. Ahora lo lee la máquina.» |
 
 ## Comandos de las tomas 3 y 4

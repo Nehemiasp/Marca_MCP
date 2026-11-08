@@ -2,14 +2,15 @@
   "herramientasDeMarca": [
     "obtener_tokens",
     "buscar_componente",
+    "exportar_tokens",
     "obtener_componente",
     "obtener_componente",
     "obtener_componente",
     "obtener_asset",
     "revisar_texto"
   ],
-  "costoUsd": 0.10388160000000002,
-  "turnos": 9,
-  "duracionSeg": 24,
-  "respuesta": "He creado `salida.html`, un hero con tu nombre, el título «Diseñador UI/UX», los botones «Escribirme» y «Ver proyectos», y el motivo de cuadros de tu marca. Revisé el texto con la herramienta de voz y no dio hallazgos. No pasé el código por la auditoría de tokens ni revisé el contraste, y la tipografía se carga desde Google Fonts, así que sin conexión se ve con la fuente de respaldo."
+  "costoUsd": 0.13042209999999999,
+  "turnos": 10,
+  "duracionSeg": 23,
+  "respuesta": "Listo: el hero está en `salida.html`, con los tokens y el motivo de cuadros de tu marca y el título «Diseñador UI/UX». No pasé el HTML por `auditar_codigo`. Solo revisé el texto, y salió sin hallazgos."
 }

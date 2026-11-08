@@ -1,0 +1,16 @@
+{
+  "herramientasDeMarca": [
+    "buscar_componente",
+    "obtener_tokens",
+    "obtener_componente",
+    "obtener_tokens"
+  ],
+  "hooks": {
+    "disparos": 1,
+    "bloqueos": 0
+  },
+  "costoUsd": 0.13668619999999998,
+  "turnos": 8,
+  "duracionSeg": 48,
+  "respuesta": "Creé `salida.html` con el bloque de contacto (Nehemias Pérez, Diseñador UI/UX, web, correo y un QR a nehemiasperez.com generado con JavaScript), pero no pude escanear el QR ni abrir la página porque no tenía acceso a la terminal, así que escanéelo antes de publicar y cambie el correo de ejemplo `correo@ejemplo.com` por el real."
+}

@@ -1,0 +1,20 @@
+{
+  "herramientasDeMarca": [
+    "obtener_tokens",
+    "buscar_componente",
+    "obtener_componente",
+    "obtener_componente",
+    "obtener_asset",
+    "obtener_asset",
+    "revisar_texto",
+    "auditar_codigo"
+  ],
+  "hooks": {
+    "disparos": 1,
+    "bloqueos": 0
+  },
+  "costoUsd": 0.10124150000000001,
+  "turnos": 10,
+  "duracionSeg": 25,
+  "respuesta": "Hecho: la portada A4 está en `salida.html`, con el motivo de cuadros, el título con «crecer» en azul y el texto en trato de «usted».\n\nDebe cambiar dos cosas antes de enviarla:\n- **Cliente:** el campo «Preparada para» tiene el marcador `[Nombre del cliente]`, y el título es un texto mío que puede ajustar.\n- **Fuentes:** no están incrustadas, así que el PDF usará las de respaldo si Bricolage Grotesque e Instrument Sans no están instaladas en su equipo.\n\nLa revisión de texto no encontró problemas. La de código solo avisó de colores escritos a mano en el CSS de prueba que le pasé. En el archivo, el CSS usa las variables de la marca. No revisé el contraste ni abrí el PDF exportado."
+}

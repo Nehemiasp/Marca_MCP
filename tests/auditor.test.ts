@@ -265,3 +265,21 @@ describe('auditar_codigo · font-family como atributo (SVG)', () => {
     expect(v(`<text font-family='Georgia'>x</text>`)).toEqual(['Georgia']);
   });
 });
+
+describe('auditar_codigo · declaraciones dentro de style="…"', () => {
+  const v = (c: string) => auditarCodigo(c, 'html').map((h) => `${h.tipo}:${h.valor}`);
+  it('border-radius al final del atributo se revisa', () => {
+    expect(v('<p style="color: var(--color-tinta); border-radius: 8px">x</p>')).toEqual(['radio:8px']);
+    expect(v('<p style="border-radius: 10px 4px">x</p>')).toEqual(['radio:10px', 'radio:4px']);
+  });
+  it('con !important y en medio de otras declaraciones', () => {
+    expect(v('<p style="border-radius: 8px !important; color: var(--color-tinta)">x</p>')).toEqual(['radio:8px']);
+  });
+  it('un radio válido o con variable no genera hallazgos de error', () => {
+    expect(v('<p style="border-radius: var(--radius-md)">x</p>')).toEqual([]);
+    expect(v('<p style="border-radius: 999px">x</p>').every((x) => x.startsWith('radio:'))).toBe(true);
+  });
+  it('texto después del atributo no se confunde con valores', () => {
+    expect(v('<p style="border-radius: var(--radius-md)">Mira 8px de margen</p>')).toEqual([]);
+  });
+});

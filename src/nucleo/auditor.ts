@@ -60,6 +60,18 @@ function masCercano(lista: { ruta: string; px: number }[], px: number) {
   return lista.reduce((a, b) => (Math.abs(b.px - px) < Math.abs(a.px - px) ? b : a));
 }
 
+/**
+ * Limpia el valor capturado de una declaración (font-family, border-radius…) fuera de JSX:
+ * si va dentro de un atributo (style="…" / font-family="…") se queda con lo que hay entre las comillas del atributo.
+ */
+function valorDeAtributo(valor: string): string {
+  const abre = valor.trimStart()[0];
+  const resto = valor.trimStart().slice(1);
+  const fin = '(?=\\s*\\/?>|\\s*$|\\s+[\\w:-]+=)';
+  const cierre = abre === '"' || abre === "'" ? resto.search(new RegExp(`${abre}${fin}`)) : -1;
+  return cierre >= 0 ? resto.slice(0, cierre) : (valor.split(new RegExp(`["']${fin}`))[0] ?? '');
+}
+
 /** Sustituye los comentarios por espacios para conservar las posiciones de línea y columna. */
 function quitarComentarios(codigo: string, lenguaje: Lenguaje): string {
   const blanquear = (m: string) => m.replace(/[^\n]/g, ' ');
@@ -176,13 +188,7 @@ export function auditarCodigo(codigo: string, lenguaje: Lenguaje): HallazgoCodig
     for (const m of texto.matchAll(reFamilia)) {
       let valor = esJsx ? (m[1] ?? m[2] ?? m[3] ?? '') : (m[1] ?? '');
       // En style="…" la lista termina en la comilla que cierra el atributo (seguida de «>», de otro atributo o del fin de línea).
-      if (!esJsx) {
-        // Atributo SVG o HTML: font-family="'A', 'B', sans-serif" → el valor es lo que hay entre las comillas del atributo.
-        const abre = valor.trimStart()[0];
-        const resto = valor.trimStart().slice(1);
-        const cierre = abre === '"' || abre === "'" ? resto.search(new RegExp(`${abre}(?=\\s*\\/?>|\\s*$|\\s+[\\w:-]+=)`)) : -1;
-        valor = cierre >= 0 ? resto.slice(0, cierre) : (valor.split(/["'](?=\s*\/?>|\s*$|\s+[\w:-]+=)/)[0] ?? '');
-      }
+      if (!esJsx) valor = valorDeAtributo(valor);
       valor = valor.replace(/\s*!important\s*$/i, '').trim();
       if (!valor || /var\(/.test(valor)) continue;
       const lista = valor.split(',').map((x) => x.trim().replace(/^["']|["']$/g, '')).filter(Boolean);
@@ -292,7 +298,9 @@ export function auditarCodigo(codigo: string, lenguaje: Lenguaje): HallazgoCodig
     // ---- Radios ----
     const reRadio = /(?:border-radius|borderRadius)\s*[:=]\s*(?:\{\s*)?(?:"([^"]*)"|'([^']*)'|([^;}\n]*))/gi;
     for (const m of texto.matchAll(reRadio)) {
-      const valor = (m[1] ?? m[2] ?? m[3] ?? '').trim().replace(/[,}]+$/, '');
+      let valor = m[1] ?? m[2] ?? m[3] ?? '';
+      if (!esJsx && m[3] !== undefined) valor = valorDeAtributo(m[3]);
+      valor = valor.replace(/\s*!important\s*$/i, '').trim().replace(/[,}]+$/, '');
       if (!valor || /var\(|calc\(|inherit|initial|unset/.test(valor)) continue;
       for (const parte of valor.split(/[\s/]+/).filter(Boolean)) revisarRadio(parte, (m.index ?? 0) + 1, parte);
     }

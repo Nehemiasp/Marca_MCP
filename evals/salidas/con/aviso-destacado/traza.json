@@ -3,8 +3,8 @@
     "obtener_componente",
     "obtener_tokens"
   ],
-  "costoUsd": 0.0664913,
+  "costoUsd": 0.045519500000000004,
   "turnos": 4,
-  "duracionSeg": 8,
-  "respuesta": "Creé `salida.html` en la carpeta actual con el aviso destacado de la marca, que dice que respondes los mensajes en un plazo de dos días hábiles. No pasé las herramientas de revisión de la marca (código, contraste y texto) sobre el resultado."
+  "duracionSeg": 9,
+  "respuesta": "He creado `salida.html` en la carpeta actual con el aviso destacado de la marca (título «Importante») que dice que responde los mensajes en un plazo de dos días hábiles. No pasé las revisiones de código, contraste ni texto de la marca."
 }

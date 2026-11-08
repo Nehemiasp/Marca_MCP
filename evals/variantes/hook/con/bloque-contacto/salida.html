@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contacto · Nehemias Pérez</title>
+<style>
+  :root {
+    --color-tinta: #0E1116;
+    --color-texto: #2B2F36;
+    --color-apagado: #6A707A;
+    --color-linea: #DADDE2;
+    --color-fondo: #FAFAF8;
+    --color-blanco: #FFFFFF;
+    --color-azul: #043565;
+    --font-titulo: "Bricolage Grotesque", "Instrument Sans", system-ui, sans-serif;
+    --font-texto: "Instrument Sans", system-ui, sans-serif;
+    --font-weight-extranegrita: 800;
+    --font-weight-negrita: 700;
+    --text-sm: 14px;
+    --text-sm--line-height: 20px;
+    --text-2xl: 28px;
+    --text-2xl--line-height: 34px;
+    --tracking-titulo: -0.02em;
+    --radius-md: 10px;
+    --spacing-sm: 8px;
+    --spacing-md: 12px;
+    --spacing-lg: 24px;
+    --spacing-3xl: 64px;
+  }
+  body { margin: 0; padding: var(--spacing-3xl) var(--spacing-lg); background: var(--color-fondo); }
+  .contacto { max-width: 720px; margin: 0 auto; display: flex; gap: var(--spacing-lg); align-items: center; justify-content: space-between; padding: var(--spacing-lg); border-top: 1px solid var(--color-linea); font: 400 var(--text-sm)/var(--text-sm--line-height) var(--font-texto); color: var(--color-texto); }
+  .contacto__nombre { margin: 0; font: var(--font-weight-extranegrita) var(--text-2xl)/var(--text-2xl--line-height) var(--font-titulo); letter-spacing: var(--tracking-titulo); color: var(--color-tinta); }
+  .contacto__titulo { margin: 0 0 var(--spacing-md); color: var(--color-azul); font-weight: var(--font-weight-negrita); }
+  .contacto__lista { display: grid; grid-template-columns: auto 1fr; gap: var(--spacing-sm) var(--spacing-md); margin: 0; }
+  .contacto__lista dt { color: var(--color-apagado); }
+  .contacto__lista dd { margin: 0; }
+  .contacto__lista a { color: var(--color-azul); }
+  .contacto__qr { flex: none; background: var(--color-blanco); padding: var(--spacing-md); border: 1px solid var(--color-linea); border-radius: var(--radius-md); text-align: center; }
+  .contacto__qr svg { display: block; width: 120px; height: 120px; }
+  @media (max-width: 480px) { .contacto { flex-direction: column; align-items: flex-start; } }
+</style>
+</head>
+<body>
+<section class="contacto" aria-label="Contacto">
+  <div class="contacto__datos">
+    <h2 class="contacto__nombre">Nehemias Pérez</h2>
+    <p class="contacto__titulo">Diseñador UI/UX</p>
+    <dl class="contacto__lista">
+      <dt>Web</dt><dd><a href="https://nehemiasperez.com">nehemiasperez.com</a></dd>
+      <dt>Correo</dt><dd><a href="mailto:correo@ejemplo.com">correo@ejemplo.com</a></dd>
+    </dl>
+  </div>
+  <div class="contacto__qr" id="qr" role="img" aria-label="Código QR al portafolio: nehemiasperez.com"></div>
+</section>
+
+<script>
+// Codificador QR mínimo: modo byte, corrección M, versiones 1 a 6, máscara 0.
+(function () {
+  var URL_QR = "https://nehemiasperez.com";
+  var ECC = [0, 10, 16, 26, 18, 24, 16], NB = [0, 1, 1, 1, 2, 2, 4];
+  function mul(a, b) { var r = 0; for (var i = 7; i >= 0; i--) { r = (r << 1) ^ ((r >>> 7) * 0x11D); r ^= ((b >>> i) & 1) * a; } return r & 255; }
+  function rs(data, d) {
+    var div = [], i, j; for (i = 0; i < d; i++) div.push(0); div[d - 1] = 1;
+    var root = 1;
+    for (i = 0; i < d; i++) { for (j = 0; j < d; j++) { div[j] = mul(div[j], root); if (j + 1 < d) div[j] ^= div[j + 1]; } root = mul(root, 2); }
+    var res = []; for (i = 0; i < d; i++) res.push(0);
+    data.forEach(function (b) { var f = b ^ res.shift(); res.push(0); for (var k = 0; k < d; k++) res[k] ^= mul(div[k], f); });
+    return res;
+  }
+  function raw(v) { var r = (16 * v + 128) * v + 64; if (v >= 2) { var a = Math.floor(v / 7) + 2; r -= (25 * a - 10) * a - 55; } return r; }
+  var bytes = []; for (var c = 0; c < URL_QR.length; c++) bytes.push(URL_QR.charCodeAt(c));
+  var v = 1; while (v <= 6 && (raw(v) >> 3) - ECC[v] * NB[v] < bytes.length + 2) v++;
+  var cap = (raw(v) >> 3) - ECC[v] * NB[v];
+  var bits = []; function put(val, n) { for (var i = n - 1; i >= 0; i--) bits.push((val >>> i) & 1); }
+  put(4, 4); put(bytes.length, 8); bytes.forEach(function (b) { put(b, 8); });
+  for (var t = 0; t < 4 && bits.length < cap * 8; t++) bits.push(0);
+  while (bits.length % 8) bits.push(0);
+  var data = []; for (var i = 0; i < bits.length; i += 8) { var x = 0; for (var k = 0; k < 8; k++) x = (x << 1) | bits[i + k]; data.push(x); }
+  for (var p = 0xEC; data.length < cap; p ^= 0xEC ^ 0x11) data.push(p);
+  var nb = NB[v], el = ECC[v], rc = raw(v) >> 3, ns = nb - rc % nb, sl = Math.floor(rc / nb), blocks = [], pos = 0;
+  for (i = 0; i < nb; i++) {
+    var dat = data.slice(pos, pos + sl - el + (i < ns ? 0 : 1)); pos += dat.length;
+    var ec = rs(dat, el); if (i < ns) dat.push(0); blocks.push(dat.concat(ec));
+  }
+  var all = [];
+  for (i = 0; i < blocks[0].length; i++) blocks.forEach(function (bl, j) { if (i !== sl - el || j >= ns) all.push(bl[i]); });
+  var size = v * 4 + 17, m = [], fn = [];
+  for (i = 0; i < size; i++) { m.push(new Array(size).fill(false)); fn.push(new Array(size).fill(false)); }
+  function set(x, y, d) { m[y][x] = d; fn[y][x] = true; }
+  for (i = 0; i < size; i++) { set(6, i, i % 2 === 0); set(i, 6, i % 2 === 0); }
+  function finder(cx, cy) { for (var dy = -4; dy <= 4; dy++) for (var dx = -4; dx <= 4; dx++) { var d = Math.max(Math.abs(dx), Math.abs(dy)), xx = cx + dx, yy = cy + dy; if (xx >= 0 && xx < size && yy >= 0 && yy < size) set(xx, yy, d !== 2 && d !== 4); } }
+  finder(3, 3); finder(size - 4, 3); finder(3, size - 4);
+  if (v >= 2) { var ax = size - 7; for (var dy = -2; dy <= 2; dy++) for (var dx = -2; dx <= 2; dx++) set(ax + dx, ax + dy, Math.max(Math.abs(dx), Math.abs(dy)) !== 1); }
+  // formato: corrección M (00), máscara 0
+  var fd = 0, rem = fd; for (i = 0; i < 10; i++) rem = (rem << 1) ^ ((rem >>> 9) * 0x537);
+  var fb = ((fd << 10) | rem) ^ 0x5412; function bit(i) { return ((fb >>> i) & 1) !== 0; }
+  for (i = 0; i <= 5; i++) set(8, i, bit(i)); set(8, 7, bit(6)); set(8, 8, bit(7)); set(7, 8, bit(8));
+  for (i = 9; i < 15; i++) set(14 - i, 8, bit(i));
+  for (i = 0; i < 8; i++) set(size - 1 - i, 8, bit(i));
+  for (i = 8; i < 15; i++) set(8, size - 15 + i, bit(i));
+  set(8, size - 8, true);
+  var n = 0;
+  for (var right = size - 1; right >= 1; right -= 2) {
+    if (right === 6) right = 5;
+    for (var vert = 0; vert < size; vert++) for (var j = 0; j < 2; j++) {
+      var x2 = right - j, up = ((right + 1) & 2) === 0, y2 = up ? size - 1 - vert : vert;
+      if (!fn[y2][x2] && n < all.length * 8) { var d = ((all[n >>> 3] >>> (7 - (n & 7))) & 1) !== 0; m[y2][x2] = d !== ((x2 + y2) % 2 === 0); n++; }
+      else if (!fn[y2][x2]) { m[y2][x2] = (x2 + y2) % 2 === 0; }
+    }
+  }
+  var q = 4, tot = size + q * 2, path = "";
+  for (var y = 0; y < size; y++) for (var x = 0; x < size; x++) if (m[y][x]) path += "M" + (x + q) + " " + (y + q) + "h1v1h-1z";
+  document.getElementById("qr").innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + tot + ' ' + tot + '" shape-rendering="crispEdges" aria-hidden="true"><rect width="' + tot + '" height="' + tot + '" fill="#FFFFFF"/><path d="' + path + '" fill="#0E1116"/></svg>';
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "codigoErrores": 0,
+  "codigoAvisos": 0,
+  "coloresFueraDePaleta": 0,
+  "coloresFueraDePaletaLista": [],
+  "fuentesAjenas": 1,
+  "fuentesAjenasLista": [
+    "system-ui"
+  ],
+  "fallosContraste": 0,
+  "paresContrasteRevisados": 12,
+  "vozErrores": 0,
+  "vozAvisos": 0,
+  "vozDetalle": [],
+  "degradados": 0,
+  "texto": "Siguientes pasos\n¿Hablamos de su proyecto?\nEstaremos encantados de resolver dudas y ajustar e\nContacto\nNombre Apellido\nCorreo\ncontacto@ejemplo.com\nTeléfono\n+34 600 000 000\nWeb\nejemplo.com/contacto\nEscanee para contactarnos"
+}
