@@ -20,7 +20,9 @@
     "dev": "tsx src/stdio.ts",
     "inspector": "npx @modelcontextprotocol/inspector tsx src/stdio.ts",
     "evals": "tsx evals/ejecutar.ts",
-    "sitio": "tsx sitio/generar.ts"
+    "sitio": "tsx sitio/generar.ts",
+    "start:http": "node dist/http-nodo.js",
+    "dev:http": "tsx src/http-nodo.ts"
   },
   "dependencies": {
     "@modelcontextprotocol/node": "^2.1.2",

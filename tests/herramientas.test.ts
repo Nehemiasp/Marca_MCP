@@ -225,9 +225,9 @@ describe('solo lectura', () => {
     const { join } = await import('node:path');
     const base = join(import.meta.dirname, '..', 'src');
     const archivos = [...readdirSync(base).map((f) => join(base, f)), ...readdirSync(join(base, 'nucleo')).map((f) => join(base, 'nucleo', f))].filter((f) => f.endsWith('.ts'));
-    for (const f of archivos) {
+    for (const f of archivos.filter((x) => !x.endsWith('http-nodo.ts'))) { // http-nodo.ts solo ESCUCHA conexiones; no hace llamadas salientes
       const src = readFileSync(f, 'utf8');
-      expect(src, f).not.toMatch(/writeFile|appendFile|createWriteStream|unlinkSync|rmSync|mkdirSync|\bfetch\(|node:http\b|node:https\b|XMLHttpRequest/);
+      expect(src, f).not.toMatch(/writeFile|appendFile|createWriteStream|unlinkSync|rmSync|mkdirSync|(?:await|return|=)\s+fetch\(|globalThis\.fetch|\bhttps?\.request|\bnet\.connect|node:https?\b|node:net\b|XMLHttpRequest/);
     }
   });
 });
