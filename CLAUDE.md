@@ -46,6 +46,14 @@ MCP ofrece tres primitivas. La diferencia es **quién decide usarlas**:
 
 Regla práctica: si es un **dato fijo**, recurso. Si **depende de una entrada o requiere cálculo**, herramienta. Si es **un flujo que usted arranca**, prompt. Muchos datos se exponen como ambos (p. ej. tokens: recurso para adjuntar, herramienta para filtrar).
 
+## Registro de errores (para casos de estudio)
+Cuando aparezca un error real (prueba que falla, herramienta que se rompe, regla incumplida), se registra con captura:
+
+```bash
+npm run error -- --fase=3 --titulo="…" --salida="texto tal cual salió" --causa="…" --solucion="…" --aprendizaje="…"
+```
+Genera `caso-de-estudio/errores/<id>.png` y actualiza `caso-de-estudio/registro-de-errores.md`. Regla: la salida se copia **tal cual**; nunca se redacta un mensaje que la herramienta no emitió (si no hubo mensaje, se dice).
+
 ## Decisiones
 - **SDK v2 (`@modelcontextprotocol/server` 2.4.0), no v1:** es la línea estable actual (npm `latest`, spec 2026-07-28); v1 solo recibe correcciones.
 - **Zod 4 vía `zod/v4`:** es el esquema que el SDK v2 espera (Standard Schema) y genera el JSON Schema que ve el modelo.

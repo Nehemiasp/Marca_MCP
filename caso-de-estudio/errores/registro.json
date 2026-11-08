@@ -1,0 +1,102 @@
+[
+  {
+    "id": "2026-11-08-token-inexistente",
+    "fecha": "2026-11-08",
+    "fase": "1",
+    "titulo": "Un componente apunta a un token que no existe",
+    "salida": "FAIL  tests/componentes.test.ts > componentes documentados > encabezado-de-seccion > usa solo tokens que existen\nAssertionError: encabezado-de-seccion: token «tipografia.peso.titulo» no existe: expected false to be true",
+    "causa": "Renombré el peso a `extranegrita` para evitar una colisión de nombres en Tailwind y quedó una referencia vieja en la documentación de un componente.",
+    "solucion": "Actualicé la referencia en todos los .md y la prueba pasó.",
+    "aprendizaje": "Una prueba que cruza la documentación con los tokens atrapa lo que una persona no vería: renombrar un token rompe en silencio todo lo que lo cita."
+  },
+  {
+    "id": "2026-11-08-radio-fuera-de-escala",
+    "fecha": "2026-11-08",
+    "fase": "3",
+    "titulo": "Mi propio componente incumple mi propia regla",
+    "salida": "AssertionError: motivo-de-cuadros html: [\"5px no es un radio de la marca. Más cercano: radio.sm (6px).\"]: expected [ { linea: 13, columna: 78, …(7) } ] to deeply equal []",
+    "causa": "El ejemplo del motivo mini usaba `border-radius: 5px`, un valor que no existe en la escala de radios.",
+    "solucion": "Cambié el ejemplo a `var(--radius-sm)` y el logo SVG a un radio de 6.",
+    "aprendizaje": "Cuando las reglas son código, el sistema se corrige a sí mismo. Escribí el componente a ojo y el auditor me lo devolvió."
+  },
+  {
+    "id": "2026-11-08-fuente-monoespaciada",
+    "fecha": "2026-11-08",
+    "fase": "8",
+    "titulo": "La página pública rompió la regla de las dos fuentes",
+    "salida": "A L20 La fuente «SFMono-Regular» no es de la marca (solo Bricolage Grotesque e Instrument Sans).\nA L20 La fuente «Menlo» no es de la marca (solo Bricolage Grotesque e Instrument Sans).\nA L20 .88em (14.08px) no está en la escala tipográfica. Más cercano: tipografia.tamano.sm (14px).\nA L833 #000 (#000000) no está en la paleta. Más cercano: color.tinta (#0E1116), ΔE 4.29.",
+    "causa": "Los bloques de código de la página necesitaban una fuente monoespaciada, y el sistema no tenía ninguna.",
+    "solucion": "Agregué el token `tipografia.familia.codigo` como excepción documentada solo para código, y usé la escala para el tamaño. Los ejemplos con `#000` eran texto de documentación y se excluyen de la auditoría.",
+    "aprendizaje": "Hay huecos que solo aparecen al usar el sistema en serio. También: un auditor necesita distinguir código que se ejecuta de código que se muestra."
+  },
+  {
+    "id": "2026-11-08-nombre-ambiguo",
+    "fecha": "2026-11-08",
+    "fase": "1",
+    "titulo": "`font-titulo` significaba dos cosas",
+    "salida": "Sin mensaje de error: al exportar a Tailwind, `font-titulo` coincidía con `--font-titulo` (familia) y con `--font-weight-titulo` (peso).",
+    "causa": "Llamé `titulo` a una familia tipográfica y a un peso. Una persona lo resuelve con el contexto; Tailwind no.",
+    "solucion": "Renombré el peso a `extranegrita` y actualicé los componentes.",
+    "aprendizaje": "Los nombres de un sistema para máquinas deben ser únicos entre categorías, no solo dentro de cada una."
+  },
+  {
+    "id": "2026-11-08-contraste-apagado-suave",
+    "fecha": "2026-11-08",
+    "fase": "1",
+    "titulo": "Un par de colores que «se ve bien» no pasa AA",
+    "salida": "revisar_contraste(texto: \"color.apagado\", fondo: \"color.suave\")\nContraste 4.26:1: solo cumple AA para texto grande (≥ 24px, o ≥ 19px en negrita). Par prohibido por la marca: Contraste bajo para texto pequeño; use color.texto o color.tinta dentro de etiquetas.",
+    "causa": "El gris de texto secundario (#6A707A) sobre el fondo de las etiquetas (#ECEDEF) no llega a 4.5:1. A simple vista parecía bien.",
+    "solucion": "Lo documenté como par prohibido en `tokens.json` (el validador lo vigila): dentro de etiquetas se usa `color.tinta`.",
+    "aprendizaje": "Un validador convierte una impresión visual en una regla que nadie puede olvidar."
+  },
+  {
+    "id": "2026-11-08-playwright-name",
+    "fecha": "2026-11-08",
+    "fase": "6",
+    "titulo": "La medición falló dentro del navegador",
+    "salida": "page.evaluate: ReferenceError: __name is not defined\n    at eval (eval at evaluate (:311:30), <anonymous>:1:53)\n    at medirSalida (/home/user/Marca_MCP/evals/medir.ts:70:35)",
+    "causa": "tsx (esbuild) envuelve las funciones con `__name()` y el navegador, donde corre `page.evaluate`, no lo conoce.",
+    "solucion": "Definí `window.__name = (f) => f` antes de cargar la página.",
+    "aprendizaje": "Una herramienta que funciona en mi máquina puede fallar donde el código viaja: aquí, de Node al navegador."
+  },
+  {
+    "id": "2026-11-08-voz-duplicada",
+    "fecha": "2026-11-08",
+    "fase": "3",
+    "titulo": "`revisar_texto` contaba dos veces la misma frase",
+    "salida": "AssertionError: expected [ 'palabra-prohibida', …(2) ] to deeply equal [ 'palabra-prohibida', …(1) ]\nnota: «Llevamos todo al siguiente nivel con soluciones 360.» → 3 hallazgos en lugar de 2",
+    "causa": "«siguiente nivel» y «al siguiente nivel» están en la lista y se solapan: una misma frase generaba dos hallazgos.",
+    "solucion": "Dentro de cada regla, un fragmento que se solapa con otro se cuenta una vez: gana el más largo.",
+    "aprendizaje": "Un revisor ruidoso se deja de usar. Reducir falsos duplicados importa tanto como detectar."
+  },
+  {
+    "id": "2026-11-08-host-sin-cabecera",
+    "fecha": "2026-11-08",
+    "fase": "7",
+    "titulo": "Rechazaba un host que sí estaba permitido",
+    "salida": "AssertionError: expected 403 to be 200 // Object.is equality\n× con hosts permitidos rechaza otros hosts (protección contra DNS rebinding)",
+    "causa": "En la prueba, una `Request` creada desde una URL no trae la cabecera `Host`; la validación la exigía y rechazaba todo.",
+    "solucion": "La prueba ahora envía la cabecera `Host` como lo hace un servidor real.",
+    "aprendizaje": "El error estaba en la prueba, no en el servidor: conviene preguntarse cuál de los dos miente antes de arreglar."
+  },
+  {
+    "id": "2026-11-08-skill-ignorada",
+    "fecha": "2026-11-08",
+    "fase": "6",
+    "titulo": "El agente se saltó la revisión que la skill pedía como obligatoria",
+    "salida": "«Creé `salida.html` en la carpeta actual con el aviso destacado de la marca [...]. No pasé las herramientas de revisión de la marca (código, contraste y texto) sobre el resultado.»\n— respuesta del agente, tarea aviso-destacado, condición con servidor",
+    "causa": "Una instrucción en una skill es una petición, no una garantía. El agente leyó tokens y componentes, pero no verificó.",
+    "solucion": "Lo dejé como hallazgo de la evaluación: revisar_contraste no se usó en ninguna de las 7 tareas. Propuesta pendiente: un hook que corra `auditar_codigo` al terminar.",
+    "aprendizaje": "Lo que importa se automatiza; lo que se pide por favor, a veces no ocurre."
+  },
+  {
+    "id": "2026-11-08-un-script-de-apoyo-fallo-por-el-formato-de-modul",
+    "fecha": "2026-11-08",
+    "fase": "9",
+    "titulo": "Un script de apoyo falló por el formato de módulo",
+    "salida": "Error: Transform failed with 3 errors:\nc.ts:2:28: ERROR: Top-level await is currently not supported with the \"cjs\" output format",
+    "causa": "El script vivía fuera del proyecto, sin package.json con type module, y tsx lo compiló como CommonJS.",
+    "solucion": "Lo renombré a .mts para forzar módulos ES.",
+    "aprendizaje": "Un archivo de apoyo hereda las reglas del lugar donde vive, no las del proyecto al que sirve. Además: la primera vez escribí en el registro una salida vacía sin notarlo; verificar lo que se guarda es parte del trabajo."
+  }
+]

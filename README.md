@@ -145,7 +145,7 @@ sitio/        página pública /marca generada desde los tokens (npm run sitio �
 api/          función HTTP para Vercel (vercel.json)
 docs/         remoto.md (HTTP y despliegue), paridad.md (integración con Paridad)
 ejemplos/     integración de ejemplo para Paridad
-caso-de-estudio/  borrador del caso, guion del video y capturas lado a lado
+caso-de-estudio/  borrador del caso, guion del video, capturas lado a lado y registro de errores (npm run error)
 ```
 
 Decisiones técnicas y explicación de herramientas, recursos y prompts: [`CLAUDE.md`](CLAUDE.md).

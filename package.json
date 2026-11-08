@@ -23,7 +23,8 @@
     "sitio": "tsx sitio/generar.ts",
     "start:http": "node dist/http-nodo.js",
     "dev:http": "tsx src/http-nodo.ts",
-    "caso": "tsx caso-de-estudio/lado-a-lado.ts"
+    "caso": "tsx caso-de-estudio/lado-a-lado.ts",
+    "error": "tsx caso-de-estudio/errores.ts"
   },
   "dependencies": {
     "@modelcontextprotocol/node": "^2.1.2",
