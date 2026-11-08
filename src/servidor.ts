@@ -1,5 +1,6 @@
 import { McpServer } from '@modelcontextprotocol/server';
 import { registrarHerramientas } from './herramientas.js';
+import { registrarPrompts } from './prompts.js';
 import { registrarRecursos } from './recursos.js';
 import { NOMBRE_SERVIDOR, VERSION_SERVIDOR } from './version.js';
 
@@ -13,5 +14,6 @@ export function crearServidor(): McpServer {
   const server = new McpServer({ name: NOMBRE_SERVIDOR, version: VERSION_SERVIDOR }, { instructions: INSTRUCCIONES });
   registrarRecursos(server);
   registrarHerramientas(server);
+  registrarPrompts(server);
   return server;
 }
