@@ -23,8 +23,16 @@ export function rutaSegura(...partes: string[]): string {
   return destino;
 }
 
+/**
+ * Lee un archivo de `marca/` como texto, igual en cualquier sistema: finales de línea LF (Git en Windows los convierte a CRLF
+ * al descargar) y sin la marca BOM (el Bloc de notas la agrega al guardar y rompe JSON.parse).
+ */
+export function normalizarTexto(texto: string): string {
+  return texto.replace(/^\uFEFF/, '').replace(/\r\n?/g, '\n');
+}
+
 export function leerTexto(...partes: string[]): string {
-  return readFileSync(rutaSegura(...partes), 'utf8');
+  return normalizarTexto(readFileSync(rutaSegura(...partes), 'utf8'));
 }
 
 export function existe(...partes: string[]): boolean {

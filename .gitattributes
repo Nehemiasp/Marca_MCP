@@ -1,0 +1,5 @@
+# Mismos finales de línea (LF) en todos los sistemas: sin esto, Git en Windows convierte los archivos a CRLF
+# y cambia el texto que lee el servidor.
+* text=auto eol=lf
+*.png binary
+*.woff2 binary
