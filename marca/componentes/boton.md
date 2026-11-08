@@ -3,7 +3,7 @@ nombre: boton
 titulo: Botón
 resumen: Acción principal, secundaria o de texto. Tres variantes; solo una principal por pantalla.
 palabras: [botón, boton, acción, accion, cta, llamado a la acción, enviar, contactar, enlace de acción, button]
-tokens: [color.tinta, color.blanco, color.fondo, color.linea, color.azul, color.oscuro.texto, tipografia.familia.texto, tipografia.peso.seminegrita, tipografia.tamano.sm, radio.md, espaciado.md, espaciado.lg]
+tokens: [color.tinta, color.blanco, color.fondo, color.linea, color.azul, color.oscuro.texto, tipografia.familia.texto, tipografia.peso.seminegrita, tipografia.tamano.sm, radio.md, espaciado.md, espaciado.lg, tipografia.interlineado.sm, color.texto, espaciado.sm, tipografia.tamano.xs, color.apagado]
 variantes: [principal, secundario, texto]
 estados: [reposo, hover, foco, deshabilitado]
 ---
@@ -29,7 +29,7 @@ Dispara una acción (enviar, contactar, descargar). Tiene tres variantes con jer
 Estados: **hover** (principal: se aclara a `color.texto`; secundario: borde `color.tinta`), **foco** (anillo de 2px `color.azul` con separación de 2px), **deshabilitado** (opacidad .45 y sin cursor de acción). Sobre fondo oscuro: principal pasa a fondo `color.blanco` con texto `color.tinta`.
 
 ## Tokens que usa
-`color.tinta`, `color.blanco`, `color.texto`, `color.linea`, `color.azul`, `tipografia.familia.texto` (Instrument Sans 600), `tipografia.tamano.sm`, `radio.md`, `espaciado.md` / `espaciado.lg` (relleno vertical / horizontal).
+`color.tinta`, `color.blanco`, `color.texto`, `color.linea`, `color.azul`, `tipografia.familia.texto` (Instrument Sans 600), `tipografia.tamano.sm`, `radio.md`, `espaciado.md` / `espaciado.lg` (relleno vertical / horizontal). También usa `tipografia.interlineado.sm`, `color.texto`, `espaciado.sm`, `tipografia.tamano.xs`, `color.apagado`, `color.fondo`, `color.oscuro.texto`, `tipografia.peso.seminegrita`.
 
 ## Accesibilidad
 - Use `<button>` para acciones y `<a>` para navegación; nunca un `<div>` con clic.

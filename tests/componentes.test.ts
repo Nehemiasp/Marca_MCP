@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { existsSync } from 'node:fs';
 import { cargarComponente, codigoDe, FORMATOS, listarComponentes, seccion, separarFrontmatter } from '../src/nucleo/componentes.js';
 import { cargarTokens } from '../src/nucleo/tokens.js';
+import { nombreVariable } from '../src/nucleo/exportadores.js';
 import { rutaSegura, leerTexto } from '../src/nucleo/rutas.js';
 
 const ESPERADOS = [
@@ -45,6 +46,31 @@ describe('componentes documentados', () => {
       });
     });
   }
+
+  it('«tokens» declara todas las variables que usa el código de los ejemplos', () => {
+    // Defecto real: la ficha del aviso no declaraba tres variables que su código usaba (lo notó Claude Desktop).
+    const rutaDeVariable = new Map(cargarTokens().tokens.map((t) => [nombreVariable(t.ruta), t.ruta]));
+    for (const c of todos) {
+      const faltan = new Set<string>();
+      for (const f of FORMATOS) {
+        const codigo = codigoDe(c, f);
+        const locales = new Set([...codigo.matchAll(/(--[\w-]+)\s*:/g)].map((m) => m[1]!));
+        for (const m of codigo.matchAll(/var\((--[\w-]+)/g)) {
+          const ruta = rutaDeVariable.get(m[1]!);
+          if (ruta && !locales.has(m[1]!) && !c.tokens.includes(ruta)) faltan.add(ruta);
+        }
+      }
+      expect([...faltan], `${c.nombre}: usa en el código y no declara en «tokens»`).toEqual([]);
+    }
+  });
+
+  it('la sección «Tokens que usa» menciona cada token declarado', () => {
+    for (const c of todos) {
+      const texto = seccion(c.cuerpo, 'Tokens que usa');
+      const sinMencion = c.tokens.filter((t) => !texto.includes(t) && !texto.includes(t.split('.').slice(0, -1).join('.')));
+      expect(sinMencion, `${c.nombre}: declara en «tokens» y no aparece en la sección`).toEqual([]);
+    }
+  });
 
   it('un nombre inválido o inexistente no carga nada', () => {
     expect(cargarComponente('no-existe')).toBeUndefined();

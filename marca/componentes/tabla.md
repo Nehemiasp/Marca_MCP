@@ -3,7 +3,7 @@ nombre: tabla
 titulo: Tabla
 resumen: Tabla con encabezado en tinta y texto blanco; filas separadas por una línea. Para precios, comparativas y datos.
 palabras: [tabla, precios, tarifas, datos, comparativa, cuadro, filas, columnas, table, planes, cotización, cotizacion]
-tokens: [color.tinta, color.blanco, color.texto, color.linea, color.apagado, tipografia.familia.texto, tipografia.tamano.sm, tipografia.peso.seminegrita, espaciado.md, espaciado.lg, radio.md]
+tokens: [color.tinta, color.blanco, color.texto, color.linea, color.apagado, tipografia.familia.texto, tipografia.tamano.sm, tipografia.peso.seminegrita, espaciado.md, espaciado.lg, radio.md, tipografia.interlineado.sm, tipografia.peso.normal, color.fondo]
 variantes: [simple, con-total]
 estados: [reposo, hover-fila]
 ---
@@ -25,7 +25,7 @@ Presenta datos comparables: precios, planes, entregables, calendarios. **Encabez
 - Estado **hover de fila** opcional: fondo `color.fondo`. Cifras alineadas a la derecha; texto a la izquierda.
 
 ## Tokens que usa
-`color.tinta` y `color.blanco` (encabezado), `color.texto` (celdas), `color.linea` (separadores), `color.apagado` (nota al pie, solo sobre `color.fondo`), `tipografia.tamano.sm`, `espaciado.md` (vertical) y `espaciado.lg` (horizontal), `radio.md` (esquinas superiores del encabezado).
+`color.tinta` y `color.blanco` (encabezado), `color.texto` (celdas), `color.linea` (separadores), `color.apagado` (nota al pie, solo sobre `color.fondo`), `tipografia.tamano.sm`, `espaciado.md` (vertical) y `espaciado.lg` (horizontal), `radio.md` (esquinas superiores del encabezado). También usa `tipografia.interlineado.sm`, `tipografia.peso.normal`, `color.fondo`, `tipografia.familia.texto`, `tipografia.peso.seminegrita`.
 
 ## Accesibilidad
 - Use `<table>`, `<caption>`, `<thead>`, `<th scope="col">` y `<th scope="row">`.

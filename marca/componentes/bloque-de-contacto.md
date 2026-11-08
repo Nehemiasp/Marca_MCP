@@ -3,7 +3,7 @@ nombre: bloque-de-contacto
 titulo: Bloque de contacto con QR
 resumen: Nombre, título, medios de contacto y un código QR. Cierra propuestas, tarjetas y presentaciones.
 palabras: [contacto, qr, tarjeta de presentación, tarjeta de presentacion, correo, teléfono, telefono, cierre, firma, enlace, vcard]
-tokens: [color.tinta, color.texto, color.apagado, color.azul, color.linea, color.blanco, tipografia.familia.titulo, tipografia.tamano.2xl, tipografia.tamano.sm, radio.md, espaciado.lg, espaciado.md]
+tokens: [color.tinta, color.texto, color.apagado, color.azul, color.linea, color.blanco, tipografia.familia.titulo, tipografia.tamano.2xl, tipografia.tamano.sm, radio.md, espaciado.lg, espaciado.md, tipografia.interlineado.sm, tipografia.familia.texto, tipografia.peso.extranegrita, tipografia.interlineado.2xl, tipografia.espaciado-letras.titulo, tipografia.peso.negrita, espaciado.sm]
 variantes: [claro, oscuro]
 estados: [reposo]
 ---
@@ -25,7 +25,7 @@ Cierra una pieza con lo necesario para escribirle: **nombre** (Bricolage Grotesq
 Sin estados; los enlaces siguen las reglas de `boton` (variante texto).
 
 ## Tokens que usa
-`color.tinta` (nombre), `color.texto`, `color.apagado` (rótulos «Correo», «Web», sobre `color.fondo`), `color.azul`, `color.linea`, `tipografia.familia.titulo`, `tipografia.tamano.2xl`, `tipografia.tamano.sm`, `radio.md` (marco del QR), `espaciado.lg`, `espaciado.md`.
+`color.tinta` (nombre), `color.texto`, `color.apagado` (rótulos «Correo», «Web», sobre `color.fondo`), `color.azul`, `color.linea`, `tipografia.familia.titulo`, `tipografia.tamano.2xl`, `tipografia.tamano.sm`, `radio.md` (marco del QR), `espaciado.lg`, `espaciado.md`. También usa `tipografia.interlineado.sm`, `tipografia.familia.texto`, `tipografia.peso.extranegrita`, `tipografia.interlineado.2xl`, `tipografia.espaciado-letras.titulo`, `tipografia.peso.negrita`, `espaciado.sm`, `color.blanco`.
 
 ## Accesibilidad
 - El QR es un complemento: ofrezca siempre el enlace escrito.

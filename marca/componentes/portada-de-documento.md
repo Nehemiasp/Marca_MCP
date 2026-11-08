@@ -3,7 +3,7 @@ nombre: portada-de-documento
 titulo: Portada de documento
 resumen: Portada de propuesta o informe: nombre arriba, título grande, metadatos abajo y motivo de cuadros a la derecha.
 palabras: [portada, cover, propuesta, informe, documento, pdf, carátula, caratula, presentación, presentacion, cv, hoja]
-tokens: [color.fondo, color.tinta, color.azul, color.apagado, color.linea, tipografia.familia.titulo, tipografia.tamano.5xl, tipografia.tamano.sm, tipografia.espaciado-letras.titulo, tipografia.espaciado-letras.eyebrow, espaciado.xl, espaciado.3xl]
+tokens: [color.fondo, color.tinta, color.azul, color.apagado, color.linea, tipografia.familia.titulo, tipografia.tamano.5xl, tipografia.tamano.sm, tipografia.espaciado-letras.titulo, tipografia.espaciado-letras.eyebrow, espaciado.xl, espaciado.3xl, tipografia.peso.seminegrita, tipografia.interlineado.sm, tipografia.familia.texto, espaciado.md, tipografia.peso.negrita, tipografia.tamano.xs, tipografia.interlineado.xs, tipografia.peso.extranegrita, tipografia.interlineado.5xl, espaciado.lg]
 variantes: [claro, oscuro]
 estados: [reposo]
 ---
@@ -25,7 +25,7 @@ Primera página de una propuesta, informe, CV o presentación. Composición fija
 Sin estados. Formato A4 vertical o 16:9 para presentaciones; mismas proporciones. En 16:9 (1920 px) los tamaños de letra salen de la escala de lienzo (`tipografia.tamano-lienzo.*`), no de la base.
 
 ## Tokens que usa
-`color.fondo`, `color.tinta`, `color.azul`, `color.apagado` (metadatos, sobre `color.fondo`), `color.linea`, `tipografia.familia.titulo` (`tipografia.tamano.5xl`, `-0.02em`), eyebrow con `0.12em`, `espaciado.xl` y `espaciado.3xl` (márgenes).
+`color.fondo`, `color.tinta`, `color.azul`, `color.apagado` (metadatos, sobre `color.fondo`), `color.linea`, `tipografia.familia.titulo` (`tipografia.tamano.5xl`, `-0.02em`), eyebrow con `0.12em`, `espaciado.xl` y `espaciado.3xl` (márgenes). También usa `tipografia.peso.seminegrita`, `tipografia.interlineado.sm`, `tipografia.familia.texto`, `espaciado.md`, `tipografia.peso.negrita`, `tipografia.tamano.xs`, `tipografia.interlineado.xs`, `tipografia.peso.extranegrita`, `tipografia.interlineado.5xl`, `espaciado.lg`, `tipografia.tamano.sm`, `tipografia.espaciado-letras.titulo`, `tipografia.espaciado-letras.eyebrow`.
 
 ## Accesibilidad
 - El título es el único `<h1>` del documento.

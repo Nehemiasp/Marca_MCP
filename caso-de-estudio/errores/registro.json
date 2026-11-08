@@ -218,5 +218,15 @@
     "causa": "Tras la primera revisión, Claude escribió las versiones corregidas de memoria y no las pasó por revisar_texto. Nada en Claude Desktop lo obliga a verificar: no existe el hook de Claude Code.",
     "solucion": "Las dos versiones se revisaron después con el servidor: la primera salió sin hallazgos y la segunda solo con el aviso de la cifra del 40 %. Quedó escrito en el recorrido que hay que pedir la revisión de la versión corregida en el mensaje.",
     "aprendizaje": "Es la misma omisión que apareció en la evaluación con Claude Code, ahora en una herramienta distinta: el agente acertó, pero sin comprobarlo. Que haya acertado esta vez no es una garantía."
+  },
+  {
+    "id": "2026-11-08-las-fichas-no-declaraban-todas-las-variables-que",
+    "fecha": "2026-11-08",
+    "fase": "9",
+    "titulo": "Las fichas no declaraban todas las variables que usaba su código",
+    "salida": "Claude Desktop (prueba real, pedido del aviso destacado):\n«El código que trae la herramienta usa tres variables que no aparecen en la ficha del componente: --spacing-sm, --font-weight-negrita y --text-base--line-height. Las saqué de tus tokens y las puse en el bloque :root, así que funciona aunque la página no tenga cargado tu archivo de tokens.»\n\nComprobación posterior sobre los nueve componentes:\naviso-destacado  usa 11 variables · declara 9 tokens · faltan en «tokens»: --spacing-sm (espaciado.sm), --font-weight-negrita (tipografia.peso.negrita), --text-base--line-height (tipografia.interlineado.base)\nTOTAL de variables usadas en el código y no declaradas: 43",
+    "causa": "Escribí el código de cada ejemplo y la lista de tokens de la ficha por separado, y nunca las comparé. Mi prueba solo comprobaba que los tokens declarados existieran, no que cubrieran lo que el código usaba. Además la ficha del aviso decía que la separación título-texto usaba espaciado.md, y el código usa espaciado.sm.",
+    "solucion": "Completé la lista de tokens en ocho fichas y en el texto de su sección «Tokens que usa», y corregí la contradicción del aviso. Una prueba nueva falla si el código usa una variable que la ficha no declara, y otra si un token declarado no aparece en el texto de la ficha. La segunda prueba descubrió otros tokens declarados que el texto nunca mencionaba.",
+    "aprendizaje": "Lo encontró un lector real: Claude Desktop, al usar mi propia ficha. Mis pruebas comprobaban que lo escrito fuera válido, no que estuviera completo. Y la herramienta devuelve esa lista como datos, así que una ficha incompleta le miente al agente."
   }
 ]

@@ -3,7 +3,7 @@ nombre: encabezado-de-seccion
 titulo: Encabezado de sección
 resumen: Eyebrow en azul, título grande con una sola palabra destacada y línea superior. Abre cada sección.
 palabras: [encabezado, sección, seccion, título, titulo, eyebrow, heading, header, hero, cabecera, subtítulo]
-tokens: [color.azul, color.tinta, color.linea, color.apagado, tipografia.familia.titulo, tipografia.peso.extranegrita, tipografia.tamano.3xl, tipografia.tamano.xs, tipografia.espaciado-letras.titulo, tipografia.espaciado-letras.eyebrow, espaciado.md, espaciado.lg]
+tokens: [color.azul, color.tinta, color.linea, color.apagado, tipografia.familia.titulo, tipografia.peso.extranegrita, tipografia.tamano.3xl, tipografia.tamano.xs, tipografia.espaciado-letras.titulo, tipografia.espaciado-letras.eyebrow, espaciado.md, espaciado.lg, tipografia.peso.negrita, tipografia.interlineado.xs, tipografia.familia.texto, tipografia.interlineado.3xl]
 variantes: [claro, oscuro]
 estados: [reposo]
 ---
@@ -25,7 +25,7 @@ Abre una sección con tres piezas: una **línea superior** de 1px (`color.linea`
 Sin estados interactivos.
 
 ## Tokens que usa
-`color.azul`, `color.tinta`, `color.linea`, `color.apagado` (bajada), `tipografia.familia.titulo` (800, `-0.02em`), eyebrow en Instrument Sans 700 con `0.12em`, `tipografia.tamano.3xl` (hasta `5xl` en portadas), `espaciado.md` y `espaciado.lg`.
+`color.azul`, `color.tinta`, `color.linea`, `color.apagado` (bajada), `tipografia.familia.titulo` (800, `-0.02em`), eyebrow en Instrument Sans 700 con `0.12em`, `tipografia.tamano.3xl` (hasta `5xl` en portadas), `espaciado.md` y `espaciado.lg`. También usa `tipografia.peso.negrita`, `tipografia.interlineado.xs`, `tipografia.familia.texto`, `tipografia.interlineado.3xl`, `tipografia.peso.extranegrita`, `tipografia.tamano.xs`, `tipografia.espaciado-letras.titulo`, `tipografia.espaciado-letras.eyebrow`.
 
 ## Accesibilidad
 - El título es el encabezado real (`<h2>`); el eyebrow no es un encabezado: use `<p>`.

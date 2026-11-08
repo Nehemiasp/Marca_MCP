@@ -3,7 +3,7 @@ nombre: aviso-destacado
 titulo: Aviso destacado
 resumen: Bloque con fondo azul suave y borde izquierdo azul para una nota, advertencia o dato clave dentro de un texto.
 palabras: [aviso, nota, alerta, advertencia, callout, destacado, mensaje, información, informacion, importante, tip]
-tokens: [color.azul-suave, color.azul, color.texto, color.tinta, tipografia.familia.texto, tipografia.tamano.base, radio.md, espaciado.lg, espaciado.md]
+tokens: [color.azul-suave, color.azul, color.texto, color.tinta, tipografia.familia.texto, tipografia.tamano.base, radio.md, espaciado.lg, espaciado.sm, tipografia.peso.negrita, tipografia.interlineado.base]
 variantes: [informativo, con-titulo]
 estados: [reposo]
 ---
@@ -25,7 +25,7 @@ Resalta una nota o dato clave dentro de un texto: una condición, un plazo, una 
 Texto siempre `color.texto` (o `color.tinta` para el título). Sin estados.
 
 ## Tokens que usa
-`color.azul-suave`, `color.azul`, `color.texto`, `color.tinta`, `tipografia.tamano.base`, `radio.md` (solo esquinas derechas), `espaciado.lg` (relleno), `espaciado.md` (separación título-texto).
+`color.azul-suave`, `color.azul`, `color.texto`, `color.tinta`, `tipografia.tamano.base`, `radio.md` (solo esquinas derechas), `espaciado.lg` (relleno), `espaciado.sm` (separación título-texto). También usa `tipografia.peso.negrita`, `tipografia.interlineado.base`, `tipografia.familia.texto`.
 
 ## Accesibilidad
 - Contraste `color.texto` sobre `color.azul-suave`: AAA.

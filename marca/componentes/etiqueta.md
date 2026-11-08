@@ -3,7 +3,7 @@ nombre: etiqueta
 titulo: Etiqueta o píldora
 resumen: Texto corto en píldora para clasificar (tecnología, categoría, estado). Fondo suave, texto tinta.
 palabras: [etiqueta, píldora, pildora, tag, chip, badge, categoría, categoria, estado, tecnología]
-tokens: [color.suave, color.tinta, color.azul, color.azul-suave, tipografia.familia.texto, tipografia.peso.seminegrita, tipografia.tamano.xs, radio.pill, espaciado.sm, espaciado.md]
+tokens: [color.suave, color.tinta, color.azul, color.azul-suave, tipografia.familia.texto, tipografia.peso.seminegrita, tipografia.tamano.xs, radio.pill, espaciado.sm, espaciado.md, tipografia.interlineado.xs, color.linea]
 variantes: [neutra, acento, oscura]
 estados: [reposo]
 ---
@@ -26,7 +26,7 @@ Clasifica o marca un elemento con una palabra o dos: tecnologías de un proyecto
 Solo tiene estado de reposo. No use `color.apagado` sobre `color.suave` (contraste insuficiente).
 
 ## Tokens que usa
-`color.suave`, `color.tinta`, `color.azul`, `color.azul-suave`, `tipografia.tamano.xs` (Instrument Sans 600), `radio.pill`, `espaciado.sm` (vertical) y `espaciado.md` (horizontal).
+`color.suave`, `color.tinta`, `color.azul`, `color.azul-suave`, `tipografia.tamano.xs` (Instrument Sans 600), `radio.pill`, `espaciado.sm` (vertical) y `espaciado.md` (horizontal). También usa `tipografia.interlineado.xs`, `color.linea`, `tipografia.familia.texto`, `tipografia.peso.seminegrita`.
 
 ## Accesibilidad
 - Contraste tinta sobre suave: AAA.

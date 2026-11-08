@@ -2,7 +2,7 @@
 
 Un caso de uso de principio a fin, con la salida real de cada llamada al servidor. Un cliente le pidió rediseñar su panel de métricas y usted prepara la propuesta.
 
-> **Qué es cada captura.** Cada imagen dibuja una llamada al servidor con **la salida real** que devolvió; las genera `npm run recorrido`. **No son capturas de la interfaz de Claude Desktop**: desde este entorno no se puede abrir. Lo que Claude haría en cada paso es el flujo esperado, no una grabación. La única captura real de la interfaz es la de la sección «Prueba real en Claude Desktop».
+> **Qué es cada captura.** Cada imagen dibuja una llamada al servidor con **la salida real** que devolvió; las genera `npm run recorrido`. **No son capturas de la interfaz de Claude Desktop**: desde este entorno no se puede abrir. Lo que Claude haría en cada paso es el flujo esperado, no una grabación. Las dos capturas reales de la interfaz son las de la sección «Prueba real en Claude Desktop».
 
 ## Antes de empezar
 1. Compile el servidor: `npm run build`.
@@ -17,7 +17,10 @@ Usted escribe en Claude Desktop:
 La última frase importa: en la evaluación, un agente al que solo se le pedía la revisión en una skill la omitió con frecuencia. En Claude Desktop no hay hook que la obligue.
 
 ## Prueba real en Claude Desktop
-Esta es la única captura de la interfaz real. Se hizo en Windows, con el servidor conectado por stdio, con el texto del paso 5.
+Estas son las dos únicas capturas de la interfaz real. Se hicieron en Windows, con el servidor conectado por stdio.
+
+### Primera prueba: revisar un texto
+Se usó el texto del paso 5.
 
 ![Claude Desktop llama a «marca: Revisar texto» y explica los hallazgos](recorrido/desktop-real/01-revisar-texto.png)
 
@@ -29,6 +32,19 @@ Esta es la única captura de la interfaz real. Se hizo en Windows, con el servid
 **Qué mostró**
 - Claude propuso dos versiones corregidas, pero **no volvió a llamar a la herramienta** para revisarlas. Después se revisaron con el servidor: la primera no tiene hallazgos y la segunda solo trae el aviso de la cifra del 40 %, que Claude mismo pidió verificar. Acertó, pero sin comprobarlo.
 - Es la misma omisión que se vio en la evaluación con Claude Code. Por eso conviene pedir la revisión de la versión corregida en el mensaje.
+
+### Segunda prueba: pedir un componente
+Se pidió el componente de aviso destacado en HTML.
+
+![Claude Desktop entrega el aviso destacado y advierte de tres variables que la ficha no declaraba](recorrido/desktop-real/02-aviso-destacado.png)
+
+**Qué confirma**
+- Claude Desktop usó el servidor (la captura dice «Usó Marca» sin detallar qué herramienta; por su texto, usó el código que devuelve la herramienta del componente).
+- Entregó el HTML y el CSS completos, y puso en un bloque `:root` las variables de los tokens, así que el código funciona aunque la página no cargue el archivo de tokens.
+- El código que entregó pasa la revisión sin hallazgos.
+
+**Lo que encontró, y era un defecto real**
+Claude advirtió que el código del componente usaba tres variables que no aparecían en la ficha: `--spacing-sm`, `--font-weight-negrita` y `--text-base--line-height`. Era cierto. Al comprobarlo en los nueve componentes, ocho usaban variables que su ficha no declaraba, 43 en total. La ficha del aviso decía además que la separación entre título y texto usaba `espaciado.md`, pero el código usa `espaciado.sm`. Se corrigieron las fichas y una prueba comprueba ahora que todo lo que usa el código esté declarado.
 
 ## Las llamadas
 
@@ -86,7 +102,7 @@ Con las variables de los tokens, el CSS no tiene hallazgos.
 - **Guardar archivos** depende de lo que Claude Desktop le permita hacer en su máquina. El servidor no escribe nada: es de solo lectura.
 
 ## Lo que no se probó
-Con Claude Desktop se probó **una sola herramienta**, `revisar_texto`, en Windows. Las otras ocho herramientas, los recursos y los prompts no se han probado desde Desktop. Por stdio deberían funcionar igual. Tampoco se comprobó cómo se muestran los prompts en su interfaz.
+Con Claude Desktop se hicieron **dos pruebas**: `revisar_texto` y el pedido de un componente (la captura no muestra qué herramienta se usó). Las demás herramientas, los recursos y los prompts no se han probado desde Desktop. Por stdio deberían funcionar igual. Tampoco se comprobó cómo se muestran los prompts en su interfaz.
 
 ## Para regenerar las capturas
 ```bash

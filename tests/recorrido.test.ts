@@ -2,8 +2,9 @@ import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { conectar } from './cliente.js';
-import { PASOS, PROPUESTA_DESKTOP_A, PROPUESTA_DESKTOP_B } from '../caso-de-estudio/recorrido/pasos.js';
+import { AVISO_DESKTOP, PASOS, PROPUESTA_DESKTOP_A, PROPUESTA_DESKTOP_B } from '../caso-de-estudio/recorrido/pasos.js';
 import { revisarTexto } from '../src/nucleo/voz.js';
+import { auditarCodigo } from '../src/nucleo/auditor.js';
 
 const RAIZ = join(import.meta.dirname, '..', 'caso-de-estudio');
 const DOC = readFileSync(join(RAIZ, 'recorrido-claude-desktop.md'), 'utf8');
@@ -48,8 +49,10 @@ describe('recorrido con capturas', () => {
 
   it('el documento aclara qué es real y qué no, y qué falta probar', () => {
     expect(DOC).toMatch(/No son capturas de la interfaz de Claude Desktop/);
-    expect(DOC).toMatch(/única captura real de la interfaz/);
-    expect(DOC).toMatch(/Con Claude Desktop se probó \*\*una sola herramienta\*\*/);
+    expect(DOC).toMatch(/Las dos capturas reales de la interfaz/);
+    expect(DOC).toMatch(/Con Claude Desktop se hicieron \*\*dos pruebas\*\*/);
+    expect(existsSync(join(RAIZ, 'recorrido', 'desktop-real', '02-aviso-destacado.png'))).toBe(true);
+    expect(DOC).toContain('recorrido/desktop-real/02-aviso-destacado.png');
     expect(existsSync(join(RAIZ, 'recorrido', 'desktop-real', '01-revisar-texto.png'))).toBe(true);
     expect(DOC).toContain('recorrido/desktop-real/01-revisar-texto.png');
   });
@@ -65,6 +68,15 @@ describe('recorrido con capturas', () => {
     expect((b.match(/\[aviso\]/g) ?? []).length).toBe(1);
     expect(b).toMatch(/cifra-por-verificar/);
     expect(DOC).toMatch(/no volvió a llamar a la herramienta/);
+  });
+
+  it('lo que el documento dice del aviso que entregó Claude Desktop es cierto', () => {
+    expect(auditarCodigo(AVISO_DESKTOP, 'html').filter((h) => h.severidad === 'error')).toEqual([]);
+    expect(DOC).toMatch(/las variables de los tokens, así que el código funciona/);
+    // Las tres variables que Claude señaló siguen declaradas en la ficha del componente.
+    const ficha = readFileSync(join(RAIZ, '..', 'marca', 'componentes', 'aviso-destacado.md'), 'utf8');
+    for (const t of ['espaciado.sm', 'tipografia.peso.negrita', 'tipografia.interlineado.base']) expect(ficha, t).toContain(t);
+    expect(ficha).not.toContain('espaciado.md');
   });
 
   it('el documento cumple la voz de la marca', () => {

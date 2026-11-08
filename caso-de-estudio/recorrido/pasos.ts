@@ -35,3 +35,42 @@ export const PROPUESTA_DESKTOP_A =
   'Hola, soy Nehemias, Diseñador UI/UX. Le propongo revisar la interfaz de su sitio para encontrar en qué punto los usuarios abandonan el proceso y rediseñar esas pantallas para que completar una compra o un registro sea más sencillo.';
 export const PROPUESTA_DESKTOP_B =
   'Hola, soy Nehemias, Diseñador UI/UX. Le propongo revisar la interfaz de su sitio para encontrar en qué punto los usuarios abandonan el proceso y rediseñar esas pantallas. En un proyecto reciente de [tipo de negocio], ese trabajo aumentó la conversión un 40 %.';
+
+/** El aviso destacado que Claude Desktop entregó en la segunda prueba real (el código completo que pegó el usuario). */
+export const AVISO_DESKTOP = `<aside class="aviso" role="note">
+  <p class="aviso__titulo">Importante</p>
+  <p class="aviso__texto">La propuesta incluye dos rondas de revisión y tiene vigencia de 15 días.</p>
+</aside>
+
+<style>
+  :root {
+    --color-azul-suave: #E8EFF7;
+    --color-azul: #043565;
+    --color-texto: #2B2F36;
+    --color-tinta: #0E1116;
+    --font-texto: "Instrument Sans", system-ui, sans-serif;
+    --font-weight-negrita: 700;
+    --text-base: 16px;
+    --text-base--line-height: 26px;
+    --radius-md: 10px;
+    --spacing-sm: 8px;
+    --spacing-lg: 24px;
+  }
+
+  .aviso {
+    background: var(--color-azul-suave);
+    border-left: 4px solid var(--color-azul);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    padding: var(--spacing-lg);
+  }
+  .aviso__titulo {
+    margin: 0 0 var(--spacing-sm);
+    font: var(--font-weight-negrita) var(--text-base)/var(--text-base--line-height) var(--font-texto);
+    color: var(--color-tinta);
+  }
+  .aviso__texto {
+    margin: 0;
+    font: var(--text-base)/var(--text-base--line-height) var(--font-texto);
+    color: var(--color-texto);
+  }
+</style>`;

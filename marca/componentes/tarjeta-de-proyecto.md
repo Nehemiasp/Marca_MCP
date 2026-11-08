@@ -3,7 +3,7 @@ nombre: tarjeta-de-proyecto
 titulo: Tarjeta de proyecto
 resumen: Tarjeta con imagen, título, descripción breve, etiquetas y enlace. Presenta un proyecto del portafolio.
 palabras: [tarjeta, card, proyecto, portafolio, caso de estudio, miniatura, trabajo, project card]
-tokens: [color.fondo, color.blanco, color.linea, color.tinta, color.texto, color.apagado, color.azul, tipografia.familia.titulo, tipografia.tamano.xl, tipografia.tamano.base, radio.lg, espaciado.lg, espaciado.md, sombra.suave]
+tokens: [color.fondo, color.blanco, color.linea, color.tinta, color.texto, color.apagado, color.azul, tipografia.familia.titulo, tipografia.tamano.xl, tipografia.tamano.base, radio.lg, espaciado.lg, espaciado.md, sombra.suave, tipografia.peso.negrita, tipografia.tamano.xs, tipografia.interlineado.xs, tipografia.familia.texto, tipografia.espaciado-letras.eyebrow, tipografia.peso.extranegrita, tipografia.interlineado.xl, tipografia.espaciado-letras.titulo, tipografia.interlineado.base]
 variantes: [claro, oscuro, destacada]
 estados: [reposo, hover, foco]
 ---
@@ -26,7 +26,7 @@ Presenta un proyecto del portafolio en una rejilla: imagen, año o categoría (e
 Estados: **hover** (borde pasa a `color.tinta` y aparece `sombra.suave`), **foco** (anillo azul de 2px en toda la tarjeta, que es un solo enlace).
 
 ## Tokens que usa
-`color.blanco`, `color.linea`, `color.tinta`, `color.texto`, `color.azul` (eyebrow), `tipografia.familia.titulo` (título), `tipografia.tamano.xl`, `radio.lg`, `espaciado.lg` (relleno), `espaciado.md` (separación interna), `sombra.suave`.
+`color.blanco`, `color.linea`, `color.tinta`, `color.texto`, `color.azul` (eyebrow), `tipografia.familia.titulo` (título), `tipografia.tamano.xl`, `radio.lg`, `espaciado.lg` (relleno), `espaciado.md` (separación interna), `sombra.suave`. También usa `tipografia.peso.negrita`, `tipografia.tamano.xs`, `tipografia.interlineado.xs`, `tipografia.familia.texto`, `tipografia.espaciado-letras.eyebrow`, `tipografia.peso.extranegrita`, `tipografia.interlineado.xl`, `tipografia.espaciado-letras.titulo`, `tipografia.interlineado.base`, `color.fondo`, `color.apagado`, `tipografia.tamano.base`.
 
 ## Accesibilidad
 - Toda la tarjeta es **un único enlace** (`<a>` en el título con `::after` que cubre la tarjeta); evite enlaces anidados.

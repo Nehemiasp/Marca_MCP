@@ -27,6 +27,7 @@ Se agregan con `npm run error -- --titulo="…" --salida="…"` (ver `errores.ts
 | 20 | 9 | [Un script falló porque faltaba la carpeta .claude](#2026-11-08-un-script-fallo-porque-faltaba-la-carpeta-claude) | 2026-11-08 |
 | 21 | 9 | [Mi escala tipográfica no llegaba a una publicación de 1080 px](#2026-11-08-mi-escala-tipografica-no-llegaba-a-1080-px) | 2026-11-08 |
 | 22 | 9 | [Claude Desktop propuso una corrección y no volvió a revisarla](#2026-11-08-claude-desktop-propuso-una-correccion-y-no-volvi) | 2026-11-08 |
+| 23 | 9 | [Las fichas no declaraban todas las variables que usaba su código](#2026-11-08-las-fichas-no-declaraban-todas-las-variables-que) | 2026-11-08 |
 
 ## Un componente apunta a un token que no existe <a id="2026-11-08-token-inexistente"></a>
 
@@ -203,3 +204,11 @@ Se agregan con `npm run error -- --titulo="…" --salida="…"` (ver `errores.ts
 - **Causa:** Tras la primera revisión, Claude escribió las versiones corregidas de memoria y no las pasó por revisar_texto. Nada en Claude Desktop lo obliga a verificar: no existe el hook de Claude Code.
 - **Solución:** Las dos versiones se revisaron después con el servidor: la primera salió sin hallazgos y la segunda solo con el aviso de la cifra del 40 %. Quedó escrito en el recorrido que hay que pedir la revisión de la versión corregida en el mensaje.
 - **Aprendizaje:** Es la misma omisión que apareció en la evaluación con Claude Code, ahora en una herramienta distinta: el agente acertó, pero sin comprobarlo. Que haya acertado esta vez no es una garantía.
+
+## Las fichas no declaraban todas las variables que usaba su código <a id="2026-11-08-las-fichas-no-declaraban-todas-las-variables-que"></a>
+
+![Las fichas no declaraban todas las variables que usaba su código](errores/2026-11-08-las-fichas-no-declaraban-todas-las-variables-que.png)
+
+- **Causa:** Escribí el código de cada ejemplo y la lista de tokens de la ficha por separado, y nunca las comparé. Mi prueba solo comprobaba que los tokens declarados existieran, no que cubrieran lo que el código usaba. Además la ficha del aviso decía que la separación título-texto usaba espaciado.md, y el código usa espaciado.sm.
+- **Solución:** Completé la lista de tokens en ocho fichas y en el texto de su sección «Tokens que usa», y corregí la contradicción del aviso. Una prueba nueva falla si el código usa una variable que la ficha no declara, y otra si un token declarado no aparece en el texto de la ficha. La segunda prueba descubrió otros tokens declarados que el texto nunca mencionaba.
+- **Aprendizaje:** Lo encontró un lector real: Claude Desktop, al usar mi propia ficha. Mis pruebas comprobaban que lo escrito fuera válido, no que estuviera completo. Y la herramienta devuelve esa lista como datos, así que una ficha incompleta le miente al agente.
