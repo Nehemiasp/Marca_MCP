@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "cd \"$CLAUDE_PROJECT_DIR\" && npm test --silent 2>&1 | tail -n 15",
+            "command": "npm test --silent -- --reporter=dot",
             "timeout": 120
           }
         ]

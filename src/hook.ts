@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { readFileSync } from 'node:fs';
 import { formatear, lenguajeDe, revisarArchivo } from './revisar-archivo.js';
+import { esPrincipal } from './nucleo/principal.js';
 
 /**
  * Hook PostToolUse de Claude Code (Write | Edit | MultiEdit): revisa el archivo recién guardado contra la marca.
@@ -24,7 +25,7 @@ export function procesarHook(entrada: string): { codigo: 0 | 2; stderr: string }
   };
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (esPrincipal(import.meta.url)) {
   const r = procesarHook(readFileSync(0, 'utf8'));
   if (r.stderr) process.stderr.write(r.stderr);
   process.exit(r.codigo);

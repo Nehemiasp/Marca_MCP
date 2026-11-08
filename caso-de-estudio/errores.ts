@@ -4,6 +4,7 @@ import { join, resolve } from 'node:path';
 import { chromium } from 'playwright';
 import { exportarTokens } from '../src/nucleo/exportadores.js';
 import { carpetaMarca } from '../src/nucleo/rutas.js';
+import { esPrincipal } from '../src/nucleo/principal.js';
 
 /**
  * Registro de errores para casos de estudio del portafolio.
@@ -95,4 +96,4 @@ async function main() {
   await dibujar(registro);
   console.log(`Registro: ${registro.length} error(es) → caso-de-estudio/registro-de-errores.md`);
 }
-if (import.meta.url === `file://${process.argv[1]}`) await main();
+if (esPrincipal(import.meta.url)) await main();

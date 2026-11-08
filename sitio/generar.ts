@@ -6,6 +6,7 @@ import { exportarTokens, nombreVariable, valorCss } from '../src/nucleo/exportad
 import { carpetaMarca, leerTexto } from '../src/nucleo/rutas.js';
 import { cargarTokens, type Token } from '../src/nucleo/tokens.js';
 import { escaparHtml as esc, markdownAHtml } from './markdown.js';
+import { esPrincipal } from '../src/nucleo/principal.js';
 
 /**
  * Genera la página pública /marca (estática) desde marca/: tokens, componentes y reglas.
@@ -309,7 +310,7 @@ footer{border-top:1px solid var(--color-linea);padding:var(--spacing-xl) 0;font-
   return { html };
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (esPrincipal(import.meta.url)) {
   const destino = resolve(import.meta.dirname, 'publico');
   const { html } = generarSitio(destino);
   console.log(`Sitio generado en sitio/publico/ (${Math.round(html.length / 1024)} KB de HTML).`);
