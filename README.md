@@ -126,6 +126,10 @@ npx @modelcontextprotocol/inspector --cli npx tsx src/stdio.ts --method tools/ca
 
 Ver [`docs/remoto.md`](docs/remoto.md).
 
+## Página pública /marca
+
+`npm run sitio` genera `sitio/publico/` (HTML estático con rutas relativas): colores, tipografías, escala, motivo, componentes en vivo y reglas, más descargas de `marca.css`, `@theme` de Tailwind y los tokens. Puede copiarse tal cual a `/marca` del portafolio.
+
 ## Evaluación
 
 `npm run evals` mide si un agente trabaja mejor con el servidor que sin él. Ver [`evals/README.md`](evals/README.md) y el reporte en `evals/reporte.md`.
@@ -137,7 +141,11 @@ src/nucleo/   lógica pura sin MCP: color, contraste, auditor, voz, exportadores
 src/          recursos.ts, herramientas.ts, prompts.ts, servidor.ts, stdio.ts, http.ts
 tests/        Vitest (núcleo y servidor completo con un cliente MCP en memoria)
 evals/        evaluación con y sin servidor
-sitio/        página pública /marca generada desde los tokens
+sitio/        página pública /marca generada desde los tokens (npm run sitio → sitio/publico)
+api/          función HTTP para Vercel (vercel.json)
+docs/         remoto.md (HTTP y despliegue), paridad.md (integración con Paridad)
+ejemplos/     integración de ejemplo para Paridad
+caso-de-estudio/  borrador del caso, guion del video y capturas lado a lado
 ```
 
 Decisiones técnicas y explicación de herramientas, recursos y prompts: [`CLAUDE.md`](CLAUDE.md).

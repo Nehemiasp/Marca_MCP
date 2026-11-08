@@ -23,7 +23,9 @@ Que Claude (y cualquier cliente MCP) conozca colores, tipografías, espaciados, 
 | `npm run build` / `npm start` | Compila a `dist/` y lo ejecuta |
 | `npm run inspector` | Abre el MCP Inspector contra el servidor |
 | `npm run evals` | Evaluación con/sin servidor → `evals/reporte.md` |
-| `npm run sitio` | Genera `sitio/` (página `/marca`) desde los tokens |
+| `npm run sitio` | Genera `sitio/publico/` (página `/marca`) desde los tokens |
+| `npm run dev:http` / `npm run start:http` | Servidor HTTP local (`/mcp`, puerto `PORT`) |
+| `npm run caso` | Capturas lado a lado para el caso de estudio |
 
 ## Estructura
 ```
@@ -31,6 +33,8 @@ marca/        tokens.json, componentes/*.md, reglas.md, voz.md, assets/
 src/nucleo/   lógica pura (color, contraste, auditor, voz, exportadores, carga)
 src/          recursos.ts, herramientas.ts, prompts.ts, servidor.ts, stdio.ts, http.ts
 tests/        Vitest      evals/  evaluación      sitio/  página pública
+api/ · vercel.json   función HTTP (Vercel)      docs/  remoto y Paridad
+ejemplos/     integración para Paridad      caso-de-estudio/  borrador y guion de video
 ```
 
 ## Herramientas, recursos y prompts (para entenderlo, no solo usarlo)
@@ -53,3 +57,11 @@ Regla práctica: si es un **dato fijo**, recurso. Si **depende de una entrada o 
 - **Hook PostToolUse corre `npm test` al editar:** retroalimentación inmediata sin recordarlo.
 - **Servidor sin estado (HTTP con `createMcpHandler`):** la marca es pública y de solo lectura, no se necesitan sesiones.
 - **Escala tipográfica, espaciados, radios y sombras propuestos (base 4px, escala tipográfica 12–64):** no hubo acceso al repo del portafolio; ajústelos en `tokens.json`.
+- **Nombres de variable compatibles con Tailwind v4 (`--color-*`, `--font-*`, `--text-*`, `--radius-*`):** el mismo `tokens.json` sirve para CSS, Tailwind y SCSS sin traducir. El peso se llama `extranegrita` porque `font-titulo` colisionaba con la familia.
+- **Espaciado con nombres de talla (`md`, `lg`…) y no con números:** en código se lee `p-lg`, y evita confundirse con la escala numérica por defecto de Tailwind.
+- **Los componentes se auditan a sí mismos (prueba):** su código HTML y React debe pasar `auditar_codigo` sin errores; así los ejemplos no contradicen las reglas.
+- **El sitio público también se audita (prueba):** la propia página `/marca` debe cumplir la marca. Eso hizo aparecer el token `tipografia.familia.codigo`.
+- **HTTP sin estado con límite en memoria por IP:** la marca es pública; el límite es «mejor esfuerzo» en serverless. No se despliega sin su decisión.
+- **Evaluación aislada fuera del repositorio:** los agentes corren en una carpeta temporal para que ningún `CLAUDE.md` ni skill contamine la condición «sin servidor».
+- **Evaluación mide lo renderizado, no solo el código:** un navegador (Playwright) calcula colores, fuentes y contraste reales; las fuentes de la marca se tratan como instaladas en ambas condiciones.
+- **Paridad por contrato, no por edición:** no hay acceso a ese repositorio; se documenta cómo leer la marca (`docs/paridad.md`) con un ejemplo probado.

@@ -22,7 +22,8 @@
     "evals": "tsx evals/ejecutar.ts",
     "sitio": "tsx sitio/generar.ts",
     "start:http": "node dist/http-nodo.js",
-    "dev:http": "tsx src/http-nodo.ts"
+    "dev:http": "tsx src/http-nodo.ts",
+    "caso": "tsx caso-de-estudio/lado-a-lado.ts"
   },
   "dependencies": {
     "@modelcontextprotocol/node": "^2.1.2",

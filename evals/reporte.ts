@@ -84,7 +84,8 @@ const METRICAS: { clave: keyof Metricas; nombre: string }[] = [
   { clave: 'coloresFueraDePaleta', nombre: 'Colores renderizados fuera de la paleta' },
   { clave: 'fuentesAjenas', nombre: 'Fuentes ajenas a la marca (renderizadas)' },
   { clave: 'fallosContraste', nombre: 'Textos que no llegan a AA de contraste' },
-  { clave: 'vozErrores', nombre: 'Fallos de voz (`revisar_texto`, errores)' }
+  { clave: 'vozErrores', nombre: 'Fallos de voz (`revisar_texto`, errores)' },
+  { clave: 'vozAvisos', nombre: 'Avisos de voz (cifras por verificar, relleno)' }
 ];
 
 export function generarReporte(resultados: Resultado[]): string {
