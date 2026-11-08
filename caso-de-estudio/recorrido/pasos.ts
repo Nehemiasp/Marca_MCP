@@ -29,3 +29,9 @@ export const PASOS: Paso[] = [
   { id: 'auditar-css-a-ojo', contexto: 'Claude audita un primer CSS escrito a ojo.', herramienta: 'auditar_codigo', args: { lenguaje: 'css', codigo: CSS_A_OJO } },
   { id: 'auditar-css-corregido', contexto: 'Corrige con las variables de los tokens y vuelve a auditar.', herramienta: 'auditar_codigo', args: { lenguaje: 'css', codigo: CSS_CORREGIDO } }
 ];
+
+/** Las dos versiones corregidas que Claude Desktop propuso en la prueba real (caso-de-estudio/recorrido/desktop-real). */
+export const PROPUESTA_DESKTOP_A =
+  'Hola, soy Nehemias, Diseñador UI/UX. Le propongo revisar la interfaz de su sitio para encontrar en qué punto los usuarios abandonan el proceso y rediseñar esas pantallas para que completar una compra o un registro sea más sencillo.';
+export const PROPUESTA_DESKTOP_B =
+  'Hola, soy Nehemias, Diseñador UI/UX. Le propongo revisar la interfaz de su sitio para encontrar en qué punto los usuarios abandonan el proceso y rediseñar esas pantallas. En un proyecto reciente de [tipo de negocio], ese trabajo aumentó la conversión un 40 %.';

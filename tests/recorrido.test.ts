@@ -2,7 +2,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { conectar } from './cliente.js';
-import { PASOS } from '../caso-de-estudio/recorrido/pasos.js';
+import { PASOS, PROPUESTA_DESKTOP_A, PROPUESTA_DESKTOP_B } from '../caso-de-estudio/recorrido/pasos.js';
 import { revisarTexto } from '../src/nucleo/voz.js';
 
 const RAIZ = join(import.meta.dirname, '..', 'caso-de-estudio');
@@ -46,9 +46,25 @@ describe('recorrido con capturas', () => {
     expect(DOC).toContain('67 %');
   });
 
-  it('el documento aclara que no son capturas de Claude Desktop y qué no se probó', () => {
+  it('el documento aclara qué es real y qué no, y qué falta probar', () => {
     expect(DOC).toMatch(/No son capturas de la interfaz de Claude Desktop/);
-    expect(DOC).toMatch(/nunca se abrió desde Claude Desktop/);
+    expect(DOC).toMatch(/única captura real de la interfaz/);
+    expect(DOC).toMatch(/Con Claude Desktop se probó \*\*una sola herramienta\*\*/);
+    expect(existsSync(join(RAIZ, 'recorrido', 'desktop-real', '01-revisar-texto.png'))).toBe(true);
+    expect(DOC).toContain('recorrido/desktop-real/01-revisar-texto.png');
+  });
+
+  it('lo que el documento dice de las versiones que propuso Claude Desktop es cierto', async () => {
+    const rev = async (texto: string) => {
+      const r = await ctx.cliente.callTool({ name: 'revisar_texto', arguments: { texto, contexto: 'cliente' } });
+      return (r.content as { text: string }[])[0]!.text;
+    };
+    expect(await rev(PROPUESTA_DESKTOP_A)).toMatch(/^Sin hallazgos/);
+    const b = await rev(PROPUESTA_DESKTOP_B);
+    expect((b.match(/\[error\]/g) ?? []).length).toBe(0);
+    expect((b.match(/\[aviso\]/g) ?? []).length).toBe(1);
+    expect(b).toMatch(/cifra-por-verificar/);
+    expect(DOC).toMatch(/no volvió a llamar a la herramienta/);
   });
 
   it('el documento cumple la voz de la marca', () => {

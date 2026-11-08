@@ -26,6 +26,7 @@ Se agregan con `npm run error -- --titulo="…" --salida="…"` (ver `errores.ts
 | 19 | 9 | [Un comando mío fue bloqueado por una comprobación de seguridad](#2026-11-08-un-comando-mio-fue-bloqueado-por-una-comprobacio) | 2026-11-08 |
 | 20 | 9 | [Un script falló porque faltaba la carpeta .claude](#2026-11-08-un-script-fallo-porque-faltaba-la-carpeta-claude) | 2026-11-08 |
 | 21 | 9 | [Mi escala tipográfica no llegaba a una publicación de 1080 px](#2026-11-08-mi-escala-tipografica-no-llegaba-a-1080-px) | 2026-11-08 |
+| 22 | 9 | [Claude Desktop propuso una corrección y no volvió a revisarla](#2026-11-08-claude-desktop-propuso-una-correccion-y-no-volvi) | 2026-11-08 |
 
 ## Un componente apunta a un token que no existe <a id="2026-11-08-token-inexistente"></a>
 
@@ -194,3 +195,11 @@ Se agregan con `npm run error -- --titulo="…" --salida="…"` (ver `errores.ts
 - **Causa:** El agente hizo lo que el prompt `pieza_de_marca` pedía: una pieza de 1080 px. Pero mi escala termina en 64 px, pensada para pantalla y documentos. El sistema le pedía un tamaño y su propio auditor se lo rechazaba.
 - **Solución:** Agregué una escala de lienzo, `tipografia.tamano-lienzo.*`, igual al doble de la base, para lienzos de 1080 px o más. Los prompts, la skill y las reglas la mencionan. Con ella, 24 y 32 son válidos; el 136 sigue fuera (el más cercano es 128). Volví a medir todas las corridas guardadas.
 - **Aprendizaje:** Una contradicción entre dos piezas de mi propio sistema (el prompt y la escala) apareció como error de un agente. Antes de culpar a la herramienta, hay que revisar si lo que se le pidió era posible.
+
+## Claude Desktop propuso una corrección y no volvió a revisarla <a id="2026-11-08-claude-desktop-propuso-una-correccion-y-no-volvi"></a>
+
+![Claude Desktop propuso una corrección y no volvió a revisarla](errores/2026-11-08-claude-desktop-propuso-una-correccion-y-no-volvi.png)
+
+- **Causa:** Tras la primera revisión, Claude escribió las versiones corregidas de memoria y no las pasó por revisar_texto. Nada en Claude Desktop lo obliga a verificar: no existe el hook de Claude Code.
+- **Solución:** Las dos versiones se revisaron después con el servidor: la primera salió sin hallazgos y la segunda solo con el aviso de la cifra del 40 %. Quedó escrito en el recorrido que hay que pedir la revisión de la versión corregida en el mensaje.
+- **Aprendizaje:** Es la misma omisión que apareció en la evaluación con Claude Code, ahora en una herramienta distinta: el agente acertó, pero sin comprobarlo. Que haya acertado esta vez no es una garantía.
