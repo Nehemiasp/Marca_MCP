@@ -76,6 +76,12 @@ export const TAREAS: Tarea[] = [
 export const CONDICIONES = ['sin', 'con'] as const;
 export type Condicion = (typeof CONDICIONES)[number];
 
+/**
+ * Carpeta de cada condición. NO usar «con» como nombre de carpeta: CON es un nombre reservado en Windows
+ * (como AUX o NUL) y Git no puede sacar esa carpeta en Windows («invalid path»).
+ */
+export const CARPETA_DE: Record<Condicion, string> = { sin: 'sin-servidor', con: 'con-servidor' };
+
 /** Se agrega igual a todos los pedidos, en las dos condiciones. */
 export const SUFIJO_DE_ENTREGA =
   '\n\nEntrega el resultado como un único archivo HTML autocontenido llamado salida.html en la carpeta actual. Al terminar, responde con una sola línea.';

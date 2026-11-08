@@ -119,17 +119,17 @@ También quedaron huecos que el hook no ve:
 
 ## Capturas
 
-Cada captura está en `salidas/<condición>/<tarea>/captura.png` y el HTML en `salida.html`.
+Cada captura está en `salidas/<sin-servidor|con-servidor>/<tarea>/captura.png` y el HTML en `salida.html`.
 
 | Tarea | Sin servidor | Con servidor |
 |---|---|---|
-| Hero para el portafolio | ![sin](salidas/sin/hero-portafolio/captura.png) | ![con](salidas/con/hero-portafolio/captura.png) |
-| Tarjeta de proyecto | ![sin](salidas/sin/tarjeta-proyecto/captura.png) | ![con](salidas/con/tarjeta-proyecto/captura.png) |
-| Portada de propuesta (PDF) | ![sin](salidas/sin/portada-propuesta/captura.png) | ![con](salidas/con/portada-propuesta/captura.png) |
-| Publicación para redes | ![sin](salidas/sin/publicacion-redes/captura.png) | ![con](salidas/con/publicacion-redes/captura.png) |
-| Aviso destacado | ![sin](salidas/sin/aviso-destacado/captura.png) | ![con](salidas/con/aviso-destacado/captura.png) |
-| Tabla de precios | ![sin](salidas/sin/tabla-precios/captura.png) | ![con](salidas/con/tabla-precios/captura.png) |
-| Bloque de contacto con QR | ![sin](salidas/sin/bloque-contacto/captura.png) | ![con](salidas/con/bloque-contacto/captura.png) |
+| Hero para el portafolio | ![sin](salidas/sin-servidor/hero-portafolio/captura.png) | ![con](salidas/con-servidor/hero-portafolio/captura.png) |
+| Tarjeta de proyecto | ![sin](salidas/sin-servidor/tarjeta-proyecto/captura.png) | ![con](salidas/con-servidor/tarjeta-proyecto/captura.png) |
+| Portada de propuesta (PDF) | ![sin](salidas/sin-servidor/portada-propuesta/captura.png) | ![con](salidas/con-servidor/portada-propuesta/captura.png) |
+| Publicación para redes | ![sin](salidas/sin-servidor/publicacion-redes/captura.png) | ![con](salidas/con-servidor/publicacion-redes/captura.png) |
+| Aviso destacado | ![sin](salidas/sin-servidor/aviso-destacado/captura.png) | ![con](salidas/con-servidor/aviso-destacado/captura.png) |
+| Tabla de precios | ![sin](salidas/sin-servidor/tabla-precios/captura.png) | ![con](salidas/con-servidor/tabla-precios/captura.png) |
+| Bloque de contacto con QR | ![sin](salidas/sin-servidor/bloque-contacto/captura.png) | ![con](salidas/con-servidor/bloque-contacto/captura.png) |
 
 ## Limitaciones
 

@@ -11,8 +11,8 @@ mkdirSync(salida, { recursive: true });
 const dataUri = (ruta: string) => `data:image/png;base64,${readFileSync(ruta).toString('base64')}`;
 const navegador = await chromium.launch();
 for (const t of TAREAS) {
-  const sin = join(RAIZ, 'evals', 'salidas', 'sin', t.id, 'captura.png');
-  const con = join(RAIZ, 'evals', 'salidas', 'con', t.id, 'captura.png');
+  const sin = join(RAIZ, 'evals', 'salidas', 'sin-servidor', t.id, 'captura.png');
+  const con = join(RAIZ, 'evals', 'salidas', 'con-servidor', t.id, 'captura.png');
   if (!existsSync(sin) || !existsSync(con)) {
     console.warn(`· ${t.id}: faltan capturas (corra npm run evals)`);
     continue;

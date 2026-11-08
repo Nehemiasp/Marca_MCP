@@ -34,7 +34,7 @@ Abra [`calificaciones.md`](calificaciones.md), mire las capturas y escriba de 1 
 
 ## Archivos
 ```
-salidas/<sin|con>/<tarea>/  salida.html · captura.png · metricas.json · traza.json
+salidas/<sin-servidor|con-servidor>/<tarea>/  salida.html · captura.png · metricas.json · traza.json
 reporte.md                  resultados (generado)
 conclusiones.md             conclusiones escritas a mano, incluidas en el reporte
 calificaciones.md           su tabla 1–5

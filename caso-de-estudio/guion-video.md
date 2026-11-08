@@ -10,8 +10,8 @@
 Dos carpetas vacías y dos terminales con la misma fuente y el mismo tamaño:
 
 ```bash
-mkdir -p ~/video-marca/sin ~/video-marca/con
-cp -r /ruta/a/Marca_MCP/.claude ~/video-marca/con/.claude     # solo trae la skill /marca
+mkdir -p ~/video-marca/sin-servidor ~/video-marca/con-servidor
+cp -r /ruta/a/Marca_MCP/.claude ~/video-marca/con-servidor/.claude     # solo trae la skill /marca
 cd /ruta/a/Marca_MCP && npm run build
 ```
 
@@ -40,7 +40,7 @@ Para abrir el resultado: `open tarjeta.html` (macOS) o doble clic. Use el mismo 
 **Sin servidor** (carpeta `sin`):
 
 ```bash
-cd ~/video-marca/sin
+cd ~/video-marca/sin-servidor
 claude --strict-mcp-config --disable-slash-commands
 > haz una tarjeta de proyecto
 ```
@@ -48,7 +48,7 @@ claude --strict-mcp-config --disable-slash-commands
 **Con servidor** (carpeta `con`):
 
 ```bash
-cd ~/video-marca/con
+cd ~/video-marca/con-servidor
 claude --strict-mcp-config --mcp-config ../mcp-con.json
 > haz una tarjeta de proyecto
 ```

@@ -4,7 +4,7 @@ import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { medirSalida } from './medir.js';
 import { asegurarPlantillaDeCalificacion, CARPETA_EVALS, CARPETA_SALIDAS, escribirReporte, leerResultados, resumirVariante, type Traza } from './reporte.js';
-import { CONDICIONES, SUFIJO_DE_ENTREGA, TAREAS, type Condicion, type Tarea } from './tareas.js';
+import { CARPETA_DE, CONDICIONES, SUFIJO_DE_ENTREGA, TAREAS, type Condicion, type Tarea } from './tareas.js';
 
 const RAIZ = resolve(import.meta.dirname, '..');
 const args = process.argv.slice(2);
@@ -89,7 +89,7 @@ function ejecutarClaude(cond: Condicion, tarea: Tarea, carpetaTrabajo: string): 
 }
 
 async function generar(cond: Condicion, tarea: Tarea): Promise<void> {
-  const salida = join(SALIDAS, cond, tarea.id);
+  const salida = join(SALIDAS, CARPETA_DE[cond], tarea.id);
   mkdirSync(salida, { recursive: true });
   if (!forzar && existsSync(join(salida, 'salida.html'))) {
     console.log(`= ${cond}/${tarea.id}: ya existe (use --forzar para repetir)`);
@@ -120,7 +120,7 @@ async function generar(cond: Condicion, tarea: Tarea): Promise<void> {
 }
 
 async function medir(cond: Condicion, tarea: Tarea): Promise<void> {
-  const salida = join(SALIDAS, cond, tarea.id);
+  const salida = join(SALIDAS, CARPETA_DE[cond], tarea.id);
   const html = join(salida, 'salida.html');
   if (!existsSync(html)) return;
   const m = await medirSalida(html, tarea, join(salida, 'captura.png'));

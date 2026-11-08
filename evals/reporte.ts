@@ -1,7 +1,7 @@
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import type { Metricas } from './medir.js';
-import { CONDICIONES, TAREAS, type Condicion } from './tareas.js';
+import { CARPETA_DE, CONDICIONES, TAREAS, type Condicion } from './tareas.js';
 
 export interface Traza {
   costoUsd?: number;
@@ -22,7 +22,7 @@ export function leerResultados(): Resultado[] {
   const r: Resultado[] = [];
   for (const t of TAREAS) {
     for (const c of CONDICIONES) {
-      const dir = join(CARPETA_SALIDAS, c, t.id);
+      const dir = join(CARPETA_SALIDAS, CARPETA_DE[c], t.id);
       const m = join(dir, 'metricas.json');
       if (!existsSync(m)) continue;
       const traza = existsSync(join(dir, 'traza.json')) ? (JSON.parse(readFileSync(join(dir, 'traza.json'), 'utf8')) as Traza) : { herramientasDeMarca: [] };
@@ -39,7 +39,7 @@ export function asegurarPlantillaDeCalificacion(): void {
   if (existsSync(ARCHIVO_CALIFICACIONES)) return; // nunca pisa lo que usted ya llenó
   const filas = TAREAS.map(
     (t) =>
-      `| ${t.titulo} (\`${t.id}\`) | ![sin](salidas/sin/${t.id}/captura.png) | ![con](salidas/con/${t.id}/captura.png) |  |  |  |`
+      `| ${t.titulo} (\`${t.id}\`) | ![sin](salidas/sin-servidor/${t.id}/captura.png) | ![con](salidas/con-servidor/${t.id}/captura.png) |  |  |  |`
   );
   writeFileSync(
     ARCHIVO_CALIFICACIONES,
@@ -210,9 +210,9 @@ export function generarReporte(resultados: Resultado[]): string {
   if (existsSync(conclusiones)) L.push(readFileSync(conclusiones, 'utf8').trim(), '');
   else L.push('(Agregue sus conclusiones en `evals/conclusiones.md`; se incluyen aquí al regenerar el reporte.)', '');
 
-  L.push('## Capturas', '', 'Cada captura está en `salidas/<condición>/<tarea>/captura.png` y el HTML en `salida.html`.', '');
+  L.push('## Capturas', '', 'Cada captura está en `salidas/<sin-servidor|con-servidor>/<tarea>/captura.png` y el HTML en `salida.html`.', '');
   L.push('| Tarea | Sin servidor | Con servidor |', '|---|---|---|');
-  for (const t of TAREAS) L.push(`| ${t.titulo} | ![sin](salidas/sin/${t.id}/captura.png) | ![con](salidas/con/${t.id}/captura.png) |`);
+  for (const t of TAREAS) L.push(`| ${t.titulo} | ![sin](salidas/sin-servidor/${t.id}/captura.png) | ![con](salidas/con-servidor/${t.id}/captura.png) |`);
   L.push('');
 
   L.push('## Limitaciones', '');
@@ -238,7 +238,7 @@ export interface FilaCorrida { tarea: string; metricas: Metricas; traza: Traza }
 export function leerCorrida(base: string, condicion: Condicion = 'con'): FilaCorrida[] {
   const filas: FilaCorrida[] = [];
   for (const t of TAREAS) {
-    const dir = join(base, condicion, t.id);
+    const dir = join(base, CARPETA_DE[condicion], t.id);
     const m = join(dir, 'metricas.json');
     if (!existsSync(m)) continue;
     filas.push({
