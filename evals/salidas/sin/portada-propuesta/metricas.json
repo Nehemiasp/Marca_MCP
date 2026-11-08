@@ -1,0 +1,24 @@
+{
+  "codigoErrores": 11,
+  "codigoAvisos": 1,
+  "coloresFueraDePaleta": 6,
+  "coloresFueraDePaletaLista": [
+    "#14213D",
+    "#4A5568",
+    "#7A8497",
+    "#CBD2DC",
+    "#E09F3E",
+    "#E5E7EB"
+  ],
+  "fuentesAjenas": 1,
+  "fuentesAjenasLista": [
+    "Helvetica Neue"
+  ],
+  "fallosContraste": 6,
+  "paresContrasteRevisados": 13,
+  "vozErrores": 0,
+  "vozAvisos": 0,
+  "vozDetalle": [],
+  "degradados": 0,
+  "texto": "Nombre\nEmpresa\nPropuesta comercial\nPropuesta de\nUna solución a medida para impulsar los objetivos \nPreparado para\n[Nombre del cliente]\nPreparado por\n[Nombre del responsable]\nFecha\n8 de noviembre de 2026\nReferencia · Validez\nPS-2026-001 · 30 días"
+}

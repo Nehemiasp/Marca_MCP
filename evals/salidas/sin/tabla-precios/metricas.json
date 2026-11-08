@@ -1,0 +1,31 @@
+{
+  "codigoErrores": 24,
+  "codigoAvisos": 4,
+  "coloresFueraDePaleta": 11,
+  "coloresFueraDePaletaLista": [
+    "#1A9B57",
+    "#1F2433",
+    "#3D4CF2",
+    "#4A3700",
+    "#5B6275",
+    "#B0B5C4",
+    "#D9DCFF",
+    "#E8EAF2",
+    "#F0F2FF",
+    "#F5F6FA",
+    "#FFD24A"
+  ],
+  "fuentesAjenas": 1,
+  "fuentesAjenasLista": [
+    "system-ui"
+  ],
+  "fallosContraste": 14,
+  "paresContrasteRevisados": 51,
+  "vozErrores": 1,
+  "vozAvisos": 0,
+  "vozDetalle": [
+    "trato-usted: «tu»"
+  ],
+  "degradados": 0,
+  "texto": "Planes de servicios de diseño\nElige el plan que mejor se adapte a tu proyecto. M\nBásico\n$250\n/ proyecto\nMás popular\nProfesional\n$750\n/ proyecto\nPremium\n$1,800\n/ proyecto\nDiseño de logotipo\n1 propuesta\n3 propuestas\n5 propuestas\nRondas de revisión\n1\n3\nIlimitadas\nPaleta de colores y tipografías\n—\n✓\n✓\nManual de identidad de marca\n—\n✓\n✓\nPiezas para redes sociales\n—\n5 plantillas\n15 plantillas\nDiseño web (maquetas)\n—\n—\n✓\nArchivos fuente editables\n—\n✓\n✓\nTiempo de entrega\n7 días\n14 días\n30 días\nSoporte\nCorreo\nCorreo y chat\nPrioritario\nElegir Básico\nElegir Profesional\nElegir Premium"
+}

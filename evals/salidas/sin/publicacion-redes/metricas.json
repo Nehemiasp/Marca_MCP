@@ -1,0 +1,26 @@
+{
+  "codigoErrores": 26,
+  "codigoAvisos": 9,
+  "coloresFueraDePaleta": 8,
+  "coloresFueraDePaletaLista": [
+    "#0F0F1A",
+    "#1B1B2E",
+    "#222222",
+    "#28C840",
+    "#4D7CFF",
+    "#FEBC2E",
+    "#FF4D6D",
+    "#FF5F57"
+  ],
+  "fuentesAjenas": 1,
+  "fuentesAjenasLista": [
+    "Helvetica Neue"
+  ],
+  "fallosContraste": 0,
+  "paresContrasteRevisados": 4,
+  "vozErrores": 0,
+  "vozAvisos": 0,
+  "vozDetalle": [],
+  "degradados": 2,
+  "texto": "¡YA ESTÁ ONLINE!\nMi nuevo\nVisítalo en el link de mi bio →\nProyectos, ideas y todo lo que he creado."
+}

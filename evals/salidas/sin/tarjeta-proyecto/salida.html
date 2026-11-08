@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tarjeta de proyecto · Panel de métricas</title>
+<style>
+  *{box-sizing:border-box;margin:0}
+  body{min-height:100vh;display:grid;place-items:center;background:#0f172a;font-family:system-ui,-apple-system,Segoe UI,sans-serif;padding:24px}
+  .card{width:100%;max-width:420px;background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.4);transition:transform .25s}
+  .card:hover{transform:translateY(-4px)}
+  .preview{background:linear-gradient(135deg,#4f46e5,#06b6d4);padding:22px}
+  .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+  .kpi{background:rgba(255,255,255,.18);border-radius:10px;padding:8px;color:#fff}
+  .kpi b{display:block;font-size:18px}
+  .kpi span{font-size:11px;opacity:.85}
+  .chart{display:flex;align-items:flex-end;gap:6px;height:80px;background:rgba(255,255,255,.12);border-radius:10px;padding:10px}
+  .chart i{flex:1;background:#fff;border-radius:4px 4px 0 0;opacity:.9}
+  .body{padding:22px}
+  h2{font-size:21px;color:#0f172a;margin-bottom:6px}
+  p{color:#475569;font-size:14.5px;line-height:1.55}
+  .tags{display:flex;flex-wrap:wrap;gap:6px;margin:16px 0}
+  .tags span{font-size:12px;background:#eef2ff;color:#4338ca;padding:4px 10px;border-radius:999px}
+  .links{display:flex;gap:10px}
+  .links a{flex:1;text-align:center;text-decoration:none;font-size:14px;font-weight:600;padding:10px;border-radius:10px}
+  .primary{background:#4f46e5;color:#fff}
+  .secondary{border:1px solid #cbd5e1;color:#334155}
+  .links a:hover{opacity:.88}
+</style>
+</head>
+<body>
+<article class="card">
+  <div class="preview" aria-hidden="true">
+    <div class="kpis">
+      <div class="kpi"><b>2.4k</b><span>Visitas</span></div>
+      <div class="kpi"><b>+18%</b><span>Crecimiento</span></div>
+      <div class="kpi"><b>94%</b><span>Objetivos</span></div>
+    </div>
+    <div class="chart">
+      <i style="height:35%"></i><i style="height:50%"></i><i style="height:42%"></i><i style="height:68%"></i><i style="height:60%"></i><i style="height:82%"></i><i style="height:95%"></i>
+    </div>
+  </div>
+  <div class="body">
+    <h2>Panel de métricas para equipos pequeños</h2>
+    <p>Un panel simple que reúne los indicadores clave del equipo en una sola vista, sin configuraciones complejas ni curva de aprendizaje.</p>
+    <div class="tags"><span>Dashboard</span><span>Visualización de datos</span><span>Equipos</span></div>
+    <div class="links">
+      <a class="primary" href="#">Ver demo</a>
+      <a class="secondary" href="#">Código</a>
+    </div>
+  </div>
+</article>
+</body>
+</html>

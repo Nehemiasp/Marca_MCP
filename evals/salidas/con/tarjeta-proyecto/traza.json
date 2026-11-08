@@ -1,0 +1,14 @@
+{
+  "herramientasDeMarca": [
+    "buscar_componente",
+    "exportar_tokens",
+    "obtener_componente",
+    "obtener_componente",
+    "auditar_codigo",
+    "revisar_texto"
+  ],
+  "costoUsd": 0.082012,
+  "turnos": 8,
+  "duracionSeg": 24,
+  "respuesta": "Creé `salida.html` con la tarjeta del panel de métricas, hecha con los tokens y el componente de la marca. La revisión de texto no encontró nada, pero no audité el archivo completo: la auditoría de código solo cubrió un fragmento de prueba, y no medí el contraste."
+}

@@ -1,0 +1,11 @@
+{
+  "herramientasDeMarca": [
+    "buscar_componente",
+    "obtener_tokens",
+    "obtener_componente"
+  ],
+  "costoUsd": 0.1132643,
+  "turnos": 6,
+  "duracionSeg": 39,
+  "respuesta": "Creé `salida.html` con el bloque de contacto (nombre, «Diseñador UI/UX», web, correo y un QR a https://nehemiasperez.com), pero no pude ejecutar ni escanear nada aquí, así que el QR sin probar; escanéelo antes de publicar. El QR se genera con JavaScript dentro del propio archivo, y el correo es nehemiasp880@gmail.com, que puede cambiar por el que prefiera."
+}

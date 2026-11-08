@@ -1,0 +1,7 @@
+{
+  "herramientasDeMarca": [],
+  "costoUsd": 0.0263954,
+  "turnos": 2,
+  "duracionSeg": 12,
+  "respuesta": "He creado `salida.html` en la carpeta actual: una portada A4 lista para exportar a PDF, con marcadores entre corchetes (nombre del cliente, responsable, \"NombreEmpresa\") que debes sustituir antes de enviarla."
+}

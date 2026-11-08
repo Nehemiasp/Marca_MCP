@@ -1,0 +1,7 @@
+{
+  "herramientasDeMarca": [],
+  "costoUsd": 0.027429500000000002,
+  "turnos": 2,
+  "duracionSeg": 11,
+  "respuesta": "He creado `salida.html` en la carpeta actual: una tarjeta autocontenida del panel de métricas, con vista previa de KPIs y gráfico, etiquetas y botones \"Ver demo\" y \"Código\" (los enlaces son `#`, así que tendrás que poner los tuyos)."
+}

@@ -1,0 +1,23 @@
+{
+  "codigoErrores": 11,
+  "codigoAvisos": 1,
+  "coloresFueraDePaleta": 5,
+  "coloresFueraDePaletaLista": [
+    "#1F2937",
+    "#8A5300",
+    "#F5A623",
+    "#F5F6F8",
+    "#FFF7E0"
+  ],
+  "fuentesAjenas": 1,
+  "fuentesAjenasLista": [
+    "system-ui"
+  ],
+  "fallosContraste": 0,
+  "paresContrasteRevisados": 4,
+  "vozErrores": 0,
+  "vozAvisos": 0,
+  "vozDetalle": [],
+  "degradados": 0,
+  "texto": "⏱️\nTiempo de respuesta\nRespondo todos los mensajes en un plazo de\ndos días hábiles"
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Propuesta de Servicios</title>
+<style>
+@page { size: A4; margin: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: #e5e7eb; }
+body { font-family: "Helvetica Neue", Arial, sans-serif; color: #14213d; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.page { width: 210mm; height: 297mm; margin: 0 auto; background: #fff; position: relative; overflow: hidden; display: flex; flex-direction: column; }
+.band { position: absolute; top: 0; left: 0; bottom: 0; width: 18mm; background: #14213d; }
+.accent { position: absolute; top: 0; left: 18mm; bottom: 0; width: 3mm; background: #e09f3e; }
+.content { margin-left: 21mm; padding: 24mm 22mm 20mm 24mm; flex: 1; display: flex; flex-direction: column; }
+.brand { font-size: 11pt; letter-spacing: 0.3em; text-transform: uppercase; font-weight: 700; }
+.brand span { color: #e09f3e; }
+.title-block { margin-top: auto; margin-bottom: auto; }
+.kicker { font-size: 10.5pt; letter-spacing: 0.25em; text-transform: uppercase; color: #e09f3e; font-weight: 700; margin-bottom: 8mm; }
+h1 { font-size: 46pt; line-height: 1.05; font-weight: 800; letter-spacing: -0.02em; }
+.rule { width: 30mm; height: 1.5mm; background: #e09f3e; margin: 10mm 0; }
+.subtitle { font-size: 14pt; line-height: 1.5; color: #4a5568; max-width: 115mm; }
+.meta { display: grid; grid-template-columns: 1fr 1fr; gap: 8mm 10mm; border-top: 0.3mm solid #cbd2dc; padding-top: 8mm; }
+.meta dt { font-size: 8pt; letter-spacing: 0.18em; text-transform: uppercase; color: #7a8497; margin-bottom: 1.5mm; }
+.meta dd { font-size: 11.5pt; font-weight: 600; }
+@media print { html, body { background: none; } .page { margin: 0; } }
+</style>
+</head>
+<body>
+<section class="page">
+  <div class="band"></div><div class="accent"></div>
+  <div class="content">
+    <div class="brand">Nombre<span>Empresa</span></div>
+    <div class="title-block">
+      <div class="kicker">Propuesta comercial</div>
+      <h1>Propuesta de<br>Servicios</h1>
+      <div class="rule"></div>
+      <p class="subtitle">Una solución a medida para impulsar los objetivos de su organización.</p>
+    </div>
+    <dl class="meta">
+      <div><dt>Preparado para</dt><dd>[Nombre del cliente]</dd></div>
+      <div><dt>Preparado por</dt><dd>[Nombre del responsable]</dd></div>
+      <div><dt>Fecha</dt><dd>8 de noviembre de 2026</dd></div>
+      <div><dt>Referencia · Validez</dt><dd>PS-2026-001 · 30 días</dd></div>
+    </dl>
+  </div>
+</section>
+</body>
+</html>

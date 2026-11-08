@@ -1,0 +1,7 @@
+{
+  "herramientasDeMarca": [],
+  "costoUsd": 0.11150270000000001,
+  "turnos": 4,
+  "duracionSeg": 48,
+  "respuesta": "He creado `salida.html` en la carpeta actual: un bloque de contacto con un código QR generado en el propio archivo, sin dependencias externas. No pude ejecutarlo ni escanear el QR, así que no está verificado. Los datos (nombre, correo, teléfono, web) son de relleno y hay que sustituirlos, tanto en el texto como en el `vcard` del script."
+}

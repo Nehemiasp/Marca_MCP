@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contacto – Propuesta</title>
+<style>
+  :root { --ink:#14213d; --muted:#5b6475; --accent:#0f766e; --bg:#f4f6f8; }
+  * { box-sizing: border-box; }
+  body { margin:0; padding:48px 20px; background:var(--bg); color:var(--ink);
+         font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .contacto { max-width:760px; margin:0 auto; background:#fff; border-radius:16px;
+              border-top:6px solid var(--accent); box-shadow:0 8px 30px rgba(20,33,61,.08);
+              padding:36px 40px; display:flex; gap:36px; align-items:center; flex-wrap:wrap; }
+  .texto { flex:1 1 320px; min-width:0; }
+  .etiqueta { margin:0 0 6px; font-size:.8rem; letter-spacing:.12em; text-transform:uppercase;
+              color:var(--accent); font-weight:700; }
+  h2 { margin:0 0 10px; font-size:1.7rem; line-height:1.2; }
+  .texto > p { margin:0 0 20px; color:var(--muted); line-height:1.5; }
+  dl { margin:0; display:grid; grid-template-columns:auto 1fr; gap:8px 16px; font-size:.98rem; }
+  dt { color:var(--muted); }
+  dd { margin:0; font-weight:600; overflow-wrap:anywhere; }
+  a { color:inherit; text-decoration:none; border-bottom:1px solid var(--accent); }
+  a:hover { color:var(--accent); }
+  figure { margin:0; text-align:center; flex:0 0 auto; }
+  #qr { width:180px; height:180px; display:block; margin:0 auto; padding:8px;
+        border:1px solid #e1e5ea; border-radius:10px; background:#fff; }
+  figcaption { margin-top:8px; font-size:.8rem; color:var(--muted); }
+  @media (max-width:560px) { .contacto { padding:28px 22px; justify-content:center; } }
+  @media print { body { background:#fff; padding:0; } .contacto { box-shadow:none; } }
+</style>
+</head>
+<body>
+<section class="contacto" aria-labelledby="t-contacto">
+  <div class="texto">
+    <p class="etiqueta">Siguientes pasos</p>
+    <h2 id="t-contacto">Hablemos de su proyecto</h2>
+    <p>Estaremos encantados de resolver dudas y ajustar esta propuesta a sus necesidades. Escanee el código para guardar nuestros datos.</p>
+    <dl>
+      <dt>Contacto</dt><dd>Nombre Apellido</dd>
+      <dt>Correo</dt><dd><a href="mailto:contacto@ejemplo.com">contacto@ejemplo.com</a></dd>
+      <dt>Teléfono</dt><dd><a href="tel:+34600000000">+34 600 000 000</a></dd>
+      <dt>Web</dt><dd><a href="https://www.ejemplo.com">www.ejemplo.com</a></dd>
+    </dl>
+  </div>
+  <figure>
+    <svg id="qr" role="img" aria-label="Código QR con los datos de contacto"></svg>
+    <figcaption>Escanee para guardar el contacto</figcaption>
+  </figure>
+</section>
+
+<script>
+// Generador de QR mínimo (modo byte, corrección M, versiones 1–10, máscara 0).
+(function () {
+  var ECC = [10,16,26,18,24,16,18,22,22,26];
+  var BLK = [1,1,2,2,4,4,4,5,5,8];
+
+  function mul(x, y) {
+    var z = 0;
+    for (var i = 7; i >= 0; i--) { z = (z << 1) ^ ((z >>> 7) * 0x11D); z ^= ((y >>> i) & 1) * x; }
+    return z;
+  }
+  function divisor(d) {
+    var r = [], i, j, root = 1;
+    for (i = 0; i < d - 1; i++) r.push(0);
+    r.push(1);
+    for (i = 0; i < d; i++) {
+      for (j = 0; j < d; j++) { r[j] = mul(r[j], root); if (j + 1 < d) r[j] ^= r[j + 1]; }
+      root = mul(root, 2);
+    }
+    return r;
+  }
+  function remainder(data, div) {
+    var r = div.map(function () { return 0; });
+    data.forEach(function (b) {
+      var f = b ^ r.shift(); r.push(0);
+      div.forEach(function (c, i) { r[i] ^= mul(c, f); });
+    });
+    return r;
+  }
+  function rawModules(v) {
+    var r = (16 * v + 128) * v + 64;
+    if (v >= 2) { var n = Math.floor(v / 7) + 2; r -= (25 * n - 10) * n - 55; if (v >= 7) r -= 36; }
+    return r;
+  }
+
+  function encode(text) {
+    var bytes = Array.from(new TextEncoder().encode(text));
+    var ver, cap;
+    for (ver = 1; ver <= 10; ver++) {
+      cap = Math.floor(rawModules(ver) / 8) - ECC[ver - 1] * BLK[ver - 1];
+      var need = Math.ceil((4 + (ver < 10 ? 8 : 16) + bytes.length * 8) / 8);
+      if (need <= cap) break;
+    }
+    if (ver > 10) throw new Error("Texto demasiado largo");
+    var bits = [];
+    function put(val, len) { for (var i = len - 1; i >= 0; i--) bits.push((val >>> i) & 1); }
+    put(4, 4); put(bytes.length, ver < 10 ? 8 : 16);
+    bytes.forEach(function (b) { put(b, 8); });
+    put(0, Math.min(4, cap * 8 - bits.length));
+    while (bits.length % 8) bits.push(0);
+    for (var pad = 0xEC; bits.length < cap * 8; pad ^= 0xEC ^ 0x11) put(pad, 8);
+    var data = [];
+    for (var i = 0; i < bits.length; i += 8) {
+      var b = 0; for (var k = 0; k < 8; k++) b = (b << 1) | bits[i + k]; data.push(b);
+    }
+
+    // Bloques + Reed-Solomon + intercalado
+    var nb = BLK[ver - 1], el = ECC[ver - 1], raw = Math.floor(rawModules(ver) / 8);
+    var nShort = nb - raw % nb, shortLen = Math.floor(raw / nb), div = divisor(el);
+    var blocks = [], p = 0;
+    for (i = 0; i < nb; i++) {
+      var dat = data.slice(p, p + shortLen - el + (i < nShort ? 0 : 1));
+      p += dat.length;
+      var ecc = remainder(dat, div);
+      if (i < nShort) dat.push(0);
+      blocks.push(dat.concat(ecc));
+    }
+    var all = [];
+    for (i = 0; i < blocks[0].length; i++)
+      blocks.forEach(function (bl, j) { if (i !== shortLen - el || j >= nShort) all.push(bl[i]); });
+
+    // Matriz
+    var size = ver * 4 + 17, m = [], f = [];
+    for (i = 0; i < size; i++) { m.push(new Array(size).fill(false)); f.push(new Array(size).fill(false)); }
+    function set(x, y, c) { m[y][x] = c; f[y][x] = true; }
+    for (i = 0; i < size; i++) { set(6, i, i % 2 === 0); set(i, 6, i % 2 === 0); }
+    function finder(cx, cy) {
+      for (var dy = -4; dy <= 4; dy++) for (var dx = -4; dx <= 4; dx++) {
+        var d = Math.max(Math.abs(dx), Math.abs(dy)), x = cx + dx, y = cy + dy;
+        if (x >= 0 && x < size && y >= 0 && y < size) set(x, y, d !== 2 && d !== 4);
+      }
+    }
+    finder(3, 3); finder(size - 4, 3); finder(3, size - 4);
+    var pos = [];
+    if (ver > 1) {
+      var na = Math.floor(ver / 7) + 2;
+      var step = Math.ceil((ver * 4 + 4) / (na * 2 - 2)) * 2;
+      pos = [6];
+      for (var q = size - 7; pos.length < na; q -= step) pos.splice(1, 0, q);
+    }
+    pos.forEach(function (ax, a) { pos.forEach(function (ay, b) {
+      var n = pos.length;
+      if ((a === 0 && b === 0) || (a === 0 && b === n - 1) || (a === n - 1 && b === 0)) return;
+      for (var dy = -2; dy <= 2; dy++) for (var dx = -2; dx <= 2; dx++)
+        set(ax + dx, ay + dy, Math.max(Math.abs(dx), Math.abs(dy)) !== 1);
+    }); });
+
+    // Formato (ECC M = 0, máscara 0)
+    var fd = (0 << 3) | 0, rem = fd;
+    for (i = 0; i < 10; i++) rem = (rem << 1) ^ ((rem >>> 9) * 0x537);
+    var fb = ((fd << 10) | rem) ^ 0x5412;
+    function bit(x, n) { return ((x >>> n) & 1) !== 0; }
+    for (i = 0; i <= 5; i++) set(8, i, bit(fb, i));
+    set(8, 7, bit(fb, 6)); set(8, 8, bit(fb, 7)); set(7, 8, bit(fb, 8));
+    for (i = 9; i < 15; i++) set(14 - i, 8, bit(fb, i));
+    for (i = 0; i < 8; i++) set(size - 1 - i, 8, bit(fb, i));
+    for (i = 8; i < 15; i++) set(8, size - 15 + i, bit(fb, i));
+    set(8, size - 8, true);
+    if (ver >= 7) {
+      rem = ver;
+      for (i = 0; i < 12; i++) rem = (rem << 1) ^ ((rem >>> 11) * 0x1F25);
+      var vb = (ver << 12) | rem;
+      for (i = 0; i < 18; i++) {
+        var c = bit(vb, i), a2 = size - 11 + i % 3, b2 = Math.floor(i / 3);
+        set(a2, b2, c); set(b2, a2, c);
+      }
+    }
+
+    // Datos en zigzag + máscara 0
+    var idx = 0;
+    for (var right = size - 1; right >= 1; right -= 2) {
+      if (right === 6) right = 5;
+      for (var vert = 0; vert < size; vert++) for (var j = 0; j < 2; j++) {
+        var x = right - j, up = ((right + 1) & 2) === 0, y = up ? size - 1 - vert : vert;
+        if (!f[y][x] && idx < all.length * 8) {
+          m[y][x] = ((all[idx >>> 3] >>> (7 - (idx & 7))) & 1) !== 0; idx++;
+        }
+        if (!f[y][x] && (x + y) % 2 === 0) m[y][x] = !m[y][x];
+      }
+    }
+    return m;
+  }
+
+  var vcard = "BEGIN:VCARD\nVERSION:3.0\nFN:Nombre Apellido\nEMAIL:contacto@ejemplo.com\nTEL:+34600000000\nURL:https://www.ejemplo.com\nEND:VCARD";
+  var m = encode(vcard), n = m.length, q = 4, d = "";
+  for (var y = 0; y < n; y++) for (var x = 0; x < n; x++)
+    if (m[y][x]) d += "M" + (x + q) + " " + (y + q) + "h1v1h-1z";
+  var svg = document.getElementById("qr"), t = n + q * 2;
+  svg.setAttribute("viewBox", "0 0 " + t + " " + t);
+  svg.setAttribute("shape-rendering", "crispEdges");
+  svg.innerHTML = '<rect width="' + t + '" height="' + t + '" fill="#fff"/><path d="' + d + '" fill="#000"/>';
+})();
+</script>
+</body>
+</html>

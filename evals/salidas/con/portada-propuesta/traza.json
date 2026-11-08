@@ -1,0 +1,14 @@
+{
+  "herramientasDeMarca": [
+    "obtener_tokens",
+    "buscar_componente",
+    "obtener_componente",
+    "obtener_componente",
+    "obtener_asset",
+    "revisar_texto"
+  ],
+  "costoUsd": 0.0844671,
+  "turnos": 8,
+  "duracionSeg": 21,
+  "respuesta": "Listo: `salida.html` es una portada A4 con los tokens de la marca. Le falta reemplazar el marcador «[Nombre del cliente]» por el nombre real, y las fuentes Bricolage Grotesque e Instrument Sans no van incrustadas, así que si no están instaladas se verá la tipografía de reserva."
+}

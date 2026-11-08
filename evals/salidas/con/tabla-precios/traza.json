@@ -1,0 +1,12 @@
+{
+  "herramientasDeMarca": [
+    "obtener_tokens",
+    "buscar_componente",
+    "obtener_componente",
+    "revisar_texto"
+  ],
+  "costoUsd": 0.0788037,
+  "turnos": 6,
+  "duracionSeg": 20,
+  "respuesta": "Creé `salida.html` en la carpeta actual: una tabla comparativa con tres planes (Esencial $900, Producto $2.800 y Sistema $6.500), con montos de ejemplo marcados como tales y los tokens de la marca. La revisión de texto no encontró hallazgos, pero no pasé el código por `auditar_codigo` ni revisé el contraste."
+}

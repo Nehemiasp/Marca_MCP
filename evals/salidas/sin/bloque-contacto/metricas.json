@@ -1,0 +1,23 @@
+{
+  "codigoErrores": 13,
+  "codigoAvisos": 6,
+  "coloresFueraDePaleta": 5,
+  "coloresFueraDePaletaLista": [
+    "#0F766E",
+    "#14213D",
+    "#5B6475",
+    "#E1E5EA",
+    "#F4F6F8"
+  ],
+  "fuentesAjenas": 1,
+  "fuentesAjenasLista": [
+    "system-ui"
+  ],
+  "fallosContraste": 0,
+  "paresContrasteRevisados": 12,
+  "vozErrores": 0,
+  "vozAvisos": 0,
+  "vozDetalle": [],
+  "degradados": 0,
+  "texto": "Siguientes pasos\nHablemos de su proyecto\nEstaremos encantados de resolver dudas y ajustar e\nContacto\nNombre Apellido\nCorreo\ncontacto@ejemplo.com\nTeléfono\n+34 600 000 000\nWeb\nwww.ejemplo.com\nEscanee para guardar el contacto"
+}

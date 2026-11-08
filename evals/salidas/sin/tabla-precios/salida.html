@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Planes de servicios de diseño</title>
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:#f5f6fa;color:#1f2433;padding:48px 16px}
+  h1{text-align:center;margin:0 0 8px;font-size:2rem}
+  p.sub{text-align:center;margin:0 0 36px;color:#5b6275}
+  .wrap{max-width:960px;margin:0 auto;overflow-x:auto}
+  table{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 6px 24px rgba(20,30,70,.08)}
+  th,td{padding:16px 18px;text-align:center;border-bottom:1px solid #e8eaf2}
+  thead th{vertical-align:bottom;padding-top:28px}
+  th:first-child,td:first-child{text-align:left;font-weight:600}
+  .plan{font-size:1.1rem}
+  .precio{font-size:2rem;font-weight:700;display:block;margin-top:6px}
+  .precio small{font-size:.85rem;font-weight:400;color:#5b6275}
+  th.dest{background:#3d4cf2;color:#fff}
+  th.dest .precio small{color:#d9dcff}
+  td.dest{background:#f0f2ff}
+  .tag{display:inline-block;font-size:.7rem;background:#ffd24a;color:#4a3700;border-radius:99px;padding:2px 10px;margin-bottom:6px}
+  .si{color:#1a9b57;font-weight:700}
+  .no{color:#b0b5c4}
+  tfoot td{border-bottom:none;padding:22px 18px}
+  a.btn{display:inline-block;padding:10px 22px;border-radius:8px;background:#1f2433;color:#fff;text-decoration:none;font-weight:600}
+  a.btn.dest{background:#3d4cf2}
+</style>
+</head>
+<body>
+<h1>Planes de servicios de diseño</h1>
+<p class="sub">Elige el plan que mejor se adapte a tu proyecto. Montos de ejemplo en USD.</p>
+<div class="wrap">
+<table>
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col"><span class="plan">Básico</span><span class="precio">$250 <small>/ proyecto</small></span></th>
+      <th scope="col" class="dest"><span class="tag">Más popular</span><br><span class="plan">Profesional</span><span class="precio">$750 <small>/ proyecto</small></span></th>
+      <th scope="col"><span class="plan">Premium</span><span class="precio">$1,800 <small>/ proyecto</small></span></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Diseño de logotipo</td><td>1 propuesta</td><td class="dest">3 propuestas</td><td>5 propuestas</td></tr>
+    <tr><td>Rondas de revisión</td><td>1</td><td class="dest">3</td><td>Ilimitadas</td></tr>
+    <tr><td>Paleta de colores y tipografías</td><td class="no">—</td><td class="dest si">✓</td><td class="si">✓</td></tr>
+    <tr><td>Manual de identidad de marca</td><td class="no">—</td><td class="dest si">✓</td><td class="si">✓</td></tr>
+    <tr><td>Piezas para redes sociales</td><td class="no">—</td><td class="dest">5 plantillas</td><td>15 plantillas</td></tr>
+    <tr><td>Diseño web (maquetas)</td><td class="no">—</td><td class="dest no">—</td><td class="si">✓</td></tr>
+    <tr><td>Archivos fuente editables</td><td class="no">—</td><td class="dest si">✓</td><td class="si">✓</td></tr>
+    <tr><td>Tiempo de entrega</td><td>7 días</td><td class="dest">14 días</td><td>30 días</td></tr>
+    <tr><td>Soporte</td><td>Correo</td><td class="dest">Correo y chat</td><td>Prioritario</td></tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td></td>
+      <td><a class="btn" href="#">Elegir Básico</a></td>
+      <td class="dest"><a class="btn dest" href="#">Elegir Profesional</a></td>
+      <td><a class="btn" href="#">Elegir Premium</a></td>
+    </tr>
+  </tfoot>
+</table>
+</div>
+</body>
+</html>

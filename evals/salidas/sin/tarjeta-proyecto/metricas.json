@@ -1,0 +1,28 @@
+{
+  "codigoErrores": 18,
+  "codigoAvisos": 13,
+  "coloresFueraDePaleta": 7,
+  "coloresFueraDePaletaLista": [
+    "#0F172A",
+    "#334155",
+    "#4338CA",
+    "#475569",
+    "#4F46E5",
+    "#CBD5E1",
+    "#EEF2FF"
+  ],
+  "fuentesAjenas": 1,
+  "fuentesAjenasLista": [
+    "system-ui"
+  ],
+  "fallosContraste": 6,
+  "paresContrasteRevisados": 13,
+  "vozErrores": 0,
+  "vozAvisos": 2,
+  "vozDetalle": [
+    "cifra-por-verificar: «18%»",
+    "cifra-por-verificar: «94%»"
+  ],
+  "degradados": 1,
+  "texto": "2.4k\nVisitas\n+18%\nCrecimiento\n94%\nObjetivos\nPanel de métricas para equipos pequeños\nUn panel simple que reúne los indicadores clave de\nDashboard\nVisualización de datos\nEquipos\nVer demo\nCódigo"
+}

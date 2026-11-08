@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nehemias Pérez — Diseñador</title>
+<style>
+  :root{--bg:#0f0f12;--fg:#f4f1ea;--muted:#9a978f;--accent:#ff5a36}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--fg);font-family:Georgia,"Times New Roman",serif;min-height:100vh}
+  .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:space-between;padding:2rem clamp(1.5rem,6vw,5rem);position:relative;overflow:hidden}
+  nav{display:flex;justify-content:space-between;align-items:center;font-family:system-ui,sans-serif;font-size:.9rem}
+  nav .logo{font-weight:700;letter-spacing:.05em}
+  nav ul{display:flex;gap:2rem;list-style:none}
+  nav a{color:var(--muted);text-decoration:none;transition:color .2s}
+  nav a:hover{color:var(--fg)}
+  .content{max-width:62rem;position:relative;z-index:1}
+  .tag{font-family:system-ui,sans-serif;font-size:.85rem;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem}
+  h1{font-size:clamp(2.8rem,9vw,8rem);line-height:1;font-weight:400;letter-spacing:-.03em}
+  h1 em{color:var(--accent);font-style:italic}
+  p.lead{font-family:system-ui,sans-serif;font-size:clamp(1rem,1.6vw,1.25rem);color:var(--muted);max-width:34rem;margin:2rem 0;line-height:1.6}
+  .cta{display:flex;gap:1rem;flex-wrap:wrap;font-family:system-ui,sans-serif}
+  .btn{padding:.9rem 1.8rem;border-radius:999px;text-decoration:none;font-weight:600;font-size:.95rem;transition:transform .2s}
+  .btn:hover{transform:translateY(-2px)}
+  .primary{background:var(--accent);color:#0f0f12}
+  .ghost{border:1px solid #3a3a40;color:var(--fg)}
+  .orb{position:absolute;right:-8vw;top:15%;width:min(45vw,520px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 30% 30%,var(--accent),#7a1fff 60%,transparent 72%);filter:blur(40px);opacity:.55;animation:float 10s ease-in-out infinite}
+  @keyframes float{50%{transform:translateY(-30px) scale(1.05)}}
+  footer{font-family:system-ui,sans-serif;font-size:.8rem;color:var(--muted);display:flex;justify-content:space-between}
+  @media(max-width:640px){nav ul{gap:1rem}}
+  @media(prefers-reduced-motion:reduce){.orb{animation:none}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <nav>
+    <span class="logo">NP</span>
+    <ul>
+      <li><a href="#trabajos">Trabajos</a></li>
+      <li><a href="#sobre-mi">Sobre mí</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+  </nav>
+  <div class="orb" aria-hidden="true"></div>
+  <div class="content">
+    <p class="tag">Portafolio · Diseñador</p>
+    <h1>Hola, soy<br><em>Nehemias Pérez</em></h1>
+    <p class="lead">Diseño experiencias e identidades claras, cuidadas y con personalidad, que ayudan a las marcas a comunicar lo que son.</p>
+    <div class="cta">
+      <a class="btn primary" href="#trabajos">Ver mis trabajos</a>
+      <a class="btn ghost" href="#contacto">Hablemos</a>
+    </div>
+  </div>
+  <footer>
+    <span>Disponible para nuevos proyectos</span>
+    <span>Scroll ↓</span>
+  </footer>
+</header>
+</body>
+</html>
