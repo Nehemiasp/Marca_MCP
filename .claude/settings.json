@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd \"$CLAUDE_PROJECT_DIR\" && npm test --silent 2>&1 | tail -n 15",
+            "timeout": 120
+          }
+        ]
+      }
+    ]
+  }
+}
