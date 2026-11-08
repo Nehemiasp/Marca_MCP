@@ -24,7 +24,7 @@ Formato de cada línea de las listas que siguen (las lee `revisar_texto`; edíte
 
 ## Palabras prohibidas
 - innovador* → describa qué hace distinto, con un hecho
-- innovación → describa el cambio concreto
+- innovación* → describa el cambio concreto
 - apasionad* → muestre el interés con un ejemplo, no lo declare
 - siguiente nivel → diga qué mejora y cuánto
 - al siguiente nivel → diga qué mejora y cuánto
@@ -57,10 +57,10 @@ Formato de cada línea de las listas que siguen (las lee `revisar_texto`; edíte
 - mejores prácticas de la industria
 
 ## Cifras y clientes
-`revisar_texto` marca como **por verificar** cualquier porcentaje, multiplicador («3x»), «más de N clientes» o similar, y los nombres de clientes que figuren en `## Clientes verificados` si no están allí. Agregue solo datos reales.
+`revisar_texto` marca como **por verificar** cualquier porcentaje, multiplicador («3x») o conteo («más de 20 clientes», «15 proyectos»). Si el dato es real, agréguelo a la lista de abajo y deja de marcarse. Las cifras y los clientes solo se mencionan si son reales.
 
-## Clientes verificados
-(Vacío. Agregue aquí, uno por línea, los clientes que puede mencionar públicamente.)
+## Cifras y clientes verificados
+(Vacío. Una viñeta por dato real que puede usar en público, con las mismas palabras con que lo escribirá. Ejemplo: `- 12 proyectos entregados`.)
 
 ## Trato con clientes (usted)
 Cuando el contexto es «cliente», `revisar_texto` señala el trato de «tú».

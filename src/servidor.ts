@@ -1,4 +1,5 @@
 import { McpServer } from '@modelcontextprotocol/server';
+import { registrarHerramientas } from './herramientas.js';
 import { registrarRecursos } from './recursos.js';
 import { NOMBRE_SERVIDOR, VERSION_SERVIDOR } from './version.js';
 
@@ -11,5 +12,6 @@ Las herramientas de revisión no corrigen: devuelven hallazgos y sugerencias. Su
 export function crearServidor(): McpServer {
   const server = new McpServer({ name: NOMBRE_SERVIDOR, version: VERSION_SERVIDOR }, { instructions: INSTRUCCIONES });
   registrarRecursos(server);
+  registrarHerramientas(server);
   return server;
 }

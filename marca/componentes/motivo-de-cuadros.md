@@ -53,7 +53,7 @@ Archivos: `motivo-claro.svg`, `motivo-oscuro.svg`, `motivo-mini-claro.svg`, `mot
 
 <style>
   .motivo-mini { --lado: 26px; --hueco: 4px; display: grid; grid-template-columns: repeat(2, var(--lado)); gap: var(--hueco); }
-  .motivo-mini__c { display: block; width: var(--lado); height: var(--lado); border-radius: 5px; }
+  .motivo-mini__c { display: block; width: var(--lado); height: var(--lado); border-radius: var(--radius-sm); }
   .motivo-mini__c--tinta { background: var(--color-tinta); }
   .motivo-mini__c--suave { background: var(--color-suave); }
   .motivo-mini__pildora { grid-column: 1 / -1; height: var(--lado); border-radius: var(--radius-pill); background: var(--color-azul); }
@@ -65,8 +65,8 @@ Archivos: `motivo-claro.svg`, `motivo-oscuro.svg`, `motivo-mini-claro.svg`, `mot
 export function MotivoMini({ oscuro = false }: { oscuro?: boolean }) {
   return (
     <div aria-hidden="true" className="grid grid-cols-[repeat(2,1.625rem)] gap-1">
-      <i className={`block size-[1.625rem] rounded-[5px] ${oscuro ? 'bg-blanco' : 'bg-tinta'}`} />
-      <i className={`block size-[1.625rem] rounded-[5px] ${oscuro ? 'bg-oscuro-cuadro' : 'bg-suave'}`} />
+      <i className={`block size-[1.625rem] rounded-sm ${oscuro ? 'bg-blanco' : 'bg-tinta'}`} />
+      <i className={`block size-[1.625rem] rounded-sm ${oscuro ? 'bg-oscuro-cuadro' : 'bg-suave'}`} />
       <i className={`col-span-2 h-[1.625rem] rounded-pill ${oscuro ? 'bg-oscuro-acento' : 'bg-azul'}`} />
     </div>
   );
