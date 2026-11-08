@@ -45,7 +45,7 @@ const VALORES_ESPECIALES = ['inherit', 'initial', 'unset', 'revert'];
 const TAILWIND_PALETAS = 'slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose';
 
 const escalaTamanos = (): { ruta: string; px: number }[] =>
-  cargarTokens().tokens.filter((t) => t.ruta.startsWith('tipografia.tamano.')).map((t) => ({ ruta: t.ruta, px: parseFloat(String(t.valor)) }));
+  cargarTokens().tokens.filter((t) => t.ruta.startsWith('tipografia.tamano.') || t.ruta.startsWith('tipografia.tamano-lienzo.')).map((t) => ({ ruta: t.ruta, px: parseFloat(String(t.valor)) }));
 const escalaRadios = (): { ruta: string; px: number }[] =>
   cargarTokens().tokens.filter((t) => t.categoria === 'radio').map((t) => ({ ruta: t.ruta, px: parseFloat(String(t.valor)) }));
 

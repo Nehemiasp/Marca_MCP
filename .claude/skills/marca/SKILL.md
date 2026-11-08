@@ -21,6 +21,7 @@ Esta skill usa el servidor MCP **marca** (herramientas `mcp__marca__…`). Si no
 5. Si el proyecto usa CSS o Tailwind, genere los tokens con `exportar_tokens` (`css` o `tailwind4`) y úselos como variables o utilidades.
 
 ## Mientras construye
+- Para piezas de lienzo fijo de 1080 px o más (redes, diapositivas) use la escala de lienzo: `var(--text-lienzo-base)`, `var(--text-lienzo-5xl)`… No mezcle las dos escalas.
 - Todo valor sale de un token: `var(--color-azul)`, `var(--text-lg)`, `var(--radius-md)` o la utilidad equivalente de Tailwind.
 - No agregue un color, una fuente ni un radio que no esté en los tokens. Si hace falta uno nuevo, avise en vez de inventarlo.
 

@@ -98,12 +98,12 @@ export function registrarPrompts(server: McpServer): void {
     redes: {
       formato: 'Publicación para redes sociales de 1080 × 1350 px (retrato), en HTML + CSS.',
       componentes: ['encabezado-de-seccion', 'etiqueta', 'motivo-de-cuadros'],
-      notas: 'Un solo mensaje, frases cortas, una sola palabra destacada en azul. Tono directo en primera persona; sin relleno ni cifras no reales.'
+      notas: 'Use la escala de lienzo (--text-lienzo-*): es una pieza de 1080 px. Un solo mensaje, frases cortas, una sola palabra destacada en azul. Tono directo en primera persona; sin relleno ni cifras no reales.'
     },
     presentacion: {
       formato: 'Presentación 16:9 (1920 × 1080 px), una diapositiva por sección, en HTML + CSS.',
       componentes: ['portada-de-documento', 'encabezado-de-seccion', 'tarjeta-de-proyecto', 'tabla', 'bloque-de-contacto', 'motivo-de-cuadros'],
-      notas: 'Portada con la misma composición del documento; diapositivas interiores con encabezado de sección y poco texto; cierre con contacto. Puede alternar claro y oscuro con las variantes oscuras.'
+      notas: 'Use la escala de lienzo (--text-lienzo-*): es una pieza de 1920 px. Portada con la misma composición del documento; diapositivas interiores con encabezado de sección y poco texto; cierre con contacto. Puede alternar claro y oscuro con las variantes oscuras.'
     }
   } as const;
 

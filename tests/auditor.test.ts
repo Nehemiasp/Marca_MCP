@@ -283,3 +283,21 @@ describe('auditar_codigo · declaraciones dentro de style="…"', () => {
     expect(v('<p style="border-radius: var(--radius-md)">Mira 8px de margen</p>')).toEqual([]);
   });
 });
+
+describe('auditar_codigo · escala de lienzo', () => {
+  const v = (css: string) => auditarCodigo(css, 'css').map((h) => `${h.severidad}:${h.token ?? ''}`);
+  it('un tamaño de la escala de lienzo escrito a mano es un aviso que apunta al token', () => {
+    expect(v('p{font-size:32px}')).toEqual(['aviso:tipografia.tamano-lienzo.base']);
+    expect(v('h1{font-size:96px}')).toEqual(['aviso:tipografia.tamano-lienzo.4xl']);
+  });
+  it('un tamaño que no está en ninguna de las dos escalas sigue siendo error', () => {
+    expect(v('h1{font-size:136px}')).toEqual(['error:tipografia.tamano-lienzo.5xl']);
+    expect(v('p{font-size:17px}')).toEqual(['error:tipografia.tamano.base']);
+  });
+  it('var(--text-lienzo-*) no genera hallazgos', () => {
+    expect(v('h1{font-size:var(--text-lienzo-5xl)}')).toEqual([]);
+  });
+  it('un tamaño que está en las dos escalas (28 px) apunta a la base', () => {
+    expect(v('p{font-size:28px}')).toEqual(['aviso:tipografia.tamano.2xl']);
+  });
+});

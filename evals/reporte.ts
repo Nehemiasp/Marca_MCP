@@ -114,21 +114,27 @@ export function generarReporte(resultados: Resultado[]): string {
     ''
   );
 
-  // Totales
+  // Totales: sin servidor, y con servidor en la corrida 1 (antes de cambiar la skill) y en la corrida 2 (la última)
+  const c1 = leerCorrida(CORRIDAS_CON[0]!.base, 'con');
+  const filasSin = sin.map((r) => ({ tarea: r.tarea, metricas: r.metricas, traza: r.traza }));
+  const filasC2 = con.map((r) => ({ tarea: r.tarea, metricas: r.metricas, traza: r.traza }));
+  const tSin = totalesDeCorrida(filasSin);
+  const tC1 = totalesDeCorrida(c1.length ? c1 : filasC2);
+  const tC2 = totalesDeCorrida(filasC2);
   L.push('## Resumen', '');
-  L.push('| Métrica (menos es mejor) | Sin servidor (total) | Con servidor (total) | Sin (promedio por tarea) | Con (promedio por tarea) |', '|---|---:|---:|---:|---:|');
-  for (const m of METRICAS) {
-    const a = sin.map((r) => Number(r.metricas[m.clave]));
-    const b = con.map((r) => Number(r.metricas[m.clave]));
-    L.push(`| ${m.nombre} | ${suma(a)} | ${suma(b)} | ${f1(media(a))} | ${f1(media(b))} |`);
-  }
-  const sinCumple = sin.filter((r) => METRICAS.every((m) => Number(r.metricas[m.clave]) === 0)).length;
-  const conCumple = con.filter((r) => METRICAS.every((m) => Number(r.metricas[m.clave]) === 0)).length;
-  L.push(`| **Tareas sin ningún hallazgo** | ${sinCumple} de ${sin.length} | ${conCumple} de ${con.length} | | |`);
-  const costo = (rs: Resultado[]) => suma(rs.map((r) => r.traza.costoUsd ?? 0));
-  const turnos = (rs: Resultado[]) => media(rs.map((r) => r.traza.turnos ?? NaN).filter(Number.isFinite));
-  L.push(`| Costo de las corridas (USD) | ${usd(costo(sin))} | ${usd(costo(con))} | ${usd(costo(sin) / (sin.length || 1))} | ${usd(costo(con) / (con.length || 1))} |`);
-  L.push(`| Turnos del agente (promedio) | ${f1(turnos(sin))} | ${f1(turnos(con))} | | |`, '');
+  L.push('«Con servidor» se midió dos veces: la **corrida 1** es la primera medición; en la **corrida 2** ya se había reforzado la skill. Más corridas y variantes en [Todas las corridas](#todas-las-corridas).', '');
+  L.push('| Métrica (menos es mejor) | Sin servidor | Con servidor · corrida 1 | Con servidor · corrida 2 |', '|---|---:|---:|---:|');
+  const filaResumen = (nombre: string, f: (t: ReturnType<typeof totalesDeCorrida>) => string | number) => L.push(`| ${nombre} | ${f(tSin)} | ${f(tC1)} | ${f(tC2)} |`);
+  filaResumen('Valores fuera de los tokens en el código (`auditar_codigo`, errores)', (t) => t.codigo);
+  filaResumen('Colores renderizados fuera de la paleta', (t) => t.colores);
+  filaResumen('Fuentes ajenas a la marca (renderizadas)', (t) => t.fuentes);
+  filaResumen('Textos que no llegan a AA de contraste', (t) => t.contraste);
+  filaResumen('Fallos de voz (`revisar_texto`, errores)', (t) => t.voz);
+  filaResumen('Avisos de voz (cifras por verificar, relleno)', (t) => suma(((t === tSin ? filasSin : t === tC1 ? (c1.length ? c1 : filasC2) : filasC2)).map((f) => f.metricas.vozAvisos)));
+  filaResumen('**Tareas sin ningún hallazgo**', (t) => `${t.sinHallazgos} de ${t.tareas}`);
+  filaResumen('Costo de las corridas (USD)', (t) => usd(t.costo));
+  filaResumen('Turnos del agente (promedio)', (t) => f1(t.turnos));
+  L.push('');
 
   // Corridas de la condición «con servidor»
   const corridas = CORRIDAS_CON.map((c) => ({ ...c, filas: leerCorrida(c.base, c.condicion) })).filter((c) => c.filas.length > 0);
@@ -164,7 +170,7 @@ export function generarReporte(resultados: Resultado[]): string {
   }
 
   // Detalle
-  L.push('## Detalle por tarea', '');
+  L.push('## Detalle por tarea (última corrida de cada condición)', '');
   L.push('| Tarea | Condición | Código | Colores fuera | Fuentes ajenas | Contraste | Voz | Usó el servidor | Costo | Turnos |', '|---|---|---:|---:|---:|---:|---:|---|---:|---:|');
   for (const t of TAREAS) {
     for (const c of CONDICIONES) {

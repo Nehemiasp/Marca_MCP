@@ -1,5 +1,6 @@
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { conectar } from './cliente.js';
+import { cargarTokens } from '../src/nucleo/tokens.js';
 
 let ctx: Awaited<ReturnType<typeof conectar>>;
 beforeAll(async () => { ctx = await conectar(); });
@@ -28,9 +29,10 @@ describe('catálogo de herramientas', () => {
 });
 
 describe('obtener_tokens', () => {
-  it('sin categoría devuelve los 60 tokens', async () => {
+  it('sin categoría devuelve todos los tokens', async () => {
     const r = await llamar('obtener_tokens', {});
-    expect(r.s.total).toBe(60);
+    expect(r.s.total).toBe(cargarTokens().tokens.length);
+    expect(r.s.total).toBeGreaterThanOrEqual(78);
     expect(r.s.tokens.find((t: any) => t.ruta === 'color.azul')).toMatchObject({ valor: '#043565', variable: '--color-azul' });
   });
   it('filtra por categoría', async () => {

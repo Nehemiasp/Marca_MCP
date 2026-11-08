@@ -43,9 +43,9 @@ describe('material del caso de estudio', () => {
     expect(caso).toContain(`| Piezas sin ningún hallazgo | ${c1.sinHallazgos} de 7 | ${c2.sinHallazgos} de 7 | ${c3.sinHallazgos} de 7 | ${h.sinHallazgos} de 7 |`);
     const audit = (t: typeof c1) => `${t.usoRevision['auditar_codigo']} de 7`;
     expect(caso).toContain(`| Veces que corrió \`auditar_codigo\` | ${audit(c1)} | ${audit(c2)} | ${audit(c3)} | ${audit(h)} |`);
-    // El texto afirma «9 de 16 guardados bloqueados» y «de 130 errores a cero»:
+    // El texto afirma «9 de 16 guardados bloqueados» y «de 126 errores a cero»:
     expect(`${h.hookBloqueos} de ${h.hookDisparos}`).toBe('9 de 16');
-    expect(sin.codigo).toBe(130);
+    expect(sin.codigo).toBe(126);
   });
 });
 

@@ -4,6 +4,7 @@ import { buscarComponentes, terminos } from '../src/nucleo/busqueda.js';
 import { exportarTokens, nombreVariable, variablesDefinidas } from '../src/nucleo/exportadores.js';
 import { codigoDe, listarComponentes } from '../src/nucleo/componentes.js';
 import { leerColor } from '../src/nucleo/color.js';
+import { cargarTokens } from '../src/nucleo/tokens.js';
 
 describe('revisar_color (núcleo)', () => {
   it('un color de la paleta devuelve su token', () => {
@@ -89,7 +90,7 @@ describe('exportar_tokens (núcleo)', () => {
     const json = JSON.parse(exportarTokens('json').contenido);
     expect(json['color.azul']).toBe('#043565');
     expect(json['tipografia.peso.extranegrita']).toBe(800);
-    expect(Object.keys(json).length).toBe(60);
+    expect(Object.keys(json).length).toBe(cargarTokens().tokens.length);
   });
   it('los nombres de variable siguen la convención', () => {
     expect(nombreVariable('color.oscuro.acento')).toBe('--color-oscuro-acento');
@@ -97,7 +98,7 @@ describe('exportar_tokens (núcleo)', () => {
     expect(nombreVariable('espaciado.base')).toBe('--spacing-base');
   });
   it('no hay dos tokens con el mismo nombre de variable', () => {
-    expect(variablesDefinidas().size).toBe(60);
+    expect(variablesDefinidas().size).toBe(cargarTokens().tokens.length);
   });
 });
 
@@ -124,5 +125,23 @@ describe('coherencia entre componentes y tokens', () => {
       expect(eh, `${c.nombre} html: ${JSON.stringify(eh.map((x) => x.mensaje))}`).toEqual([]);
       expect(er, `${c.nombre} react: ${JSON.stringify(er.map((x) => x.mensaje))}`).toEqual([]);
     }
+  });
+});
+
+describe('escala de lienzo', () => {
+  it('es el doble de la escala base, tamaño y altura de línea', () => {
+    const { porRuta } = cargarTokens();
+    for (const nombre of ['xs', 'sm', 'base', 'lg', 'xl', '2xl', '3xl', '4xl', '5xl']) {
+      const px = (ruta: string) => parseFloat(String(porRuta.get(ruta)?.valor));
+      expect(px(`tipografia.tamano-lienzo.${nombre}`), nombre).toBe(px(`tipografia.tamano.${nombre}`) * 2);
+      expect(px(`tipografia.interlineado-lienzo.${nombre}`), nombre).toBe(px(`tipografia.interlineado.${nombre}`) * 2);
+    }
+  });
+  it('se exporta con nombres compatibles con Tailwind (text-lienzo-*)', () => {
+    expect(nombreVariable('tipografia.tamano-lienzo.base')).toBe('--text-lienzo-base');
+    expect(nombreVariable('tipografia.interlineado-lienzo.5xl')).toBe('--text-lienzo-5xl--line-height');
+    const css = exportarTokens('tailwind4').contenido;
+    expect(css).toContain('--text-lienzo-base: 32px;');
+    expect(css).toContain('--text-lienzo-5xl--line-height: 128px;');
   });
 });

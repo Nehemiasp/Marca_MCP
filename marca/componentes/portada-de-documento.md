@@ -22,7 +22,7 @@ Primera página de una propuesta, informe, CV o presentación. Composición fija
 ## Variantes y estados
 - **Claro:** fondo `color.fondo`, título `color.tinta`, palabra destacada y eyebrow `color.azul`, motivo `motivo-claro.svg`.
 - **Oscuro:** fondo `color.tinta`, título `color.oscuro.texto`, destacado `color.oscuro.acento`, motivo `motivo-oscuro.svg`.
-Sin estados. Formato A4 vertical o 16:9 para presentaciones; mismas proporciones.
+Sin estados. Formato A4 vertical o 16:9 para presentaciones; mismas proporciones. En 16:9 (1920 px) los tamaños de letra salen de la escala de lienzo (`tipografia.tamano-lienzo.*`), no de la base.
 
 ## Tokens que usa
 `color.fondo`, `color.tinta`, `color.azul`, `color.apagado` (metadatos, sobre `color.fondo`), `color.linea`, `tipografia.familia.titulo` (`tipografia.tamano.5xl`, `-0.02em`), eyebrow con `0.12em`, `espaciado.xl` y `espaciado.3xl` (márgenes).

@@ -198,5 +198,15 @@
     "causa": "En la condición «con servidor» la carpeta `.claude` se creaba al copiar la skill. En la condición «sin servidor» no hay skill, así que no existía y la escritura del hook falló.",
     "solucion": "Creo la carpeta antes de escribir la configuración del hook.",
     "aprendizaje": "Un código que solo se probó con una condición supone cosas de esa condición. La segunda lo desmintió en el primer intento."
+  },
+  {
+    "id": "2026-11-08-mi-escala-tipografica-no-llegaba-a-1080-px",
+    "fecha": "2026-11-08",
+    "fase": "9",
+    "titulo": "Mi escala tipográfica no llegaba a una publicación de 1080 px",
+    "salida": "L31:23 tamano 24px (24px) no está en la escala tipográfica. Más cercano: tipografia.tamano.xl (22px).\nL35:56 tamano 136px (136px) no está en la escala tipográfica. Más cercano: tipografia.tamano.5xl (64px).\nL39:29 tamano 32px (32px) no está en la escala tipográfica. Más cercano: tipografia.tamano.2xl (28px).\n— auditar_codigo sobre la publicación para redes de la corrida 2 (con servidor)",
+    "causa": "El agente hizo lo que el prompt `pieza_de_marca` pedía: una pieza de 1080 px. Pero mi escala termina en 64 px, pensada para pantalla y documentos. El sistema le pedía un tamaño y su propio auditor se lo rechazaba.",
+    "solucion": "Agregué una escala de lienzo, `tipografia.tamano-lienzo.*`, igual al doble de la base, para lienzos de 1080 px o más. Los prompts, la skill y las reglas la mencionan. Con ella, 24 y 32 son válidos; el 136 sigue fuera (el más cercano es 128). Volví a medir todas las corridas guardadas.",
+    "aprendizaje": "Una contradicción entre dos piezas de mi propio sistema (el prompt y la escala) apareció como error de un agente. Antes de culpar a la herramienta, hay que revisar si lo que se le pidió era posible."
   }
 ]

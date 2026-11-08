@@ -17,6 +17,8 @@ export function nombreVariable(ruta: string): string {
         case 'peso': return `--font-weight-${n}`;
         case 'tamano': return `--text-${n}`;
         case 'interlineado': return `--text-${n}--line-height`;
+        case 'tamano-lienzo': return `--text-lienzo-${n}`;
+        case 'interlineado-lienzo': return `--text-lienzo-${n}--line-height`;
         case 'espaciado-letras': return `--tracking-${n}`;
         default: return `--${ruta.replace(/\./g, '-')}`;
       }

@@ -75,7 +75,7 @@ Con `font-family: "Instrument Sans", sans-serif` pasa.
 
 **2. El auditor solo leía la primera fuente si la lista empezaba con comillas.** Lo descubrí al probar el punto anterior. `"Instrument Sans", Arial` pasaba sin hallazgo, porque la expresión capturaba solo `Instrument Sans`. Existía desde que escribí el auditor.
 
-**3. Mi corrección rompió un caso.** Al arreglar el punto 2, el atributo de un SVG, `font-family="'Bricolage Grotesque', 'Instrument Sans'"`, se leía con una comilla sobrante. Lo atrapó volver a medir las salidas guardadas de la evaluación: una pieza «con servidor» que cumplía apareció con un error. El total «sin servidor» también cambió, de 117 a 130, porque el auditor ahora es más estricto. Con las mismas salidas.
+**3. Mi corrección rompió un caso.** Al arreglar el punto 2, el atributo de un SVG, `font-family="'Bricolage Grotesque', 'Instrument Sans'"`, se leía con una comilla sobrante. Lo atrapó volver a medir las salidas guardadas de la evaluación: una pieza «con servidor» que cumplía apareció con un error. El total «sin servidor» también cambió, de 117 a 130, porque el auditor ahora es más estricto, y después a 126 al agregar una escala tipográfica para formatos grandes. Siempre con las mismas salidas.
 
 **4. El auditor marcaba la fuente que el sistema incluye.** Al empaquetar JetBrains Mono, el `@font-face` que la carga se leía como uso de una fuente ajena. Ahora distingue declarar de usar.
 

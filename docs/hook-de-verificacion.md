@@ -5,7 +5,7 @@ Un hook de Claude Code que revisa **cada archivo de diseño que el agente guarda
 ## Por qué existe
 En la evaluación, el agente leyó los tokens antes de construir, pero omitió la revisión posterior aunque la skill la pedía «obligatoria» (y lo reconoció en sus respuestas). Reforzar la redacción no cambió nada. Un hook no pide: ejecuta. Resultados en [`evals/reporte.md`](../evals/reporte.md) y en las conclusiones:
 
-- Sin servidor y **sin** hook: 130 valores fuera de los tokens.
+- Sin servidor y **sin** hook: 126 valores fuera de los tokens.
 - Sin servidor y **con** hook: 0. El hook bloqueó 9 de 16 guardados y el agente corrigió cada vez.
 - Con servidor: el hook no tuvo nada que bloquear (las piezas ya salían limpias).
 

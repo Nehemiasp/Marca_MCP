@@ -130,7 +130,7 @@ Un hook de Claude Code revisa cada archivo de diseño que el agente guarda y le 
 npm run revisar -- pieza.html          # sale con código 1 si hay errores
 ```
 
-Instalación y alcance en [`docs/hook-de-verificacion.md`](docs/hook-de-verificacion.md). En la evaluación, sin servidor y con el hook, los errores de código bajaron de 130 a 0.
+Instalación y alcance en [`docs/hook-de-verificacion.md`](docs/hook-de-verificacion.md). En la evaluación, sin servidor y con el hook, los errores de código bajaron de 126 a 0.
 
 ## Servidor remoto (HTTP)
 

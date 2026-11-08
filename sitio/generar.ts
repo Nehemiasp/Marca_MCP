@@ -58,6 +58,14 @@ export function generarSitio(destino: string): { html: string } {
     })
     .join('');
 
+  const filasLienzo = grupo('tipografia.tamano-lienzo.')
+    .map((t) => {
+      const n = t.ruta.split('.').pop()!;
+      const lh = cargarTokens().porRuta.get(`tipografia.interlineado-lienzo.${n}`)!;
+      return `<tr><td><code>${n}</code></td><td class="num">${t.valor} / ${lh.valor}</td><td>${esc(t.descripcion)}</td></tr>`;
+    })
+    .join('');
+
   // ── Espaciado, radios, sombras ──
   const barrasEspaciado = grupo('espaciado.')
     .map((t) => `<li><span class="esp__barra" style="width:var(${nombreVariable(t.ruta)})"></span><code>${t.ruta.split('.').pop()}</code> <span>${t.valor}</span></li>`)
@@ -261,6 +269,9 @@ footer{border-top:1px solid var(--color-linea);padding:var(--spacing-xl) 0;font-
   <p class="eyebrow">Eyebrow · Instrument Sans 700 · mayúsculas · 0.12em</p>
   <h3 style="margin:var(--spacing-xl) 0 var(--spacing-lg)">Escala tipográfica</h3>
   <div class="tabla-scroll"><table><thead><tr><th>Token</th><th>Tamaño / línea</th><th>Muestra</th><th>Uso</th></tr></thead><tbody>${filasEscala}</tbody></table></div>
+  <h3 style="margin:var(--spacing-xl) 0 var(--spacing-md)">Escala de lienzo</h3>
+  <p class="lead" style="margin-bottom:var(--spacing-lg)">Para piezas de 1080 px de ancho o más (publicaciones para redes, diapositivas): el doble de la escala base. No se mezclan en una misma pieza.</p>
+  <div class="tabla-scroll"><table><thead><tr><th>Token</th><th>Tamaño / línea</th><th>Descripción</th></tr></thead><tbody>${filasLienzo}</tbody></table></div>
 </div></section>
 
 <section class="bloque" id="forma"><div class="contenedor">

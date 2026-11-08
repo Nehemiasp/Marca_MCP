@@ -2,7 +2,7 @@
 
 > **Borrador para el «Laboratorio» de nehemiasperez.com.** Está escrito en primera persona a partir de lo que ocurrió en el proyecto. Ajústelo a su voz y complete los pasajes marcados con **[Suyo]**. Los números salen de `evals/reporte.md`.
 
-**Resumen.** Construí un servidor MCP de solo lectura con mi sistema de diseño. Ahora Claude puede leer mis colores, tipografías, componentes y reglas, y revisar si algo las respeta. En siete tareas realistas, las piezas hechas con el servidor salieron sin ningún valor fuera de los tokens. Las hechas sin él tuvieron 130.
+**Resumen.** Construí un servidor MCP de solo lectura con mi sistema de diseño. Ahora Claude puede leer mis colores, tipografías, componentes y reglas, y revisar si algo las respeta. En siete tareas realistas, las piezas hechas con el servidor salieron sin ningún valor fuera de los tokens. Las hechas sin él tuvieron 126.
 
 ## El problema
 
@@ -44,7 +44,7 @@ Siete pedidos realistas, siempre los mismos, sin mencionar la marca: un hero, un
 
 | Métrica (menos es mejor) | Sin servidor | Con servidor |
 |---|---:|---:|
-| Valores fuera de los tokens en el código | 130 | 0 |
+| Valores fuera de los tokens en el código | 126 | 0 |
 | Colores renderizados fuera de la paleta | 48 | 0 |
 | Fuentes ajenas a la marca | 8 | 0 |
 | Textos que no llegan a AA de contraste | 26 | 0 |
@@ -72,12 +72,12 @@ La primera medición salió casi perfecta, y desconfié. Repetí la condición c
 
 | | Con servidor, corrida 1 | Corrida 2, skill reforzada | Corrida 3, con hook | Sin servidor, con hook |
 |---|---:|---:|---:|---:|
-| Valores fuera de los tokens | 0 | 3 | 0 | 0 |
+| Valores fuera de los tokens | 0 | 1 | 0 | 0 |
 | Piezas sin ningún hallazgo | 7 de 7 | 6 de 7 | 7 de 7 | 3 de 7 |
 | Veces que corrió `auditar_codigo` | 1 de 7 | 0 de 7 | 1 de 7 | 0 de 7 |
 
 - **Reforzar la skill no cambió nada.** El agente corrió las mismas revisiones y dijo, textualmente, que no las había ejecutado. Pedirlo con más fuerza no es automatizarlo.
-- **Un hook que revisa cada archivo que el agente guarda** (código y texto) no tuvo efecto medible con servidor, porque las piezas ya salían limpias. Lo interesante pasó sin servidor: de 130 errores de código a **cero**. El hook bloqueó 9 de 16 guardados y el agente corrigió cada vez, aprendiendo la paleta y las fuentes de los propios mensajes de error.
+- **Un hook que revisa cada archivo que el agente guarda** (código y texto) no tuvo efecto medible con servidor, porque las piezas ya salían limpias. Lo interesante pasó sin servidor: de 126 errores de código a **cero**. El hook bloqueó 9 de 16 guardados y el agente corrigió cada vez, aprendiendo la paleta y las fuentes de los propios mensajes de error.
 - **Pero consistencia no es reconocer la marca.** En las capturas que revisé, los colores y las fuentes eran correctos, y faltaba el motivo de cuadros: el agente puso formas genéricas y destacó una palabra en gris, no en azul. El hook enseña qué valores usar. Los componentes enseñan la composición.
 
 Son tres cosas distintas: el **conocimiento** (qué es la marca), la **verificación** (que se cumpla) y la **composición** (que se reconozca). El servidor aporta la primera y la tercera; un hook aporta la segunda aunque el agente no quiera revisar.
@@ -85,8 +85,8 @@ Son tres cosas distintas: el **conocimiento** (qué es la marca), la **verificac
 ### Cómo leer estos números con cuidado
 
 - Es una corrida por tarea. El modelo no es determinista: una diferencia pequeña puede ser ruido.
-- Dos veces cambié el criterio de medición con las mismas salidas: el auditor más estricto subió «sin servidor» de 117 a 130, y corregir mi métrica de SVG subió los colores de 47 a 48. Un criterio distinto da un total distinto: comparar solo es válido con el mismo criterio en todas las columnas.
-- La publicación para redes de la corrida 2 usó tamaños de letra de 24, 32 y 136 px, fuera de mi escala. No es culpa del agente: mi escala termina en 64 px y la pieza mide 1080 px. Me falta una escala para formatos grandes.
+- Tres veces cambié el criterio de medición con las mismas salidas. El auditor más estricto subió «sin servidor» de 117 a 130; corregir mi métrica de SVG subió los colores de 47 a 48; y agregar una escala tipográfica para formatos grandes bajó el 130 a 126, porque algunos tamaños pasaron a ser válidos. Un criterio distinto da un total distinto: comparar solo es válido con el mismo criterio en todas las columnas.
+- La publicación para redes de la corrida 2 usó tamaños de letra de 24, 32 y 136 px. Mi escala terminaba en 64 px y la pieza mide 1080 px: no era culpa del agente, era un hueco mío. Agregué una escala de lienzo (el doble de la base) y ahora solo el 136 queda fuera.
 - La evaluación es en parte circular. Mido con las mismas herramientas que el agente puede usar y con los mismos tokens que copia. Mide fidelidad a los tokens, no calidad de diseño. Para eso está la calificación de mis ojos.
 - La condición «con servidor» incluye la skill `/marca`. No aísla el efecto del servidor solo.
 
@@ -94,7 +94,7 @@ Son tres cosas distintas: el **conocimiento** (qué es la marca), la **verificac
 
 - **Repetir cada tarea tres veces** y reportar el rango, no un número.
 - **Probar «solo servidor» contra «servidor y skill»** para saber cuál de los dos pesa más.
-- **Definir una escala tipográfica para formatos grandes** (redes y presentaciones).
+- **Definir la escala para formatos grandes desde el principio**, no después de que una pieza la necesite (hoy ya existe).
 - **Calificar a ciegas.** Mezclar las capturas sin etiqueta para no sesgar mi juicio.
 - **Hacer obligatoria la revisión posterior** con un hook, en lugar de confiar en que el agente la pida. Ya lo probé: funciona, y sin servidor es lo que más movió los números. Falta que el hook sepa si la pieza es para un cliente y que revise el contraste.
 - **Extraer la escala del portafolio real** en lugar de proponerla: espaciados, radios y sombras salieron de una propuesta, no de mi sitio.
